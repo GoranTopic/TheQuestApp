@@ -40,6 +40,19 @@ async function loadResourcesAsync() {
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+
+      'helvetica-bold': require('./assets/fonts/Helvetica_Neu_Bold.ttf'),
+      'helvetica-bd': require('./assets/fonts/HelveticaNeueBd.ttf'),
+      'helvetica-blackcond': require('./assets/fonts/HelveticaNeue_BlackCond.ttf'),
+      'helvetica-hv': require('./assets/fonts/HelveticaNeueHv.ttf'),
+      'helvetica-it': require('./assets/fonts/HelveticaNeueIt.ttf'),
+      'helvetica-light': require('./assets/fonts/HelveticaNeue_Light.ttf'),
+      'helvetica-lt': require('./assets/fonts/HelveticaNeueLt.ttf'),
+      'helvetica-medium': require('./assets/fonts/HelveticaNeue_Medium.ttf'),
+      'helvetica-med': require('./assets/fonts/HelveticaNeueMed.ttf'),
+      'helvetica-thin': require('./assets/fonts/HelveticaNeue_Thin.ttf'),
+      'helvetica': require('./assets/fonts/HelveticaNeue.ttf'),
+
     }),
   ]);
 }

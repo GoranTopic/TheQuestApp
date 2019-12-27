@@ -11,18 +11,18 @@ import {
   ImageBackground,
 } from 'react-native';
 
+import {color} from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import Quest from '../components/Quest'
 
 export default function HomeScreen() {
   return (
-    <ImageBackground source={require('../assets/images/background.png')} style={{ height: '100%', width: '100%' }}>
+    <ImageBackground style={styles.background} source={require('../assets/images/background.png')} >
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
           <Quest />
-
 
         </ScrollView>
 
@@ -32,6 +32,10 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  background:{
+    height: '100%',
+    width: '100%' 
+  },
   container: {
     flex: 1,
   },

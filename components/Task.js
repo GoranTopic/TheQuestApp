@@ -49,8 +49,7 @@ export default class Task extends React.Component{
     return (
         <View style={{ flexDirection: 'row' }}>
           <CheckBox
-            style={styles.white}
-            title={<Text style={styles.white}> {this.state.title} </Text>}
+            title={<Text style={styles.whiteText}> {this.state.title} </Text>}
             containerStyle={styles.container}
             uncheckedIcon={this._selectedMarker_()} 
             checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
@@ -75,11 +74,12 @@ const styles = StyleSheet.create({
   },
   white:{
     color:'white',
-    paddingLeft:10,
   },
   whiteText:{
     color:'white',
-    fontSize:30,
+    fontFamily:'helvetica-lt',
+    paddingLeft:10,
+    fontSize:18,
     flex:1,
   
   },

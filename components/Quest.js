@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
   },
   whiteText:{
-    fontFamily:'SpaceMono-Regular',
+    fontFamily:'helvetica-lt',
     color:'white',
     fontSize:30,
     flex:1,
