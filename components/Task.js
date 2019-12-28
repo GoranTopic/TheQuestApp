@@ -50,10 +50,7 @@ export default class Task extends React.Component{
       <View style={{ flexDirection: 'row' }}>
         <CheckBox
           title={
-            <Text style={{
-              color: this.state.data.done ? colors.doneTask : this.state.data.selected ? colors.selectedTask : colors.unselectedTask,
-              ...styles.text,
-            }}> {this.state.data.title} </Text>
+            <Text style={this.state.data.done? styles.done : this.state.data.selected? styles.selected: styles.unselected }> {this.state.data.title} </Text>
           }
           containerStyle={styles.container}
           uncheckedIcon={this._selectedMarker_()}
@@ -68,7 +65,6 @@ export default class Task extends React.Component{
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,11 +74,27 @@ const styles = StyleSheet.create({
   white:{
     color:'white',
   },
-  text:{
+  done:{
     fontFamily:'helvetica-lt',
     paddingLeft:10,
     fontSize:18,
     flex:1,
+    color: colors.doneTask,
+    textDecorationLine: 'line-through',
+  },
+  selected:{
+    fontFamily:'helvetica-lt',
+    paddingLeft:10,
+    fontSize:18,
+    flex:1,
+    color: colors.selectedTask,
+  },
+  unselected:{
+    fontFamily:'helvetica-lt',
+    paddingLeft:10,
+    fontSize:18,
+    flex:1,
+    color: colors.unselectedTask,
   },
   marker:{
     width:25,
