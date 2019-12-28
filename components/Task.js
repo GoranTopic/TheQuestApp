@@ -1,7 +1,7 @@
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-
+import colors from '../constants/Colors';
 import { Text, Image, CheckBox } from 'react-native-elements'
+
 
 import {
   TouchableOpacity,
@@ -20,7 +20,6 @@ export default class Task extends React.Component{
    It takes props of the title of the task. 
   */
 
-
   constructor(props){
     super(props);
     this.state = {
@@ -28,39 +27,43 @@ export default class Task extends React.Component{
     };
   } 
 
-
-
-  //fuction which marks the task as completed
   _complete_ =  () => { 
+    //fuction which marks the task as completed
     this.props._completeTask(this.props._qindex, this.props._tindex);
-    //this.setState({ completed: !this.state.completed })
   }
 
-  //fuctcioin which selects task
   _select_ =  () => {
+    //function which selects task
     this.props._selectTask(this.props._qindex, this.props._tindex)
   }
 
-  //fuction that changes the icon for the marker so that is displays as slected 
   _selectedMarker_ = ()=> {
+    //fuction that changes the icon for the marker so that is displays as slected 
     return this.state.data.selected? 
       <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
       <Image style={styles.marker} source={require('../assets/images/markers/marker.png')} /> 
   }
 
+
   render() {
     return (
-        <View style={{ flexDirection: 'row' }}>
-          <CheckBox
-            title={<Text style={styles.whiteText}> {this.state.data.title} </Text>}
-            containerStyle={styles.container}
-            uncheckedIcon={this._selectedMarker_()} 
-            checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
-            checked={this.state.data.done}
-            onPress={this._select_}
-            onLongPress={this._complete_}
-          />
-        </View>
+      <View style={{ flexDirection: 'row' }}>
+        <CheckBox
+          title={
+            <Text style={{
+              color: this.state.data.done ? colors.doneTask : this.state.data.selected ? colors.selectedTask : colors.unselectedTask,
+              ...styles.text,
+            }}> {this.state.data.title} </Text>
+          }
+          containerStyle={styles.container}
+          uncheckedIcon={this._selectedMarker_()}
+          checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
+          checked={this.state.data.done}
+          onPress={this._select_}
+          onLongPress={this._complete_}
+          onIconPress={this._complete_}
+        />
+      </View>
     )
   }
 }
@@ -71,13 +74,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(52, 52, 52, 0)',
     borderColor: 'rgba(52, 52, 52, 0)'
-
   },
   white:{
     color:'white',
   },
-  whiteText:{
-    color:'white',
+  text:{
     fontFamily:'helvetica-lt',
     paddingLeft:10,
     fontSize:18,
