@@ -13,7 +13,9 @@ import {
 
 import {color} from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
-import Quest from '../components/Quest'
+import Quest from '../components/Quest';
+import QuestContainer from '../components/QuestContainer';
+
 
 export default function HomeScreen() {
   return (

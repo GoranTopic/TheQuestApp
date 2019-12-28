@@ -30,8 +30,13 @@ export default class Task extends React.Component{
       };
   } 
 
+
+
   //fuction which marks the task as completed
-  _check_ =  () => this.setState({completed: !this.state.completed})
+  _check_ =  () => { 
+    alertcheck();
+    this.setState({ completed: !this.state.completed })
+  }
 
 
   //fuctcioin which selects task
@@ -54,8 +59,8 @@ export default class Task extends React.Component{
             uncheckedIcon={this._selectedMarker_()} 
             checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
             checked={this.state.completed}
-            onPress={this._check_}
-            onLongPress={this._select_}
+            onPress={this._select_}
+            onLongPress={this._check_}
           />
 
         </View>

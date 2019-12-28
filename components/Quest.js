@@ -23,28 +23,40 @@ export default class Quest extends React.Component{
     super(props);
     this.state = {
        ...this.props.Quest,
+       tasks: [],
        selected: false,
        completed: false,
       };
+    
+    this.pushTask("Talk to Yennfer");
+    this.pushTask("Go to Velven");
+    this.pushTask("Have sex with Yennfer");
   } 
 
+  componentDidMount(){
+  }
+
+  _addTask = (taskTitle) => this.state.tasks.push(taskTitle);
+  
+
+
+  //function to change into task title
+  _toTaskTag = (value, index)=> <Task title={value} key={index}/>
+  
+  //push to state array
+  pushTask = (taskTitle) => this.state.tasks.push(taskTitle);
+
   render() {
+    
     return (
-      <View style={{ flexDirection:'column', paddingLeft: 20, paddingTop: 20 }}>
-
-        <View style={{ flexDirection: 'row' }}>
-
+      <View style={styles.container}>
+        <View style={styles.taskContainer}>
           <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
-            style={{ width: 45, height: 45 }}
+            style={styles.shield}
           />
-          <Text style={styles.whiteText}> CIRI'S FOOTSTEPS</Text>
+          <Text style={styles.whiteText}>IN CIRI'S FOOTSTEPS</Text>
         </View>
-
-        <Task title='Go to Velven'/>
-        <Task title='Talk to the bloddy Barron'/>
-        <Task title='Find Yennifer'/>
-
-
+        {this.state.tasks.map(this.toTaskTag)}
       </View>
 
     )
@@ -54,36 +66,25 @@ export default class Quest extends React.Component{
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(52, 52, 52, 0)',
-    borderColor: 'rgba(52, 52, 52, 0)'
-
+ container:{ 
+    flexDirection: 'column',
+    paddingLeft: 20,
+    paddingTop: 20
   },
-  white:{
-    color:'white',
-    paddingLeft:10,
-  },
+  taskContainer:{
+    flexDirection: 'row', 
+  },  
   whiteText:{
     fontFamily:'helvetica-lt',
     color:'white',
+    paddingLeft: 15,
     fontSize:30,
     flex:1,
   
   },
-  marker:{
-    width:20,
-    height:20,
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
+ shield:{
+    width: 45,
+    height: 45,
+ },
 });
 
