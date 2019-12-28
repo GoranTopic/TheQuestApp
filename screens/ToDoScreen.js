@@ -24,7 +24,7 @@ export default function HomeScreen() {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
-          <Quest />
+          <QuestContainer/>
 
         </ScrollView>
 

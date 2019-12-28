@@ -24,49 +24,45 @@ export default class Task extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      title: this.props.title,
-      completed: false,
-      selected: false,
-      };
+      ...this.props,
+    };
   } 
 
 
 
   //fuction which marks the task as completed
-  _check_ =  () => { 
-    alertcheck();
-    this.setState({ completed: !this.state.completed })
+  _complete_ =  () => { 
+    this.props._completeTask(this.props._qindex, this.props._tindex);
+    //this.setState({ completed: !this.state.completed })
   }
 
-
   //fuctcioin which selects task
-  _select_ =  () => this.setState({selected: !this.state.selected})
+  _select_ =  () => {
+    this.props._selectTask(this.props._qindex, this.props._tindex)
+  }
 
   //fuction that changes the icon for the marker so that is displays as slected 
   _selectedMarker_ = ()=> {
-    return this.state.selected? 
+    return this.state.data.selected? 
       <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
       <Image style={styles.marker} source={require('../assets/images/markers/marker.png')} /> 
   }
-
 
   render() {
     return (
         <View style={{ flexDirection: 'row' }}>
           <CheckBox
-            title={<Text style={styles.whiteText}> {this.state.title} </Text>}
+            title={<Text style={styles.whiteText}> {this.state.data.title} </Text>}
             containerStyle={styles.container}
             uncheckedIcon={this._selectedMarker_()} 
             checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
-            checked={this.state.completed}
+            checked={this.state.data.done}
             onPress={this._select_}
-            onLongPress={this._check_}
+            onLongPress={this._complete_}
           />
-
         </View>
     )
   }
-
 }
 
 
@@ -86,7 +82,6 @@ const styles = StyleSheet.create({
     paddingLeft:10,
     fontSize:18,
     flex:1,
-  
   },
   marker:{
     width:25,

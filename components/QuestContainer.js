@@ -108,6 +108,17 @@ export default class QuestContainer extends React.Component {
     )
     this.setState({Quests: quests})
   }
+  
+  _completeQuest = (qIndex) => {
+    //marks a single quest as done
+    var quests = this.state.Quests;
+    quests.forEach(
+      (value,index) => {
+        if(index === qIndex) value.done = true;
+      }
+    )
+    this.setState({Quests: quests})
+  }
 
   _addTask = (qIndex, title) => {
     //adds a task to the given index quest
@@ -125,7 +136,7 @@ export default class QuestContainer extends React.Component {
   _removeTask = (qIndex, tIndex) => {
     //removes a single task from a quest of the given index
     quests = this.state.Quests; 
-    quests[qIndex].tasks.splice(tindex, 1);
+    quests[qIndex].tasks.splice(tIndex, 1);
     this.setState({Quests: quests})
   }
 
@@ -134,22 +145,52 @@ export default class QuestContainer extends React.Component {
     quests = this.state.Quests; 
     quests[qIndex].tasks.forEach(
       (value, index) => {
-        if(index === tIndex) value.selected = true;
+        if(index == tIndex) value.selected = !value.selected;
         else value.selected = false;
       }
     )
     this.setState({Quests: quests})
   }
 
+  _completeTask = (qIndex, tIndex) => {
+    //marks a single task as selecet from a given index quest
+    quests = this.state.Quests; 
+    quests[qIndex].tasks.forEach(
+      (value, index) => {
+        console.log("qindex: " + qIndex);
+        if(index == tIndex){ 
+          value.selected = false;
+          value.done = !value.done;
+        }
+      }
+    )
+    this.setState({Quests: quests})
+  }
+
+  _renderQuest = (value, index)=>{
+    return <Quest
+      _questData={value}
+      _selectedQuest={this._selectedQuest}
+      _completeQuest={this._completeQuest}
+      _removeQuest={this._removeQuest}
+      _selectTask={this._selectTask}
+      _completeTask={this._completeTask}
+      _removeTask={this._removeTask}
+      _qindex={index}
+      key={index}
+    />
+  }
+
   render() {
     return (
-        <View style={styles.container}>
-          <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}>
-            <Quest />
-          </ScrollView>
-        </View>
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}>
+            {this.state.Quests.map(this._renderQuest)}
+                    
+        </ScrollView>
+      </View>
     );
   }
 }

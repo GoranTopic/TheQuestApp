@@ -18,47 +18,49 @@ export default class Quest extends React.Component{
   every quest grand the user some expirience points once completed.
   */
 
-
   constructor(props){
     super(props);
     this.state = {
-       ...this.props.Quest,
-       tasks: [],
+       ...this.props,
+       data: this.props._questData,
        selected: false,
        completed: false,
       };
     
-    this.pushTask("Talk to Yennfer");
-    this.pushTask("Go to Velven");
-    this.pushTask("Have sex with Yennfer");
   } 
 
   componentDidMount(){
   }
 
-  _addTask = (taskTitle) => this.state.tasks.push(taskTitle);
-  
-
+  //_addTask = (taskTitle) => this.state.tasks.push(taskTitle);
 
   //function to change into task title
-  _toTaskTag = (value, index)=> <Task title={value} key={index}/>
-  
+  _renderTask = (value, index) => {
+    return(
+    <Task
+      data={value}
+      _selectTask={this.props._selectTask}
+      _completeTask={this.props._completeTask}
+      _removeTask={this.props._removeTask}
+      _tindex={index}
+      _qindex={this.props._qindex}
+      key={index}
+    />)
+  }
+
   //push to state array
-  pushTask = (taskTitle) => this.state.tasks.push(taskTitle);
 
   render() {
-    
     return (
       <View style={styles.container}>
         <View style={styles.taskContainer}>
           <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
             style={styles.shield}
           />
-          <Text style={styles.whiteText}>IN CIRI'S FOOTSTEPS</Text>
+          <Text style={styles.whiteText}>{this.props._questData.title}</Text>
         </View>
-        {this.state.tasks.map(this.toTaskTag)}
+          {this.props._questData.tasks.map(this._renderTask)}
       </View>
-
     )
   }
 
