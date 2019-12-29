@@ -69,9 +69,6 @@ export default class QuestContainer extends React.Component {
     }
   }
 
-
-
-
   _addQuest = (title) => {
     //Adds a new Quest to the list of quests
     quests = this.state.Quests;
@@ -102,8 +99,9 @@ export default class QuestContainer extends React.Component {
     var quests = this.state.Quests;
     quests.forEach(
       (value,index) => {
-        if(index === qIndex) value.selected = !value.selected;
-        else value.selected = false;
+        if(index == qIndex) value.selected = !value.selected;
+        
+        //else value.selected = false;
       }
     )
     this.setState({Quests: quests})
@@ -113,9 +111,7 @@ export default class QuestContainer extends React.Component {
     //marks a single quest as done
     var quests = this.state.Quests;
     quests.forEach(
-      (value,index) => {
-        if(index === qIndex) value.done = true;
-      }
+      (value,index) => { if(index === qIndex) value.done = true;}
     )
     this.setState({Quests: quests})
   }
@@ -169,7 +165,7 @@ export default class QuestContainer extends React.Component {
   _renderQuest = (value, index)=>{
     return <Quest
       _questData={value}
-      _selectedQuest={this._selectedQuest}
+      _selectQuest={this._selectQuest}
       _completeQuest={this._completeQuest}
       _removeQuest={this._removeQuest}
       _selectTask={this._selectTask}
@@ -187,7 +183,6 @@ export default class QuestContainer extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
             {this.state.Quests.map(this._renderQuest)}
-                    
         </ScrollView>
       </View>
     );
