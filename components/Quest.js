@@ -1,14 +1,15 @@
 import React from 'react';
-import colors from '../constants/Colors';
 
-import { Text, Image, CheckBox } from 'react-native-elements';
+import { Text, Image } from 'react-native-elements';
 import {
   TouchableOpacity,
   View,
+  ImageBackground,
   StyleSheet,
 } from 'react-native';
-import Task from './Task';
 
+import Task from './Task';
+import colors from '../constants/Colors';
 import { AnimatedGradient } from "../AnimatedGradient";
 
 
@@ -54,26 +55,34 @@ export default class Quest extends React.Component {
 
   render() {
     return (
-
       <View style={styles.container}>
-        <View style={styles.gradientContainer}>
-          <AnimatedGradient
-            colors={ this.state.data.selected? 
-              this.selectGradiant : this.unselectGradiant}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-          />
+        <View style={styles.titleContainer}>
+            <View style={styles.gradientContainer}>
+              <AnimatedGradient
+                colors={this.state.data.selected ?
+                  this.selectGradiant : this.unselectGradiant}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              />
+            </View>
+          <ImageBackground  style={styles.bgContainer}
+            resizeMode='stretch' 
+            source={require('../assets/images/Boarder-container-orange-grad.png')}
+           >
+            <TouchableOpacity
+              activeOpacity={1}
+              style={styles.questContainer}
+              onPress={this._select}
+            >
+              <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
+                style={styles.shield} />
+              <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
+                {this.props._questData.title}
+              </Text>
+            </TouchableOpacity>
+          </ImageBackground>
         </View>
-        <TouchableOpacity 
-          style={styles.questContainer}
-          onPress={this._select}
-        >
-          <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
-            style={styles.shield} />
-          <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
-            {this.props._questData.title}
-          </Text>
-        </TouchableOpacity>
+        {/* Container for the tasks */}
         <View style={{ height: this.state.data.selected ? null : 0, overflow: 'hidden', }}>
           {this.props._questData.tasks.map(this._renderTask)}
         </View>
@@ -86,17 +95,29 @@ export default class Quest extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    paddingLeft: 20,
-    paddingBottom: 30,
   },
-  gradientContainer:{
+  titleContainer: {
+    flex: 1,
+  },
+  bgContainer: {
+    flex: 1,
+    height: null,
+    width: null,
+  },
+  gradientContainer: {
     position: 'absolute',
-    height: 45, 
-    width: 300,
-    paddingLeft: 15,
+    alignSelf: 'stretch',
+    backgroundColor:'red',
+    flex:1,
+    height: 2000,
+    width: 370,
+    paddingLeft: 7,
+    paddingTop: 1, 
   },
   questContainer: {
+    paddingLeft: 20,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   done: {
     fontFamily: 'helvetica-lt',
@@ -111,6 +132,8 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 30,
     flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
     color: colors.selectedQuest,
   },
   unselected: {
@@ -118,6 +141,8 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 30,
     flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
     color: colors.unselectedQuest,
   },
 

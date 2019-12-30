@@ -65,7 +65,31 @@ export default class QuestContainer extends React.Component {
               selected: false,
               done: false,
             }]
-        }]
+        }, {
+          title: "SCAVENGER HUNT: CAT SCHOOL GEAR UPGRADE DIAGRAMS",
+          shield: "/path/To/Img",
+          selected: false,
+          done: false,
+          tasks: [
+            {
+              title: "Find boot Diagram using your Witcher senses",
+              selected: false,
+              done: false,
+            }, {
+              title: "Find the silver sword ugrade diagram using your Witcher Senses",
+              selected: false,
+              done: false,
+            }, {
+              title: "Find the armor upgrade diagram using your Witcher Senses",
+              selected: false,
+              done: false,
+            }, {
+              title: "Win a unique card from the soothsayer",
+              selected: false,
+              done: false,
+            }]
+        },  
+      ]
     }
   }
 
