@@ -4,10 +4,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from '../components/TabBarIcon';
 import { createBottomTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
+import ToDoScreen from '../screens/ToDoScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ToDoScreen from '../screens/ToDoScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -28,8 +28,7 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle'
       }
     />
   ),
@@ -69,13 +68,14 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
-
-
 const ToDoStack = createStackNavigator(
   {
     Home: ToDoScreen,
   },
-  config
+  {
+    headerMode: 'screen',
+    
+  },
 );
 
 ToDoStack.navigationOptions = {
@@ -87,15 +87,12 @@ ToDoStack.navigationOptions = {
 
 ToDoStack.path = '';
 
-
-
 const tabNavigator = createBottomTabNavigator({
+  ToDoStack, 
   HomeStack,
   LinksStack,
   SettingsStack,
-  ToDoStack, 
 });
-
 
 
 tabNavigator.path = '';

@@ -1,19 +1,23 @@
 import React from 'react';
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TextInput,
   View,
-  ImageBackground,
+  KeyboardAvoidingView,
+  Button,
+  Picker,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+
 
 import {color} from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import Quest from '../components/Quest'
 import { tsImportEqualsDeclaration } from '@babel/types';
+import { HitTestResultTypes } from 'expo/build/AR';
 
 
 export default class QuestContainer extends React.Component {
@@ -21,6 +25,8 @@ export default class QuestContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      textInput: '',
+      newTask: '',
       Quests: [
         {
           title: "IN CIRI'S FOOTSTEPS",
@@ -93,11 +99,18 @@ export default class QuestContainer extends React.Component {
     }
   }
 
-  _addQuest = (title) => {
+  _addQuestTextInput = () =>{
+    //handles the adding of a new quest from the text input
+    this._addQuest(this.state.textInput);        
+    this.state.textInput = '';
+  }
+
+
+  _addQuest = (newtitle) => {
     //Adds a new Quest to the list of quests
-    quests = this.state.Quests;
+    var quests = this.state.Quests;
     quests.push({
-      title: title,
+      title: newtitle,
       shield: "N/A",
       selected: false,
       done: false,
@@ -113,7 +126,7 @@ export default class QuestContainer extends React.Component {
 
   _removeQuest = (index) => {
     //removes a quest in the quest array
-    quests = this.state.Quests; 
+    var quests = this.state.Quests; 
     quests.splice(index, 1);
     this.setState({Quests: quests})
   }
@@ -124,7 +137,6 @@ export default class QuestContainer extends React.Component {
     quests.forEach(
       (value,index) => {
         if(index == qIndex) value.selected = !value.selected;
-        
         //else value.selected = false;
       }
     )
@@ -142,7 +154,7 @@ export default class QuestContainer extends React.Component {
 
   _addTask = (qIndex, title) => {
     //adds a task to the given index quest
-    quests = this.state.Quests;
+    var quests = this.state.Quests;
     quests[qIndex].tasks.push(
       {
         title: title,
@@ -155,14 +167,14 @@ export default class QuestContainer extends React.Component {
 
   _removeTask = (qIndex, tIndex) => {
     //removes a single task from a quest of the given index
-    quests = this.state.Quests; 
+    var quests = this.state.Quests; 
     quests[qIndex].tasks.splice(tIndex, 1);
     this.setState({Quests: quests})
   }
 
   _selectTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
-    quests = this.state.Quests; 
+    var quests = this.state.Quests; 
     quests[qIndex].tasks.forEach(
       (value, index) => {
         if(index == tIndex) value.selected = !value.selected;
@@ -174,7 +186,7 @@ export default class QuestContainer extends React.Component {
 
   _completeTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
-    quests = this.state.Quests; 
+    var quests = this.state.Quests; 
     quests[qIndex].tasks.forEach(
       (value, index) => {
         if(index == tIndex){ 
@@ -203,11 +215,45 @@ export default class QuestContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
-            {this.state.Quests.map(this._renderQuest)}
+        <ScrollView style={styles.scrollable} >
+          {this.state.Quests.map(this._renderQuest)}
         </ScrollView>
+        <KeyboardAvoidingView
+          style={styles.avoidingView}
+          behavior='padding'
+          enabled
+        >
+          <View style={styles.inputBar}>
+            <Picker
+              selectedValue={this.state.newShield}
+              style={{ height: 50, width: 100 }}
+              onValueChange={
+                (itemValue, itemIndex) =>
+                this.setState({ language: itemValue })
+              }>
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+            <Button title="Shield" onPress={() => {
+              var quests = this.state.Quests;
+              quests.push({
+                title: "new quest",
+                shield: "N/A",
+                selected: false,
+                done: false,
+                tasks: [],
+              })
+              this.setState({ Quests: quests })
+            }} />
+            <TextInput
+              value={this.state.textInput}
+              onChangeText={input => this.setState({ textInput: input })}
+              onSubmitEditing={this._addQuestTextInput}
+              placeholder="New Quest..."
+              style={styles.input}
+            />
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -215,6 +261,22 @@ export default class QuestContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection:'column',
     flex: 1,
+  },
+  scrollable:{
+
+  },
+  avoidingView:{
+  },
+  textinput:{
+    color:'white',
+  },
+  inputBar:{
+    height: 50,
+    width:'100%',
+    backgroundColor:'lightgrey',
+    flexDirection: 'row',
+    
   },
 });

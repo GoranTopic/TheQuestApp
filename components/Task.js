@@ -67,6 +67,7 @@ export default class Task extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
+    paddingLeft: 18,
     flex: 1,
     backgroundColor: 'rgba(52, 52, 52, 0)',
     borderColor: 'rgba(52, 52, 52, 0)'

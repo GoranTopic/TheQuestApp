@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     flex:1,
     position:'absolute',
     height: '100%',
-    width: 385,
+    width: 180,
     paddingBottom: 5, 
     paddingLeft: 9,
     paddingTop: 4,
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
   },
 
   shield: {
-    width: 45,
-    height: 45,
+    width: 50,
+    height: 50,
   },
 });
 
