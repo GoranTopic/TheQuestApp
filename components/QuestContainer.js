@@ -138,9 +138,23 @@ export default class QuestContainer extends React.Component {
     this.setState({Quests: quests})
   }
 
-  _changeQuestShiled = (index) => {
+  _changeQuestShiled = (qIndex) => {
     //changes the shild in shown in the quest
     //coming soon near you...
+  }
+
+  _checkQuestIsDone = (qIndex) =>{
+    //checks wheather a quest has completed all it task, if so the mark it as complete
+    var quests = this.state.Quests; 
+    var areAllDone = true;
+    quests[qIndex].tasks.forEach(
+      (task) => { 
+        if(!task.done) areAllDone =false; 
+      }
+    )
+    quests[qIndex].done = areAllDone;
+    this.setState({Quests: quests})
+    return true;
   }
 
   _removeQuest = (index) => {
@@ -183,7 +197,6 @@ export default class QuestContainer extends React.Component {
     )
     this.setState({ Quests: quests });
   }
-
 
   _setEditModeQuest = (qIndex) => {
     //change the mode as a deletable on the quest
@@ -257,6 +270,8 @@ export default class QuestContainer extends React.Component {
     //removes a single task from a quest of the given index
     var quests = this.state.Quests; 
     quests[qIndex].tasks.splice(tIndex, 1);
+
+    this._checkQuestIsDone(qIndex);
     this.setState({Quests: quests})
   }
 
@@ -285,7 +300,9 @@ export default class QuestContainer extends React.Component {
         }
       }
     )
-    this.setState({Quests: quests})
+
+    this._checkQuestIsDone(qIndex);
+    this.setState({ Quests: quests })
   }
 
   _renderQuest = (value, index)=>{

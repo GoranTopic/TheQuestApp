@@ -24,7 +24,7 @@ export default class Quest extends React.Component {
      only one quest can be selected at the time.
      every quest grand the user some expirience points once completed.
    */
-  completedGradient = ["#4a3106", "transparent"]
+  completedGradient = ["#1d3f14", "transparent"]
   selectGradiant = ["#4a3106", "transparent"];
   editModeGradiant = ["#8d0b0b", "transparent"];
   unselectGradiant = ["transparent", "transparent"];
@@ -40,6 +40,7 @@ export default class Quest extends React.Component {
   }
   //exits edditing more
   _exitEdit = () => {this.state._exitEditMode()}
+
   //mark the quest as completed
   _complete = () => {this.state._completeQuest(this.state._qindex)}
 
@@ -81,9 +82,12 @@ export default class Quest extends React.Component {
           <View style={styles.gradientContainer}>
             <AnimatedGradient
               colors={
-                
-                this.state.data.isInEditMode ?
-                this.editModeGradiant : this.state.data.selected ?
+                //if it is in edit mode 
+                this.state.data.isInEditMode ? this.editModeGradiant : 
+                // if the Quest is done
+                this.state.data.done ? this.completedGradient :
+                //if the ques is selected
+                this.state.data.selected ?
                   this.selectGradiant : this.unselectGradiant}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
@@ -103,7 +107,6 @@ export default class Quest extends React.Component {
                 style={styles.shield} />
               {this.state.data.isInEditMode ?
                 <TextInput 
-                  
                   onSubmitEditing = {this._exitEdit}
                   onChangeText = {this._edit}
                   style={styles.selected}

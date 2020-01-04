@@ -38,17 +38,17 @@ export default class Task extends React.Component{
     this.props._removeTask(this.props._qindex, this.props._tindex);
   }
 
-  _complete_ =  () => { 
+  _complete =  () => { 
     //fuction which marks the task as completed
     this.props._completeTask(this.props._qindex, this.props._tindex);
   }
 
-  _select_ =  () => {
+  _select =  () => {
     //function which selects task
     this.props._selectTask(this.props._qindex, this.props._tindex)
   }
 
-  _selectedMarker_ = () => {
+  _selectedMarker = () => {
     //fuction that changes the icon for the marker so that is displays as slected 
     return this.state.data.selected? 
       <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
@@ -74,12 +74,12 @@ export default class Task extends React.Component{
               </Text>
           }
           containerStyle={styles.container}
-          uncheckedIcon={this._selectedMarker_()}
+          uncheckedIcon={this._selectedMarker()}
           checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
           checked={this.state.data.done}
-          onPress={this._select_}
-          onLongPress={this._complete_}
-          onIconPress={this._complete_}
+          onPress={this._select}
+          onLongPress={this._complete}
+          onIconPress={this._complete}
         />
         {this.props.isInEditMode ?
           <StyledIcon
