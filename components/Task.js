@@ -1,12 +1,14 @@
 import React from 'react';
-import colors from '../constants/Colors';
 import { Text, Image, CheckBox } from 'react-native-elements'
+import colors from '../constants/Colors';
+import StyledIcon from '../components/StyledIcon';
 
 
 import {
   TouchableOpacity,
   View,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 import { tsImportEqualsDeclaration } from '@babel/types';
 
@@ -26,6 +28,10 @@ export default class Task extends React.Component{
       ...this.props,
     };
   } 
+  _remove = () => {
+    //removes a task from the quest
+    this.props._removeTask(this.props._qindex, this.props._tindex)
+  }
 
   _complete_ =  () => { 
     //fuction which marks the task as completed
@@ -37,7 +43,7 @@ export default class Task extends React.Component{
     this.props._selectTask(this.props._qindex, this.props._tindex)
   }
 
-  _selectedMarker_ = ()=> {
+  _selectedMarker_ = () => {
     //fuction that changes the icon for the marker so that is displays as slected 
     return this.state.data.selected? 
       <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
@@ -50,7 +56,14 @@ export default class Task extends React.Component{
       <View style={{ flexDirection: 'row' }}>
         <CheckBox
           title={
-            <Text style={this.state.data.done? styles.done : this.state.data.selected? styles.selected: styles.unselected }> {this.state.data.title} </Text>
+            this.props.isInEditMode ?
+              <TextInput style={styles.selected}
+                defaultValue={this.state.data.title} /> :
+              <Text style={this.state.data.done ?
+                styles.done : this.state.data.selected ?
+                  styles.selected : styles.unselected}>
+                {this.state.data.title}
+              </Text>
           }
           containerStyle={styles.container}
           uncheckedIcon={this._selectedMarker_()}
@@ -60,6 +73,14 @@ export default class Task extends React.Component{
           onLongPress={this._complete_}
           onIconPress={this._complete_}
         />
+        {this.props.isInEditMode ?
+          <StyledIcon
+            style={styles.bombIcon}
+            icon="bomb"
+            size={30}
+            onPress={this._remove}
+          />
+          : null}
       </View>
     )
   }
@@ -100,6 +121,11 @@ const styles = StyleSheet.create({
   marker:{
     width:25,
     height:25,
+  },
+  bombIcon:{
+    paddingRight:5,
+    paddingTop:10, 
+    alignContent:'center',
   },
 });
 

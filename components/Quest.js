@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   StyleSheet,
+  TextInput,
   Button,
 } from 'react-native';
 
@@ -23,7 +24,7 @@ export default class Quest extends React.Component {
      only one quest can be selected at the time.
      every quest grand the user some expirience points once completed.
    */
-
+  completedGradient = ["#4a3106", "transparent"]
   selectGradiant = ["#4a3106", "transparent"];
   editModeGradiant = ["#8d0b0b", "transparent"];
   unselectGradiant = ["transparent", "transparent"];
@@ -57,6 +58,7 @@ export default class Quest extends React.Component {
         _removeTask={this.props._removeTask}
         _tindex={index}
         _qindex={this.props._qindex}
+        isInEditMode = {this.state.data.isInEditMode}
         key={index}
       />)
   }
@@ -67,19 +69,21 @@ export default class Quest extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-            <View style={styles.gradientContainer}>
-              <AnimatedGradient
-                colors={this.state.data.isInEditMode?
+          <View style={styles.gradientContainer}>
+            <AnimatedGradient
+              colors={
+                
+                this.state.data.isInEditMode ?
                 this.editModeGradiant : this.state.data.selected ?
                   this.selectGradiant : this.unselectGradiant}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              />
-            </View>
-          <ImageBackground  style={styles.bgContainer}
-            resizeMode='stretch' 
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            />
+          </View>
+          <ImageBackground style={styles.bgContainer}
+            resizeMode='stretch'
             source={require('../assets/images/Boarder-container-orange-grad.png')}
-           >
+          >
             <TouchableOpacity
               activeOpacity={1}
               style={styles.questContainer}
@@ -88,13 +92,22 @@ export default class Quest extends React.Component {
             >
               <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
                 style={styles.shield} />
-              <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
-                {this.props._questData.title}
-              </Text>
-              {this.state.data.isInEditMode? 
-                <StyledIcon  
+              {this.state.data.isInEditMode ?
+                <TextInput 
+                  style={styles.selected}
+                  defaultValue={this.props._questData.title}
+                /> :
+                <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
+                  {this.props._questData.title}
+                </Text>
+              }
+              {this.state.data.isInEditMode ?
+                <StyledIcon
+                  style={styles.bombIcon}
+                  icon="bomb"
+                  size={45}
                   onPress={this._remove}
-                /> 
+                />
                 : null}
             </TouchableOpacity>
           </ImageBackground>
@@ -138,7 +151,7 @@ const styles = StyleSheet.create({
   done: {
     fontFamily: 'helvetica-lt',
     paddingLeft: 15,
-    fontSize: 30,
+    fontSize: 20,
     flex: 1,
     color: colors.doneTask,
     textDecorationLine: 'line-through',
@@ -146,7 +159,7 @@ const styles = StyleSheet.create({
   selected: {
     fontFamily: 'helvetica-lt',
     paddingLeft: 15,
-    fontSize: 30,
+    fontSize: 20,
     flex: 1,
     paddingTop: 20,
     paddingBottom: 20,
@@ -155,13 +168,15 @@ const styles = StyleSheet.create({
   unselected: {
     fontFamily: 'helvetica-lt',
     paddingLeft: 15,
-    fontSize: 30,
+    fontSize: 20,
     flex: 1,
     paddingTop: 20,
     paddingBottom: 20,
     color: colors.unselectedQuest,
   },
-
+  bombIcon:{
+    paddingRight:10,
+  },
   shield: {
     width: 50,
     height: 50,

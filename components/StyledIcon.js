@@ -5,14 +5,16 @@ import Colors from '../constants/Colors';
 import { TouchableOpacity, Image, View, StyleSheet } from 'react-native';
 
 export default class StyledIcon extends React.Component {
+
   render() {
     return (
       <View>
         <TouchableOpacity
           onPress={this.props.onPress}
+          style={this.props.style}
         >
           <Image
-            style={styles.icon}
+            style={{...styles.icon, height: this.props.size, width: this.props.size}}
             source={require('../assets/images/delete-icon.png')} />
 
         </TouchableOpacity>
@@ -24,8 +26,7 @@ export default class StyledIcon extends React.Component {
 
 const styles = StyleSheet.create({
   icon:{
-    height: 45,
-    width: 45,
+    right: 0,
   },
 });
 
