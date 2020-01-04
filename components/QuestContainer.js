@@ -25,14 +25,18 @@ export default class QuestContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      textInput: '',
+      inputbuff: '',
+      questInput: '',
       newTask: '',
+      dummyTask:'',
+      isWritingTasks: false,
       Quests: [
         {
           title: "IN CIRI'S FOOTSTEPS",
           shield: "/path/To/Img",
           selected: false,
           done: false,
+          isInEditMode: false,
           tasks: [
             {
               title: "Go To Velen",
@@ -53,6 +57,7 @@ export default class QuestContainer extends React.Component {
           shield: "/path/To/Img",
           selected: false,
           done: false,
+          isInEditMode: false,
           tasks: [
             {
               title: "Win a unique card from the baron",
@@ -76,6 +81,7 @@ export default class QuestContainer extends React.Component {
           shield: "/path/To/Img",
           selected: false,
           done: false,
+          isInEditMode: false,
           tasks: [
             {
               title: "Find boot Diagram using your Witcher senses",
@@ -99,10 +105,19 @@ export default class QuestContainer extends React.Component {
     }
   }
 
-  _addQuestTextInput = () =>{
+  _handlekeyboradInput = () =>{
     //handles the adding of a new quest from the text input
-    this._addQuest(this.state.textInput);        
-    this.state.textInput = '';
+    if(this.state.isWritingTasks){
+      //if it is writting the tasks
+      this._addTask(this.state.Quests.length - 1, this.state.inputbuff); 
+
+    }else{
+      //if first quest is not yet written
+      this._addQuest(this.state.inputbuff);
+      this.setState({ inputbuff: '', isWritingTasks: true });
+      this._addTask(this.state.Quests.length - 1, " ");
+      this._selectQuest(this.state.Quests.length - 1);
+    }
   }
 
 
@@ -114,6 +129,7 @@ export default class QuestContainer extends React.Component {
       shield: "N/A",
       selected: false,
       done: false,
+      isInEditMode: false,
       tasks:[],
     })
     this.setState({Quests: quests})
@@ -137,12 +153,29 @@ export default class QuestContainer extends React.Component {
     quests.forEach(
       (value,index) => {
         if(index == qIndex) value.selected = !value.selected;
+        //comment out this line to make quest selecte exclusible to one quest
         //else value.selected = false;
       }
     )
     this.setState({Quests: quests})
   }
-  
+
+  _setEditModeQuest = (qIndex) => {
+    //change the mode as a deletable on the quest
+    var quests = this.state.Quests;
+    quests.forEach(
+      (value, index) => {
+        if (index == qIndex){
+          console.log("before: " + value.isInEditMode);
+          value.isInEditMode = !value.isInEditMode;
+          console.log("after: " + value.isInEditMode);
+        }
+        else value.isInEditMode = false;
+      }
+    )
+    this.setState({ Quests: quests })  
+  }
+
   _completeQuest = (qIndex) => {
     //marks a single quest as done
     var quests = this.state.Quests;
@@ -164,6 +197,20 @@ export default class QuestContainer extends React.Component {
     )
     this.setState({Quests: quests})
   }
+  _addDummyTask = (qIndex, title) => {
+    //adds a task to the given index quest
+    var quests = this.state.Quests;
+    quests[qIndex].tasks.push(
+      {
+        title: title,
+        selected: false,
+        done: false,
+
+      }
+    )
+    this.setState({Quests: quests})
+  }
+
 
   _removeTask = (qIndex, tIndex) => {
     //removes a single task from a quest of the given index
@@ -204,6 +251,7 @@ export default class QuestContainer extends React.Component {
       _selectQuest={this._selectQuest}
       _completeQuest={this._completeQuest}
       _removeQuest={this._removeQuest}
+      _setEditModeQuest = {this._setEditModeQuest}
       _selectTask={this._selectTask}
       _completeTask={this._completeTask}
       _removeTask={this._removeTask}
@@ -233,8 +281,16 @@ export default class QuestContainer extends React.Component {
               }>
               <Picker.Item label="Java" value="java" />
               <Picker.Item label="JavaScript" value="js" />
+              <Picker.Item label="Swift" value="swift" />
             </Picker>
-            <Button title="Shield" onPress={() => {
+            <TextInput
+              value={this.state.inputbuff}
+              onChangeText={input => this.setState({ inputbuff: input })}
+              onSubmitEditing={this._handlekeyboradInput}
+              placeholder="New Quest..."
+              style={styles.input}
+            />
+            <Button title={this.state.isWritingTasks? "Task": "Quest"} onPress={() => {
               var quests = this.state.Quests;
               quests.push({
                 title: "new quest",
@@ -245,13 +301,7 @@ export default class QuestContainer extends React.Component {
               })
               this.setState({ Quests: quests })
             }} />
-            <TextInput
-              value={this.state.textInput}
-              onChangeText={input => this.setState({ textInput: input })}
-              onSubmitEditing={this._addQuestTextInput}
-              placeholder="New Quest..."
-              style={styles.input}
-            />
+              
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -270,11 +320,10 @@ const styles = StyleSheet.create({
   avoidingView:{
   },
   textinput:{
-    color:'white',
+    color:'black',
   },
   inputBar:{
     height: 50,
-    width:'100%',
     backgroundColor:'lightgrey',
     flexDirection: 'row',
     

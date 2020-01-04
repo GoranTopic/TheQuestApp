@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   StyleSheet,
+  Button,
 } from 'react-native';
 
 import Task from './Task';
@@ -35,7 +36,11 @@ export default class Quest extends React.Component {
 
   }
 
+  //mark this quest as slected
   _select = () => { this.state._selectQuest(this.state._qindex); }
+
+  // set the quest as a editable Mode
+  _setEditMode = () => { this.state._setEditModeQuest(this.state._qindex);}
 
   //function to change into task title
   _renderTask = (value, index) => {
@@ -73,12 +78,15 @@ export default class Quest extends React.Component {
               activeOpacity={1}
               style={styles.questContainer}
               onPress={this._select}
+              onLongPress={this._setEditMode}
             >
               <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
                 style={styles.shield} />
               <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
                 {this.props._questData.title}
               </Text>
+              {console.log(this.state._questData.isInEditMode)}
+              {this.state.data.isInEditMode? <Button title="delete"/> : null}
             </TouchableOpacity>
           </ImageBackground>
         </View>
