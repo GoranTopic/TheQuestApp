@@ -174,6 +174,17 @@ export default class QuestContainer extends React.Component {
     this.setState({Quests: quests});
   }
 
+  _editQuest = (newTitle, qIndex) => {
+    //edit the selected quest
+    var quests = this.state.Quests;
+    quests.forEach(
+      (value, index) => { if(index == qIndex) value.title = newTitle }
+      
+    )
+    this.setState({ Quests: quests });
+  }
+
+
   _setEditModeQuest = (qIndex) => {
     //change the mode as a deletable on the quest
     this._exitEditMode();
@@ -199,6 +210,17 @@ export default class QuestContainer extends React.Component {
     var quests = this.state.Quests;
     quests.forEach(
       (value,index) => { if(index === qIndex) value.done = true;}
+    )
+    this.setState({Quests: quests})
+  }
+
+  _editTask = (newTitle, qIndex, tIndex) => {
+    //marks a single task as selecet from a given index quest
+    var quests = this.state.Quests; 
+    quests[qIndex].tasks.forEach(
+      (value, index) => {
+        if(index == tIndex) value.title = newTitle;
+      }
     )
     this.setState({Quests: quests})
   }
@@ -273,10 +295,14 @@ export default class QuestContainer extends React.Component {
       _selectQuest={this._selectQuest}
       _completeQuest={this._completeQuest}
       _removeQuest={this._removeQuest}
-      _setEditModeQuest = {this._setEditModeQuest}
+      _editQuest={this._editQuest}
+      _setEditModeQuest={this._setEditModeQuest}
+      _exitEditMode={this._exitEditMode}
       _selectTask={this._selectTask}
       _completeTask={this._completeTask}
       _removeTask={this._removeTask}
+      _editTask={this._editTask}
+
       _qindex={index}
       key={index}
     />

@@ -38,9 +38,16 @@ export default class Quest extends React.Component {
     };
 
   }
+  //exits edditing more
+  _exitEdit = () => {this.state._exitEditMode()}
+  //mark the quest as completed
+  _complete = () => {this.state._completeQuest(this.state._qindex)}
 
   //mark this quest as slected
   _select = () => { this.state._selectQuest(this.state._qindex); }
+
+  //make an edit on the Quest title
+  _edit = (newTitle) => {this.state._editQuest(newTitle, this.state._qindex)}
 
   //set the quest as a editable Mode
   _setEditMode = () => { this.state._setEditModeQuest(this.state._qindex);}
@@ -56,6 +63,8 @@ export default class Quest extends React.Component {
         _selectTask={this.props._selectTask}
         _completeTask={this.props._completeTask}
         _removeTask={this.props._removeTask}
+        _editTask={this.props._editTask}
+        _exitEditMode={this.props._exitEditMode}
         _tindex={index}
         _qindex={this.props._qindex}
         isInEditMode = {this.state.data.isInEditMode}
@@ -94,6 +103,8 @@ export default class Quest extends React.Component {
                 style={styles.shield} />
               {this.state.data.isInEditMode ?
                 <TextInput 
+                  onSubmitEditing = {this._exitEdit}
+                  onChangeText = {this._edit}
                   style={styles.selected}
                   defaultValue={this.props._questData.title}
                 /> :
@@ -178,8 +189,8 @@ const styles = StyleSheet.create({
     paddingRight:10,
   },
   shield: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
 });
 
