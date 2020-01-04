@@ -24,7 +24,7 @@ export default class Quest extends React.Component {
      only one quest can be selected at the time.
      every quest grand the user some expirience points once completed.
    */
-  completedGradient = ["#1d3f14", "transparent"]
+  completedGradient = ["#13300c", "transparent"]
   selectGradiant = ["#4a3106", "transparent"];
   editModeGradiant = ["#8d0b0b", "transparent"];
   unselectGradiant = ["transparent", "transparent"];
@@ -83,12 +83,12 @@ export default class Quest extends React.Component {
             <AnimatedGradient
               colors={
                 //if it is in edit mode 
-                this.state.data.isInEditMode ? this.editModeGradiant : 
-                // if the Quest is done
-                this.state.data.done ? this.completedGradient :
-                //if the ques is selected
-                this.state.data.selected ?
-                  this.selectGradiant : this.unselectGradiant}
+                this.state.data.isInEditMode ? this.editModeGradiant :
+                  // if the Quest is done
+                  this.state.data.done ? this.completedGradient :
+                    //if the ques is selected
+                    this.state.data.selected ?
+                      this.selectGradiant : this.unselectGradiant}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             />
@@ -106,9 +106,9 @@ export default class Quest extends React.Component {
               <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
                 style={styles.shield} />
               {this.state.data.isInEditMode ?
-                <TextInput 
-                  onSubmitEditing = {this._exitEdit}
-                  onChangeText = {this._edit}
+                <TextInput
+                  onSubmitEditing={this._exitEdit}
+                  onChangeText={this._edit}
                   style={styles.selected}
                   defaultValue={this.props._questData.title}
                 /> :
@@ -117,13 +117,21 @@ export default class Quest extends React.Component {
                 </Text>
               }
               {this.state.data.isInEditMode ?
+              //if it is in edit mode
                 <StyledIcon
                   style={styles.bombIcon}
                   icon="bomb"
                   size={45}
                   onPress={this._remove}
                 />
-                : null}
+                : this.state.data.done ?
+                //if Quest is done
+                  <StyledIcon
+                    style={styles.rewardIcon}
+                    icon="reward"
+                    size={45}
+                    onPress={this._remove}
+                  /> : null}
             </TouchableOpacity>
           </ImageBackground>
         </View>
@@ -190,6 +198,9 @@ const styles = StyleSheet.create({
     color: colors.unselectedQuest,
   },
   bombIcon:{
+    paddingRight:10,
+  },
+  rewardIcon:{
     paddingRight:10,
   },
   shield: {
