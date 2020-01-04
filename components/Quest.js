@@ -40,9 +40,9 @@ export default class Quest extends React.Component {
     
   _gradientColorMixer = () =>{
     //mixes the colors of the difrent possible gradients
-    var c1 = this.state.data.isInEditMode? this.editModeGradiant: "0";
-    var c2 = this.state.data.done ? this.completedGradient : "0";
-    var c3 = this.state.data.selected?  this.selectedGradiant: "0";
+    var c1 = this.state.data.done ? this.completedGradient : "0";
+    var c2 = this.state.data.isInEditMode? this.editModeGradiant: "0";
+    var c3 = this.state.data.selected? this.state.data.isInEditMode? "0" : this.selectedGradiant: "0";
     var hexStr = (parseInt(c1, 16) + parseInt(c2, 16) + parseInt(c3, 16) ).toString(16);
     while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
     return ["#" + hexStr, "transparent"]
