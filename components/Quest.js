@@ -24,10 +24,9 @@ export default class Quest extends React.Component {
      only one quest can be selected at the time.
      every quest grand the user some expirience points once completed.
    */
-  completedGradient = ["#13300c", "transparent"]
-  selectGradiant = ["#4a3106", "transparent"];
-  editModeGradiant = ["#8d0b0b", "transparent"];
-  unselectGradiant = ["transparent", "transparent"];
+  completedGradient = "13300c";
+  selectedGradiant = "4a3106";
+  editModeGradiant = "8d0b0b";
 
   constructor(props) {
     super(props);
@@ -38,6 +37,16 @@ export default class Quest extends React.Component {
     };
 
   }
+    
+  _gradientColorMixer = () =>{
+    //mixes the colors of the difrent possible gradients
+    var c1 = this.state.data.isInEditMode? this.editModeGradiant: "0";
+    var c2 = this.state.data.done ? this.completedGradient : "0";
+    var c3 = this.state.data.selected?  this.selectedGradiant: "0";
+    var hexStr = (parseInt(c1, 16) + parseInt(c2, 16) + parseInt(c3, 16) ).toString(16);
+    while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
+    return ["#" + hexStr, "transparent"]
+  } 
   //exits edditing more
   _exitEdit = () => {this.state._exitEditMode()}
 
@@ -81,14 +90,7 @@ export default class Quest extends React.Component {
         <View style={styles.titleContainer}>
           <View style={styles.gradientContainer}>
             <AnimatedGradient
-              colors={
-                //if it is in edit mode 
-                this.state.data.isInEditMode ? this.editModeGradiant :
-                  // if the Quest is done
-                  this.state.data.done ? this.completedGradient :
-                    //if the ques is selected
-                    this.state.data.selected ?
-                      this.selectGradiant : this.unselectGradiant}
+              colors={this._gradientColorMixer()}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             />
