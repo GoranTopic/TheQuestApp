@@ -103,6 +103,7 @@ export default class Quest extends React.Component {
                 style={styles.shield} />
               {this.state.data.isInEditMode ?
                 <TextInput 
+                  
                   onSubmitEditing = {this._exitEdit}
                   onChangeText = {this._edit}
                   style={styles.selected}

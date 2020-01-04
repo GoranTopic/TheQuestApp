@@ -28,9 +28,14 @@ export default class Task extends React.Component{
       ...this.props,
     };
   } 
+
+  _edit = (newTitle) => {
+    //edits a task
+    this.props._editTask(newTitle, this.props._qindex, this.props._tindex);
+  }
   _remove = () => {
     //removes a task from the quest
-    this.props._removeTask(this.props._qindex, this.props._tindex)
+    this.props._removeTask(this.props._qindex, this.props._tindex);
   }
 
   _complete_ =  () => { 
@@ -58,8 +63,11 @@ export default class Task extends React.Component{
           title={
             this.props.isInEditMode ?
               <TextInput style={styles.selected}
+                onSubmitEditing={this._exitEdit}
+                onChangeText={this._edit}
                 defaultValue={this.state.data.title} /> :
-              <Text style={this.state.data.done ?
+              <Text
+                style={this.state.data.done ?
                 styles.done : this.state.data.selected ?
                   styles.selected : styles.unselected}>
                 {this.state.data.title}
