@@ -16,6 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import {color} from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import Quest from '../components/Quest'
+import StyledIcon from '../components/StyledIcon';
 import { tsImportEqualsDeclaration } from '@babel/types';
 import { HitTestResultTypes } from 'expo/build/AR';
 
@@ -106,6 +107,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _handlekeyboradInput = () =>{
+    this._exitEditMode();
     //handles the adding of a new quest from the text input
     if(this.state.isWritingTasks){
       //if it is writting the tasks
@@ -123,6 +125,7 @@ export default class QuestContainer extends React.Component {
 
   _addQuest = (newtitle) => {
     //Adds a new Quest to the list of quests
+    this._exitEditMode();
     var quests = this.state.Quests;
     quests.push({
       title: newtitle,
@@ -142,42 +145,57 @@ export default class QuestContainer extends React.Component {
 
   _removeQuest = (index) => {
     //removes a quest in the quest array
+    this._exitEditMode();
     var quests = this.state.Quests; 
     quests.splice(index, 1);
     this.setState({Quests: quests})
   }
 
+  _exitEditMode = () => {
+    //set all exit Modes all the quest as false
+    var quests = this.state.Quests;
+    quests.forEach( value => value.isInEditMode = false );
+    this.setState({Quests: quests});
+  }
+  
   _selectQuest = (qIndex) => {
     //marks a single quest as selected
+    this._exitEditMode();
     var quests = this.state.Quests;
     quests.forEach(
       (value,index) => {
-        if(index == qIndex) value.selected = !value.selected;
-        //comment out this line to make quest selecte exclusible to one quest
-        //else value.selected = false;
+        if(index == qIndex){
+          value.selected = !value.selected;
+          //comment out this line to make quest selecte exclusible to one quest
+          //else value.selected = false;
+        }
       }
     )
-    this.setState({Quests: quests})
+    this.setState({Quests: quests});
   }
 
   _setEditModeQuest = (qIndex) => {
     //change the mode as a deletable on the quest
+    this._exitEditMode();
     var quests = this.state.Quests;
     quests.forEach(
       (value, index) => {
         if (index == qIndex){
-          console.log("before: " + value.isInEditMode);
           value.isInEditMode = !value.isInEditMode;
-          console.log("after: " + value.isInEditMode);
+          value.selected = true;
         }
-        else value.isInEditMode = false;
+        else{ 
+          value.isInEditMode = false;
+          value.selected = false;
+        }
       }
     )
-    this.setState({ Quests: quests })  
+    this.setState({ Quests: quests });
   }
 
   _completeQuest = (qIndex) => {
     //marks a single quest as done
+    this._exitEditMode();
     var quests = this.state.Quests;
     quests.forEach(
       (value,index) => { if(index === qIndex) value.done = true;}
@@ -187,6 +205,7 @@ export default class QuestContainer extends React.Component {
 
   _addTask = (qIndex, title) => {
     //adds a task to the given index quest
+    this._exitEditMode();
     var quests = this.state.Quests;
     quests[qIndex].tasks.push(
       {
@@ -197,6 +216,7 @@ export default class QuestContainer extends React.Component {
     )
     this.setState({Quests: quests})
   }
+
   _addDummyTask = (qIndex, title) => {
     //adds a task to the given index quest
     var quests = this.state.Quests;
@@ -205,7 +225,6 @@ export default class QuestContainer extends React.Component {
         title: title,
         selected: false,
         done: false,
-
       }
     )
     this.setState({Quests: quests})
@@ -221,6 +240,7 @@ export default class QuestContainer extends React.Component {
 
   _selectTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
+    this._exitEditMode();
     var quests = this.state.Quests; 
     quests[qIndex].tasks.forEach(
       (value, index) => {
@@ -233,6 +253,7 @@ export default class QuestContainer extends React.Component {
 
   _completeTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
+    this._exitEditMode();
     var quests = this.state.Quests; 
     quests[qIndex].tasks.forEach(
       (value, index) => {
@@ -246,6 +267,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _renderQuest = (value, index)=>{
+    //render and pass function props into the Quest component
     return <Quest
       _questData={value}
       _selectQuest={this._selectQuest}

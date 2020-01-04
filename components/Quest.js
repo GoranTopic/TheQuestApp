@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Image } from 'react-native-elements';
+import { Text, Image, Icon } from 'react-native-elements';
 import {
   TouchableOpacity,
   View,
@@ -12,6 +12,7 @@ import {
 import Task from './Task';
 import colors from '../constants/Colors';
 import { AnimatedGradient } from "../AnimatedGradient";
+import StyledIcon from '../components/StyledIcon';
 
 
 
@@ -24,6 +25,7 @@ export default class Quest extends React.Component {
    */
 
   selectGradiant = ["#4a3106", "transparent"];
+  editModeGradiant = ["#8d0b0b", "transparent"];
   unselectGradiant = ["transparent", "transparent"];
 
   constructor(props) {
@@ -67,7 +69,8 @@ export default class Quest extends React.Component {
         <View style={styles.titleContainer}>
             <View style={styles.gradientContainer}>
               <AnimatedGradient
-                colors={this.state.data.selected ?
+                colors={this.state.data.isInEditMode?
+                this.editModeGradiant : this.state.data.selected ?
                   this.selectGradiant : this.unselectGradiant}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
@@ -89,9 +92,9 @@ export default class Quest extends React.Component {
                 {this.props._questData.title}
               </Text>
               {this.state.data.isInEditMode? 
-                <Button 
-                  title="delete" 
-                  onPress={this._remove} /> 
+                <StyledIcon  
+                  onPress={this._remove}
+                /> 
                 : null}
             </TouchableOpacity>
           </ImageBackground>
