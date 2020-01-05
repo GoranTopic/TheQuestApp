@@ -1,0 +1,118 @@
+import React from 'react';
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+} from 'react-native';
+import {
+  Overlay,
+  Button,
+  Icon,
+} from 'react-native-elements'
+
+
+import StyledIcon from '../components/StyledIcon';
+import { color } from '../constants/Colors';
+
+export default class InputBar extends React.Component {
+  /* Bar icon which is reposnasable for the createioin of new quest,
+   it also responsable for the selctio of a shild fo the quest 
+   and the overly which comes with it
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputbuff: '',
+      visibleOverlay: false,
+      size: 70,
+      selectedShiled: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
+      shileds: [
+        require('../assets/images/shields/COA_Kaer_Morhen_Tw3.png'),
+        require('../assets/images/shields/COA_multiple_locations_Tw3.png'),
+        require('../assets/images/shields/COA_Skellige_Tw3.png'),
+        require('../assets/images/shields/COA_Velen_Tw3.png'),
+        require('../assets/images/shields/COA_White_Orchard_Tw3.png'),
+        require('../assets/images/shields/COA_Novigrad_Tw3.png'),]
+    }
+  }
+  _changeShiled = this.props._changeShiled;
+
+  _selectShield = (shiled) => {
+    //selects a default shild
+    this.setState({selectedShiled: shiled});
+    this._toggleOverlay();
+  }
+
+  _toggleOverlay = () => {
+    this.props._exitEditMode();
+    this.state.visibleOverlay = !this.state.visibleOverlay;
+  }
+
+  _renderShiledPicker = () => {
+    return (
+      <View style={{ flexDirection: 'column' }}>
+        <View style={{flexDirection: 'row'}}>
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[0])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[0]} />
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[1])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[1]} />
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[2])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[2]} />
+          </View>
+        <View style={{ flexDirection: 'row'}}>
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[3])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[3]} />
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[4])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[4]} />
+          <StyledIcon onPress={() => this._selectShield(this.state.shileds[5])} style={styles.pickerShield} size={this.state.size} source={this.state.shileds[5]} />
+        </View>
+      </View>
+    )
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+
+        <Overlay
+          isVisible={this.state.visibleOverlay}
+          windowBackgroundColor="rgba(0, 0, 0, .6)"
+          overlayBackgroundColor="black"
+          width="auto"
+          height="auto"
+          onBackdropPress={this._toggleOverlay}
+        >
+          {this._renderShiledPicker()}
+        </Overlay>
+
+        <StyledIcon
+          style={styles.bombIcon}
+          name="bomb"
+          source={this.state.selectedShiled}
+          size={45}
+          onPress={this._toggleOverlay}
+        />
+
+        <TextInput
+          value={this.state.inputbuff}
+          onChangeText={input => this.setState({ inputbuff: input })}
+          placeholder="New Quest..."
+          style={styles.input}
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'lightgrey',
+    height: 50,
+    flexDirection: 'row',
+  },
+  inputBar: {
+
+  },
+  pickerShield: {
+    padding:10,
+  },
+});

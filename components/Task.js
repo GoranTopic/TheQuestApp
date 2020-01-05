@@ -28,6 +28,11 @@ export default class Task extends React.Component{
       ...this.props,
     };
   } 
+  _exitEdit = ()=>{
+    //exits the edit mode
+    this.props._exitEditMode()
+  }
+
 
   _edit = (newTitle) => {
     //edits a task
@@ -84,7 +89,6 @@ export default class Task extends React.Component{
         {this.props.isInEditMode ?
           <StyledIcon
             style={styles.bombIcon}
-            icon="bomb"
             size={30}
             onPress={this._remove}
           />
@@ -133,7 +137,6 @@ const styles = StyleSheet.create({
   bombIcon:{
     paddingRight:5,
     paddingTop:10, 
-    alignContent:'center',
   },
 });
 

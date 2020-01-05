@@ -15,10 +15,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 import {color} from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
-import Quest from '../components/Quest'
+import Quest from './Quest';
+import inputBar from './InputBar';
 import StyledIcon from '../components/StyledIcon';
 import { tsImportEqualsDeclaration } from '@babel/types';
 import { HitTestResultTypes } from 'expo/build/AR';
+import InputBar from './InputBar';
 
 
 export default class QuestContainer extends React.Component {
@@ -336,38 +338,11 @@ export default class QuestContainer extends React.Component {
           behavior='padding'
           enabled
         >
-          <View style={styles.inputBar}>
-            <Picker
-              selectedValue={this.state.newShield}
-              style={{ height: 50, width: 100 }}
-              onValueChange={
-                (itemValue, itemIndex) =>
-                this.setState({ language: itemValue })
-              }>
-              <Picker.Item label="Java" value="java" />
-              <Picker.Item label="JavaScript" value="js" />
-              <Picker.Item label="Swift" value="swift" />
-            </Picker>
-            <TextInput
-              value={this.state.inputbuff}
-              onChangeText={input => this.setState({ inputbuff: input })}
-              onSubmitEditing={this._handlekeyboradInput}
-              placeholder="New Quest..."
-              style={styles.input}
-            />
-            <Button title={this.state.isWritingTasks? "Task": "Quest"} onPress={() => {
-              var quests = this.state.Quests;
-              quests.push({
-                title: "new quest",
-                shield: "N/A",
-                selected: false,
-                done: false,
-                tasks: [],
-              })
-              this.setState({ Quests: quests })
-            }} />
-              
-          </View>
+          <InputBar
+            _changeQuestShiled={this._changeQuestShiled}
+            _addQuest={this._addQuest}
+            _exitEditMode={this._exitEditMode}
+          />
         </KeyboardAvoidingView>
       </View>
     );

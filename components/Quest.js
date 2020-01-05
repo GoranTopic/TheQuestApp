@@ -122,7 +122,7 @@ export default class Quest extends React.Component {
               //if it is in edit mode
                 <StyledIcon
                   style={styles.bombIcon}
-                  icon="bomb"
+                  name="bomb"
                   size={45}
                   onPress={this._remove}
                 />
@@ -130,7 +130,7 @@ export default class Quest extends React.Component {
                 //if Quest is done
                   <StyledIcon
                     style={styles.rewardIcon}
-                    icon="reward"
+                    name="bomb"
                     size={45}
                     onPress={this._remove}
                   /> : null}
@@ -203,7 +203,6 @@ const styles = StyleSheet.create({
     paddingRight:10,
   },
   rewardIcon:{
-    paddingRight:10,
   },
   shield: {
     width: 40,
