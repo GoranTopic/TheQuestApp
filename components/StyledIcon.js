@@ -52,10 +52,6 @@ export default class StyledIcon extends React.Component {
 
 
 const styles = StyleSheet.create({
-  icon: {
-    height: 45,
-    width: 45,
-  }
 });
 
 

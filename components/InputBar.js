@@ -16,9 +16,12 @@ export default class InputBar extends React.Component {
    it also responsable for the selctio of a shild fo the quest 
    and the overly which comes with it
    */
+
+  
   constructor(props) {
     super(props);
     this.state = {
+      isVisibleBar: true,
       inputbuff: '',
       visibleOverlay: false,
       size: 70,
@@ -31,6 +34,7 @@ export default class InputBar extends React.Component {
         require('../assets/images/shields/COA_White_Orchard_Tw3.png'),
         require('../assets/images/shields/COA_Novigrad_Tw3.png'),]
     }
+    this.mainInput = React.createRef();
   }
 
   _create = () => {
@@ -52,6 +56,7 @@ export default class InputBar extends React.Component {
     //selects a default shild
     this.setState({selectedShiled: shiled});
     this._toggleOverlay();
+    this.mainInput.current.focus();
   }
 
   _toggleOverlay = () => {
@@ -80,37 +85,40 @@ export default class InputBar extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Overlay
-          isVisible={this.state.visibleOverlay}
-          windowBackgroundColor="rgba(0, 0, 0, .6)"
-          overlayBackgroundColor="black"
-          width="auto"
-          height="auto"
-          onBackdropPress={this._toggleOverlay}
-        >
-          {this._renderShiledPicker()}
-        </Overlay>
+      this.state.isVisibleBar ?
+        <View style={styles.container}>
+          <Overlay
+            isVisible={this.state.visibleOverlay}
+            windowBackgroundColor="rgba(0, 0, 0, .6)"
+            overlayBackgroundColor="black"
+            width="auto"
+            height="auto"
+            onBackdropPress={this._toggleOverlay}
+          >
+            {this._renderShiledPicker()}
+          </Overlay>
 
         <StyledIcon
           style={styles.selectedShiled}
           name="bomb"
           source={this.state.selectedShiled}
-          size={45}
+          size={40}
           onPress={this._toggleOverlay}
         />
         <Input
+          ref={this.mainInput}
           onChangeText={input => this.setState({ inputbuff: input })}
           onSubmitEditing={this._create}
           placeholder="New Quest..."
-          style={styles.inputBar}
           inputStyle={styles.inputBar}
+          inputContainerStyle={styles.inputContainer}
         />
         <StyledIcon
           source={this.state.selectedShiled}
           size={45}
         />
-      </View>
+      </View> 
+      : null
     );
   }
 }
@@ -121,15 +129,19 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
   },
+  inputContainer:{
+    borderBottomColor: "#845426",
+  },
   inputBar: {
     fontFamily: 'helvetica-lt',
-    paddingLeft:200,
+    paddingLeft:10,
     fontSize: 20,
-    color: 'red',
+    flex :1,
+    color: 'white',
   },
   selectedShiled:{
-    height: 20,
-    width: 20, 
+    height: null,
+    width: null, 
   },
   pickerShield: {
     padding:10,
