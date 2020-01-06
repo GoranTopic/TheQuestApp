@@ -8,11 +8,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import {
-  Overlay,
-  Button,
-  Icon,
-} from 'react-native-elements'
+import { Overlay,} from 'react-native-elements'
 
 
 import StyledIcon from '../components/StyledIcon';
@@ -48,9 +44,13 @@ export default class InputBar extends React.Component {
         selected: true,
         done: false,
         isInEditMode: false,
-        tasks: [{
-
-        }],
+        tasks: [
+          {
+            title: "...",
+            selected: false,
+            done: false,
+          }
+        ],
       }
     );
     //clear buffer
@@ -108,12 +108,15 @@ export default class InputBar extends React.Component {
           size={45}
           onPress={this._toggleOverlay}
         />
-
         <TextInput
           onChangeText={input => this.setState({ inputbuff: input })}
           onSubmitEditing={this._create}
           placeholder="New Quest..."
-          style={styles.input}
+          style={styles.inputBar}
+        />
+        <StyledIcon
+          source={this.state.selectedShiled}
+          size={45}
         />
       </View>
     );
@@ -122,12 +125,16 @@ export default class InputBar extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'transparent',
     height: 50,
     flexDirection: 'row',
   },
   inputBar: {
-
+    fontFamily: 'helvetica-lt',
+    paddingLeft: 15,
+    fontSize: 20,
+    flex: 1,
+    color: 'white',
   },
   pickerShield: {
     padding:10,

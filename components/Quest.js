@@ -24,9 +24,9 @@ export default class Quest extends React.Component {
      only one quest can be selected at the time.
      every quest grand the user some expirience points once completed.
    */
-  completedGradient = "13300c";
-  selectedGradiant = "4a3106";
-  editModeGradiant = "8d0b0b";
+  completedGradient = "13300c"; //green 
+  selectedGradiant = "4a3106"; //yellow
+  editModeGradiant = "8d0b0b"; //red
 
   constructor(props) {
     super(props);
@@ -34,8 +34,8 @@ export default class Quest extends React.Component {
       ...this.props,
       data: this.props._questData,
       layoutHeight: 0,
+      isActiveDummyTask: false,
     };
-
   }
     
   _gradientColorMixer = () =>{
