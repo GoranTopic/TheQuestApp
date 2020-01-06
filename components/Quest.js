@@ -105,7 +105,7 @@ export default class Quest extends React.Component {
               onPress={this._select}
               onLongPress={this._setEditMode}
             >
-              <Image source={require('../assets/images/shields/COA_Novigrad_Tw3.png')}
+              <Image source={this.state.data.shield}
                 style={styles.shield} />
               {this.state.data.isInEditMode ?
                 <TextInput

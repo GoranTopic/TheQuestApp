@@ -39,7 +39,20 @@ export default class InputBar extends React.Component {
         require('../assets/images/shields/COA_Novigrad_Tw3.png'),]
     }
   }
-  _changeShiled = this.props._changeShiled;
+
+  _create = () => {
+    this.props._createQuest(
+      {
+        title: this.inputBuff,
+        shield: this.state.selectedShiled,
+        selected: true,
+        done: false,
+        isInEditMode: false,
+        tasks: [],
+      }
+    );
+    this.state.inputbuff = '';
+  }
 
   _selectShield = (shiled) => {
     //selects a default shild
@@ -51,6 +64,8 @@ export default class InputBar extends React.Component {
     this.props._exitEditMode();
     this.state.visibleOverlay = !this.state.visibleOverlay;
   }
+
+  _addQuest
 
   _renderShiledPicker = () => {
     return (
@@ -72,7 +87,6 @@ export default class InputBar extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <Overlay
           isVisible={this.state.visibleOverlay}
           windowBackgroundColor="rgba(0, 0, 0, .6)"
@@ -93,8 +107,8 @@ export default class InputBar extends React.Component {
         />
 
         <TextInput
-          value={this.state.inputbuff}
           onChangeText={input => this.setState({ inputbuff: input })}
+          onSubmitEditing={this._create}
           placeholder="New Quest..."
           style={styles.input}
         />

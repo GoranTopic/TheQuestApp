@@ -36,7 +36,7 @@ export default class QuestContainer extends React.Component {
       Quests: [
         {
           title: "IN CIRI'S FOOTSTEPS",
-          shield: "/path/To/Img",
+          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
           selected: false,
           done: false,
           isInEditMode: false,
@@ -57,7 +57,7 @@ export default class QuestContainer extends React.Component {
           ]
         }, {
           title: "GWENT: VELEN PLAYERS",
-          shield: "/path/To/Img",
+          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
           selected: false,
           done: false,
           isInEditMode: false,
@@ -81,7 +81,7 @@ export default class QuestContainer extends React.Component {
             }]
         }, {
           title: "SCAVENGER HUNT: CAT SCHOOL GEAR UPGRADE DIAGRAMS",
-          shield: "/path/To/Img",
+          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
           selected: false,
           done: false,
           isInEditMode: false,
@@ -123,7 +123,15 @@ export default class QuestContainer extends React.Component {
       this._selectQuest(this.state.Quests.length - 1);
     }
   }
-
+  
+  
+  _createQuest = (newQuest) => {
+    //creates a new ques which is passed
+    this._exitEditMode();
+    var quests = this.state.Quests;
+    quests.push(newQuest);
+    this.setState({Quests: quests})
+  }
 
   _addQuest = (newtitle) => {
     //Adds a new Quest to the list of quests
@@ -340,7 +348,7 @@ export default class QuestContainer extends React.Component {
         >
           <InputBar
             _changeQuestShiled={this._changeQuestShiled}
-            _addQuest={this._addQuest}
+            _createQuest={this._createQuest}
             _exitEditMode={this._exitEditMode}
           />
         </KeyboardAvoidingView>
@@ -366,6 +374,5 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor:'lightgrey',
     flexDirection: 'row',
-    
   },
 });
