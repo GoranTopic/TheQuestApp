@@ -14,7 +14,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
 
-import {color} from '../constants/Colors';
+import { color } from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
 import Quest from './Quest';
 import inputBar from './InputBar';
@@ -25,14 +25,14 @@ import InputBar from './InputBar';
 
 
 export default class QuestContainer extends React.Component {
-  
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.state = {
       inputbuff: '',
       questInput: '',
       newTask: '',
-      dummyTask:'',
+      dummyTask: '',
       isWritingTasks: false,
       Quests: [
         {
@@ -110,27 +110,27 @@ export default class QuestContainer extends React.Component {
               selected: false,
               done: false,
             }]
-        },  
+        },
       ]
     }
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
 
 
   }
- 
-  handleBackButtonClick(){
-    //allegetly handles back button press
-    this._exitModes();
-    return true;
-  }
-  
 
+  componentDidMount(){
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount(){
+    this.backHandler.remove();
+    
+  }
   _createQuest = (newQuest) => {
     //creates a new ques which is passed
     this._exitEditMode();
     var quests = this.state.Quests;
     quests.push(newQuest);
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
   _addQuest = (newtitle) => {
@@ -143,31 +143,31 @@ export default class QuestContainer extends React.Component {
       selected: false,
       done: false,
       isInEditMode: false,
-      tasks:[],
+      tasks: [],
     })
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
- 
-  _checkQuestIsDone = (qIndex) =>{
+
+  _checkQuestIsDone = (qIndex) => {
     //checks wheather a quest has completed all it task, if so the mark it as complete
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     var areAllDone = true;
     quests[qIndex].tasks.forEach(
-      (task) => { 
-        if(!task.done) areAllDone =false; 
+      (task) => {
+        if (!task.done) areAllDone = false;
       }
     )
     quests[qIndex].done = areAllDone;
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
     return true;
   }
 
-  _removeQuest = (index) => {
+   _removeQuest = (index) => {
     //removes a quest in the quest array
     this._exitModes();
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     quests.splice(index, 1);
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
 
@@ -187,41 +187,62 @@ export default class QuestContainer extends React.Component {
     this.setState({ Quests: quests });
   }
 
-    _exitModes = () => {
-      //extis all mode on the Quest
-      var quests = this.state.Quests;
-      quests.forEach( value => { 
-        value.isInEditMode = false 
+  _exitModes = () => {
+    //extis all mode on the Quest
+    var quests = this.state.Quests;
+    quests.forEach(value => {
+      value.isInEditMode = false
+      value.isActiveDummyTask = false;
+    });
+    this.setState({ Quests: quests });
+  }
+ 
+  handleBackButtonClick = () => {
+    //allegetly handles back button press
+    var quests = this.state.Quests;
+    var isChange = false;
+    quests.forEach(value => {
+      if(value.isInEditMode){
+        value.isInEditMode = false;
+        isChange = true;
+      }else if(value.isActiveDummyTask){
         value.isActiveDummyTask = false;
-      });
-      this.setState({Quests: quests});
-    }
+        isChange = true;
+      }else if(value.selected){
+        value.selected = false;
+        isChange = true;
+      }
+    });
+    this.setState({ Quests: quests });
+    return false;
+  }
 
-    _exitEditMode = () => {
-      //set all exit Modes all the quest as false
-      var quests = this.state.Quests;
-      quests.forEach( value => { 
-        value.isInEditMode = false 
-        //value.isActiveDummyTask = false;
-      });
-      this.setState({Quests: quests});
-    }
 
-     _exitDummyMode = () => {
-      //exits the dummy mode when adding tasks
-      var quests = this.state.Quests;
-      quests.forEach( value => { 
-        value.isActiveDummyTask = false;
-      });
-      this.setState({Quests: quests});
-     }
+  _exitEditMode = () => {
+    //set all exit Modes all the quest as false
+    var quests = this.state.Quests;
+    quests.forEach(value => {
+      value.isInEditMode = false
+      //value.isActiveDummyTask = false;
+    });
+    this.setState({ Quests: quests });
+  }
 
-    _editQuest = (newTitle, qIndex) => {
-      //edit the selected quest
-      var quests = this.state.Quests;
+  _exitDummyMode = () => {
+    //exits the dummy mode when adding tasks
+    var quests = this.state.Quests;
+    quests.forEach(value => {
+      value.isActiveDummyTask = false;
+    });
+    this.setState({ Quests: quests });
+  }
+
+  _editQuest = (newTitle, qIndex) => {
+    //edit the selected quest
+    var quests = this.state.Quests;
     quests.forEach(
-      (value, index) => { if(index == qIndex) value.title = newTitle }
-      
+      (value, index) => { if (index == qIndex) value.title = newTitle }
+
     )
     this.setState({ Quests: quests });
   }
@@ -232,11 +253,11 @@ export default class QuestContainer extends React.Component {
     var quests = this.state.Quests;
     quests.forEach(
       (value, index) => {
-        if (index == qIndex){
+        if (index == qIndex) {
           value.isInEditMode = !value.isInEditMode;
           value.selected = true;
         }
-        else{ 
+        else {
           value.isInEditMode = false;
           value.selected = false;
         }
@@ -250,20 +271,20 @@ export default class QuestContainer extends React.Component {
     this._exitModes();
     var quests = this.state.Quests;
     quests.forEach(
-      (value,index) => { if(index === qIndex) value.done = true;}
+      (value, index) => { if (index === qIndex) value.done = true; }
     )
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
   _editTask = (newTitle, qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     quests[qIndex].tasks.forEach(
       (value, index) => {
-        if(index == tIndex) value.title = newTitle;
+        if (index == tIndex) value.title = newTitle;
       }
     )
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
   _addTask = (qIndex, title) => {
@@ -277,7 +298,8 @@ export default class QuestContainer extends React.Component {
         done: false,
       }
     )
-    this.setState({Quests: quests})
+    this._checkQuestIsDone(qIndex);
+    this.setState({ Quests: quests })
   }
 
   _addDummyTask = (qIndex, title) => {
@@ -290,39 +312,39 @@ export default class QuestContainer extends React.Component {
         done: false,
       }
     )
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
 
   _removeTask = (qIndex, tIndex) => {
     //removes a single task from a quest of the given index
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     quests[qIndex].tasks.splice(tIndex, 1);
 
     this._checkQuestIsDone(qIndex);
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
   _selectTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
     this._exitModes();
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     quests[qIndex].tasks.forEach(
       (value, index) => {
-        if(index == tIndex) value.selected = !value.selected;
+        if (index == tIndex) value.selected = !value.selected;
         else value.selected = false;
       }
     )
-    this.setState({Quests: quests})
+    this.setState({ Quests: quests })
   }
 
   _completeTask = (qIndex, tIndex) => {
     //marks a single task as selecet from a given index quest
     this._exitModes();
-    var quests = this.state.Quests; 
+    var quests = this.state.Quests;
     quests[qIndex].tasks.forEach(
       (value, index) => {
-        if(index == tIndex){ 
+        if (index == tIndex) {
           value.selected = false;
           value.done = !value.done;
         }
@@ -333,7 +355,7 @@ export default class QuestContainer extends React.Component {
     this.setState({ Quests: quests })
   }
 
-  _renderQuest = (value, index)=>{
+  _renderQuest = (value, index) => {
     //render and pass function props into the Quest component
     return <Quest
       _questData={value}
@@ -377,20 +399,20 @@ export default class QuestContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection:'column',
+    flexDirection: 'column',
     flex: 1,
   },
-  scrollable:{
+  scrollable: {
 
   },
-  avoidingView:{
+  avoidingView: {
   },
-  textinput:{
-    color:'black',
+  textinput: {
+    color: 'black',
   },
-  inputBar:{
+  inputBar: {
     height: 50,
-    backgroundColor:'lightgrey',
+    backgroundColor: 'lightgrey',
     flexDirection: 'row',
   },
 });
