@@ -54,7 +54,10 @@ export default class Quest extends React.Component {
   _complete = () => {this.state._completeQuest(this.state._qindex)}
 
   //mark this quest as slected
-  _select = () => { this.state._selectQuest(this.state._qindex); }
+  _select = () => {
+    
+     this.state._selectQuest(this.state._qindex);
+    }
 
   //make an edit on the Quest title
   _edit = (newTitle) => {this.state._editQuest(newTitle, this.state._qindex)}

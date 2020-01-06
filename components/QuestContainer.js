@@ -175,7 +175,10 @@ export default class QuestContainer extends React.Component {
   _exitEditMode = () => {
     //set all exit Modes all the quest as false
     var quests = this.state.Quests;
-    quests.forEach( value => value.isInEditMode = false );
+    quests.forEach( value => { 
+      value.isInEditMode = false 
+      //value.isActiveDummyTask = false;
+    });
     this.setState({Quests: quests});
   }
   

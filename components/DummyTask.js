@@ -18,9 +18,11 @@ export default class DummyTask extends React.Component{
     this.state = {
       InputBuff: '',
     }
+    this.dummyInput = React.createRef();
   } 
 
   _summit = () => {
+    this.dummyInput.current.clear();
     this.props._addTask(this.props._qindex, this.state.InputBuff);
   }
   
@@ -32,8 +34,10 @@ export default class DummyTask extends React.Component{
           source={require('../assets/images/DummyArrow.png')} 
         />
         <TextInput
+          ref={this.dummyInput}
           style={styles.unselected}
           onSubmitEditing={this._summit}
+          clearButtonMode="always"
           onChangeText={(input) => {this.setState({InputBuff: input})}}
           placeholder={'New Task'}
         /> 

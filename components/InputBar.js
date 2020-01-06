@@ -38,6 +38,9 @@ export default class InputBar extends React.Component {
   }
 
   _create = () => {
+    //clear buffer
+    this.setState({inputbuff: ''});
+    this.mainInput.current.clear();
     this.props._createQuest(
       {
         title: this.state.inputbuff.toUpperCase(),
@@ -49,8 +52,6 @@ export default class InputBar extends React.Component {
         tasks: [],
       }
     );
-    //clear buffer
-    this.setState({inputbuff: ''});
   }
 
   _selectShield = (shiled) => {
@@ -64,8 +65,6 @@ export default class InputBar extends React.Component {
     this.props._exitEditMode();
     this.state.visibleOverlay = !this.state.visibleOverlay;
   }
-
-  _addQuest
 
   _renderShiledPicker = () => {
     return (
@@ -110,6 +109,7 @@ export default class InputBar extends React.Component {
           ref={this.mainInput}
           onChangeText={input => this.setState({ inputbuff: input })}
           onSubmitEditing={this._create}
+          clearButtonMode="always"
           placeholder="New Quest..."
           inputStyle={styles.inputBar}
           inputContainerStyle={styles.inputContainer}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
     height: 50,
+    paddingLeft: 18,
     flexDirection: 'row',
   },
   inputContainer:{
