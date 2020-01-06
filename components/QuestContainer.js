@@ -40,6 +40,7 @@ export default class QuestContainer extends React.Component {
           selected: false,
           done: false,
           isInEditMode: false,
+          isActiveDummyTask: false,
           tasks: [
             {
               title: "Go To Velen",
@@ -61,6 +62,7 @@ export default class QuestContainer extends React.Component {
           selected: false,
           done: false,
           isInEditMode: false,
+          isActiveDummyTask: false,
           tasks: [
             {
               title: "Win a unique card from the baron",
@@ -85,6 +87,7 @@ export default class QuestContainer extends React.Component {
           selected: false,
           done: false,
           isInEditMode: false,
+          isActiveDummyTask: false,
           tasks: [
             {
               title: "Find boot Diagram using your Witcher senses",

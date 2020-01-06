@@ -35,7 +35,6 @@ export default class Quest extends React.Component {
       ...this.props,
       data: this.props._questData,
       layoutHeight: 0,
-      isActiveDummyTask: false,
     };
   }
     
@@ -131,8 +130,8 @@ export default class Quest extends React.Component {
                 //if Quest is done
                   <StyledIcon
                     style={styles.rewardIcon}
-                    name="bomb"
-                    size={45}
+                    name="reward"
+                    size={38}
                     onPress={this._remove}
                   /> : null}
             </TouchableOpacity>
@@ -141,7 +140,7 @@ export default class Quest extends React.Component {
         {/* Container for the tasks */}
         <View style={{ height: this.state.data.selected ? null : 0, overflow: 'hidden', }}>
           {this.props._questData.tasks.map(this._renderTask)}
-          {this.state.isActiveDummyTask || this.state.data.isInEditMode? 
+          {this.state.data.isActiveDummyTask || this.state.data.isInEditMode? 
             <DummyTask 
               _addTask={this.props._addTask}
               _qindex={this.state._qindex}
@@ -209,6 +208,7 @@ const styles = StyleSheet.create({
     paddingRight:10,
   },
   rewardIcon:{
+    paddingRight:10,
   },
   shield: {
     width: 40,

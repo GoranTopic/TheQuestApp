@@ -11,7 +11,7 @@ export default class StyledIcon extends React.Component {
     this.state = {
       icons:{
         bomb: require('../assets/images/delete-icon.png'),
-        reward: require('../assets/images/delete-icon.png')
+        reward: require('../assets/images/reward-icon.png')
       },
     }
   }
@@ -25,7 +25,10 @@ export default class StyledIcon extends React.Component {
       }else{  
         //if icon name is passed
         if(this.props.name == "bomb") return this.state.icons.bomb;
-        else if(this.props.name == "reward") return this.state.icons.reward;
+        else if(this.props.name == "reward"){ 
+          console.log("reward is active"); 
+          return this.state.icons.reward;
+        }
       }
     }else{
       //if address is passed
