@@ -14,6 +14,7 @@ import Task from './Task';
 import colors from '../constants/Colors';
 import { AnimatedGradient } from "../AnimatedGradient";
 import StyledIcon from '../components/StyledIcon';
+import DummyTask from './DummyTask';
 
 
 
@@ -34,7 +35,7 @@ export default class Quest extends React.Component {
       ...this.props,
       data: this.props._questData,
       layoutHeight: 0,
-      isActiveDummyTask: false,
+      isActiveDummyTask: true,
     };
   }
     
@@ -140,6 +141,11 @@ export default class Quest extends React.Component {
         {/* Container for the tasks */}
         <View style={{ height: this.state.data.selected ? null : 0, overflow: 'hidden', }}>
           {this.props._questData.tasks.map(this._renderTask)}
+          {this.state.isActiveDummyTask? 
+            <DummyTask 
+              _addTask={this.props._addTask}
+              _qindex={this.state._qindex}
+            /> : null}
         </View>
       </View>
     )

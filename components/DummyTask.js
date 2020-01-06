@@ -1,11 +1,9 @@
 import React from 'react';
-import { Text, Image, CheckBox } from 'react-native-elements'
+import { Image, Input} from 'react-native-elements'
 import colors from '../constants/Colors';
-import StyledIcon from '../components/StyledIcon';
 
 
 import {
-  TouchableOpacity,
   View,
   StyleSheet,
   TextInput,
@@ -23,58 +21,23 @@ export default class DummyTask extends React.Component{
     }
   } 
 
-  _exitEdit = () => {
-    //exits the edit mode
-    this.props._exitEditMode()
+  _summit = () => {
+    this.props._addTask(this.props._qindex, this.state.InputBuff);
   }
-
-  _edit = (newTitle) => {
-    //edits a task
-    this.props._editTask(newTitle, this.props._qindex, this.props._tindex);
-  }
-
-  _remove = () => {
-    //removes a task from the quest
-    this.props._removeTask(this.props._qindex, this.props._tindex);
-  }
-
-  _complete =  () => { 
-    //fuction which marks the task as completed
-    this.props._completeTask(this.props._qindex, this.props._tindex);
-  }
-
-  _select =  () => {
-    //function which selects task
-    this.props._selectTask(this.props._qindex, this.props._tindex)
-  }
-
-  _selectedMarker = () => {
-    //fuction that changes the icon for the marker so that is displays as slected 
-    return this.state.data.selected? 
-      <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
-      <Image style={styles.marker} source={require('../assets/images/markers/marker.png')} /> 
-  }
-
-
+  
   render() {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.container}>
         <Image 
-          style={styles.Dummy} 
-          source={require('../assets/images/markers/DummyTask.png')} 
-          checked={this.state.data.done}
-          onPress={this._select}
-          onLongPress={this._complete}
-          onIconPress={this._complete}
+          style={styles.dummy} 
+          source={require('../assets/images/DummyArrow.png')} 
         />
-        <TextInput
-          onSubmitEditing={}
-          onChangeText={}
-          placeholder={"New Task"}
+        <Input
+          onSubmitEditing={this._summit}
+          onChangeText={(input) => {this.setState({InputBuff: input})}}
+          placeholder={'New Task'}
           style={styles.selected}
-          defaultValue={this.props._questData.title}
         /> 
- 
       </View>
     )
   }
@@ -82,43 +45,25 @@ export default class DummyTask extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 18,
+    paddingLeft: 28,
+    paddingTop: 10,
+    paddingBottom: 10,
     flex: 1,
-    backgroundColor: 'rgba(52, 52, 52, 0)',
-    borderColor: 'rgba(52, 52, 52, 0)'
-  },
-  white:{
-    color:'white',
-  },
-  done:{
-    fontFamily:'helvetica-lt',
-    paddingLeft:10,
-    fontSize:18,
-    flex:1,
-    color: colors.doneTask,
-    textDecorationLine: 'line-through',
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent'
   },
   selected:{
     fontFamily:'helvetica-lt',
     paddingLeft:10,
     fontSize:18,
     flex:1,
-    color: colors.selectedTask,
+    color: 'white',
   },
-  unselected:{
-    fontFamily:'helvetica-lt',
-    paddingLeft:10,
-    fontSize:18,
-    flex:1,
-    color: colors.unselectedTask,
-  },
-  marker:{
+  dummy:{
     width:25,
     height:25,
   },
-  bombIcon:{
-    paddingRight:5,
-    paddingTop:10, 
-  },
+ 
 });
 

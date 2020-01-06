@@ -147,12 +147,7 @@ export default class QuestContainer extends React.Component {
     })
     this.setState({Quests: quests})
   }
-
-  _changeQuestShiled = (qIndex) => {
-    //changes the shild in shown in the quest
-    //coming soon near you...
-  }
-
+ 
   _checkQuestIsDone = (qIndex) =>{
     //checks wheather a quest has completed all it task, if so the mark it as complete
     var quests = this.state.Quests; 
@@ -329,7 +324,7 @@ export default class QuestContainer extends React.Component {
       _completeTask={this._completeTask}
       _removeTask={this._removeTask}
       _editTask={this._editTask}
-
+      _addTask={this._addTask}
       _qindex={index}
       key={index}
     />

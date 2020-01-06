@@ -8,7 +8,7 @@ import {
   View,
   Image,
 } from 'react-native';
-import { Overlay,} from 'react-native-elements'
+import { Overlay, Input } from 'react-native-elements'
 
 
 import StyledIcon from '../components/StyledIcon';
@@ -44,13 +44,7 @@ export default class InputBar extends React.Component {
         selected: true,
         done: false,
         isInEditMode: false,
-        tasks: [
-          {
-            title: "...",
-            selected: false,
-            done: false,
-          }
-        ],
+        tasks: [],
       }
     );
     //clear buffer
@@ -102,13 +96,13 @@ export default class InputBar extends React.Component {
         </Overlay>
 
         <StyledIcon
-          style={styles.bombIcon}
+          style={styles.selectedShiled}
           name="bomb"
           source={this.state.selectedShiled}
           size={45}
           onPress={this._toggleOverlay}
         />
-        <TextInput
+        <Input
           onChangeText={input => this.setState({ inputbuff: input })}
           onSubmitEditing={this._create}
           placeholder="New Quest..."
@@ -131,10 +125,13 @@ const styles = StyleSheet.create({
   },
   inputBar: {
     fontFamily: 'helvetica-lt',
-    paddingLeft: 15,
+    paddingLeft: 25,
     fontSize: 20,
-    flex: 1,
     color: 'white',
+  },
+  selectedShiled:{
+    height: 20,
+    width: 20, 
   },
   pickerShield: {
     padding:10,
