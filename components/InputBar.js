@@ -48,10 +48,13 @@ export default class InputBar extends React.Component {
         selected: true,
         done: false,
         isInEditMode: false,
-        tasks: [],
+        tasks: [{
+
+        }],
       }
     );
-    this.state.inputbuff = '';
+    //clear buffer
+    this.setState({inputbuff: ''});
   }
 
   _selectShield = (shiled) => {
