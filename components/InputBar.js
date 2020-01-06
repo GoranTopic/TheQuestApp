@@ -9,10 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { Overlay, Input } from 'react-native-elements'
-
-
 import StyledIcon from '../components/StyledIcon';
-import { color } from '../constants/Colors';
 
 export default class InputBar extends React.Component {
   /* Bar icon which is reposnasable for the createioin of new quest,
@@ -107,6 +104,7 @@ export default class InputBar extends React.Component {
           onSubmitEditing={this._create}
           placeholder="New Quest..."
           style={styles.inputBar}
+          inputStyle={styles.inputBar}
         />
         <StyledIcon
           source={this.state.selectedShiled}
@@ -125,9 +123,9 @@ const styles = StyleSheet.create({
   },
   inputBar: {
     fontFamily: 'helvetica-lt',
-    paddingLeft: 25,
+    paddingLeft:200,
     fontSize: 20,
-    color: 'white',
+    color: 'red',
   },
   selectedShiled:{
     height: 20,

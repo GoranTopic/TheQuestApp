@@ -35,7 +35,7 @@ export default class Quest extends React.Component {
       ...this.props,
       data: this.props._questData,
       layoutHeight: 0,
-      isActiveDummyTask: true,
+      isActiveDummyTask: false,
     };
   }
     
@@ -141,7 +141,7 @@ export default class Quest extends React.Component {
         {/* Container for the tasks */}
         <View style={{ height: this.state.data.selected ? null : 0, overflow: 'hidden', }}>
           {this.props._questData.tasks.map(this._renderTask)}
-          {this.state.isActiveDummyTask? 
+          {this.state.isActiveDummyTask || this.state.data.isInEditMode? 
             <DummyTask 
               _addTask={this.props._addTask}
               _qindex={this.state._qindex}

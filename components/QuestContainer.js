@@ -114,7 +114,6 @@ export default class QuestContainer extends React.Component {
     if(this.state.isWritingTasks){
       //if it is writting the tasks
       this._addTask(this.state.Quests.length - 1, this.state.inputbuff); 
-
     }else{
       //if first quest is not yet written
       this._addQuest(this.state.inputbuff);

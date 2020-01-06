@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, Input} from 'react-native-elements'
 import colors from '../constants/Colors';
 
-
 import {
   View,
   StyleSheet,
@@ -32,11 +31,11 @@ export default class DummyTask extends React.Component{
           style={styles.dummy} 
           source={require('../assets/images/DummyArrow.png')} 
         />
-        <Input
+        <TextInput
+          style={styles.unselected}
           onSubmitEditing={this._summit}
           onChangeText={(input) => {this.setState({InputBuff: input})}}
           placeholder={'New Task'}
-          style={styles.selected}
         /> 
       </View>
     )
@@ -59,6 +58,13 @@ const styles = StyleSheet.create({
     fontSize:18,
     flex:1,
     color: 'white',
+  },
+  unselected:{
+    fontFamily:'helvetica-lt',
+    paddingLeft:10,
+    fontSize:18,
+    flex:1,
+    color: colors.unselectedTask,
   },
   dummy:{
     width:25,
