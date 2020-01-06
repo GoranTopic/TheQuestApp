@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Button,
   Picker,
+  BackHandler,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
@@ -36,7 +37,8 @@ export default class QuestContainer extends React.Component {
       Quests: [
         {
           title: "IN CIRI'S FOOTSTEPS",
-          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
+          shield: require('../assets/images/shields/COA_multiple_locations_Tw3.png'),
+          exp: 10,
           selected: false,
           done: false,
           isInEditMode: false,
@@ -58,7 +60,8 @@ export default class QuestContainer extends React.Component {
           ]
         }, {
           title: "GWENT: VELEN PLAYERS",
-          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
+          shield: require('../assets/images/shields/COA_Velen_Tw3.png'),
+          exp: 20,
           selected: false,
           done: false,
           isInEditMode: false,
@@ -84,6 +87,7 @@ export default class QuestContainer extends React.Component {
         }, {
           title: "SCAVENGER HUNT: CAT SCHOOL GEAR UPGRADE DIAGRAMS",
           shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
+          exp: 15,
           selected: false,
           done: false,
           isInEditMode: false,
@@ -109,24 +113,18 @@ export default class QuestContainer extends React.Component {
         },  
       ]
     }
-  }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
 
-  _handlekeyboradInput = () =>{
-    this._exitEditMode();
-    //handles the adding of a new quest from the text input
-    if(this.state.isWritingTasks){
-      //if it is writting the tasks
-      this._addTask(this.state.Quests.length - 1, this.state.inputbuff); 
-    }else{
-      //if first quest is not yet written
-      this._addQuest(this.state.inputbuff);
-      this.setState({ inputbuff: '', isWritingTasks: true });
-      this._addTask(this.state.Quests.length - 1, " ");
-      this._selectQuest(this.state.Quests.length - 1);
-    }
+
+  }
+ 
+  handleBackButtonClick(){
+    //allegetly handles back button press
+    this._exitModes();
+    return true;
   }
   
-  
+
   _createQuest = (newQuest) => {
     //creates a new ques which is passed
     this._exitEditMode();
