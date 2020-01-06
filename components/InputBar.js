@@ -43,7 +43,7 @@ export default class InputBar extends React.Component {
   _create = () => {
     this.props._createQuest(
       {
-        title: this.inputBuff,
+        title: this.state.inputbuff,
         shield: this.state.selectedShiled,
         selected: true,
         done: false,
