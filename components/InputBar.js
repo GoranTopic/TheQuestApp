@@ -133,13 +133,13 @@ const styles = StyleSheet.create({
   },
   inputContainer:{
     borderBottomColor: "#845426",
+    width: null,
   },
   inputBar: {
     fontFamily: 'helvetica-lt',
     paddingLeft:10,
     fontSize: 20,
-    flex :1,
-    minWidth:100,
+    width: null,
     color: 'white',
   },
   selectedShiled:{

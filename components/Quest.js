@@ -121,7 +121,7 @@ export default class Quest extends React.Component {
                     {this.props._questData.title}
                   </Text>
                 }
-                <Text>{this.state.data.exp}</Text>
+                <Text style={styles.exp}>EXP: {this.state.data.exp}</Text>
               </View>
               {this.state.data.isInEditMode ?
               //if it is in edit mode
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 1,
     paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 0,
     color: colors.selectedQuest,
   },
   unselected: {
@@ -206,8 +206,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 1,
     paddingTop: 20,
-    paddingBottom: 20,
     color: colors.unselectedQuest,
+  },
+  exp:{
+    fontFamily: 'helvetica-lt',
+    paddingLeft: 25,
+    fontSize: 12,
+    flex: 1,
+    paddingBottom: 20,
+    color: colors.unselectedQuestNote,
+
   },
   bombIcon:{
     paddingRight:10,
