@@ -1,19 +1,11 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   ImageBackground,
 } from 'react-native';
 
-import {color} from '../constants/Colors';
-import { MonoText } from '../components/StyledText';
-import Quest from '../components/Quest';
 import QuestContainer from '../components/QuestContainer';
 
 
