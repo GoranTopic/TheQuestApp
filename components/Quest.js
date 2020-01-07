@@ -55,7 +55,6 @@ export default class Quest extends React.Component {
 
   //mark this quest as slected
   _select = () => {
-    
      this.state._selectQuest(this.state._qindex);
     }
 
@@ -110,17 +109,20 @@ export default class Quest extends React.Component {
             >
               <Image source={this.state.data.shield}
                 style={styles.shield} />
-              {this.state.data.isInEditMode ?
-                <TextInput
-                  onSubmitEditing={this._exitEdit}
-                  onChangeText={this._edit}
-                  style={styles.selected}
-                  defaultValue={this.props._questData.title}
-                /> :
-                <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
-                  {this.props._questData.title}
-                </Text>
-              }
+                <View style={{ flexDirection: 'column' }}>
+                {this.state.data.isInEditMode ?
+                  <TextInput
+                    onSubmitEditing={this._exitEdit}
+                    onChangeText={this._edit}
+                    style={styles.selected}
+                    defaultValue={this.props._questData.title}
+                  /> :
+                  <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
+                    {this.props._questData.title}
+                  </Text>
+                }
+                <Text>{this.state.data.exp}</Text>
+              </View>
               {this.state.data.isInEditMode ?
               //if it is in edit mode
                 <StyledIcon

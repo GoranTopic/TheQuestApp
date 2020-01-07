@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
     fontSize: 20,
     flex :1,
+    minWidth:100,
     color: 'white',
   },
   selectedShiled:{

@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import TabBarIcon from '../components/TabBarIcon';
-import { createBottomTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, createMaterialTopTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
 import ToDoScreen from '../screens/ToDoScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
@@ -13,44 +13,6 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}` : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-  ),
-};
-
-LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -87,10 +49,8 @@ ToDoStack.navigationOptions = {
 
 ToDoStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
+const tabNavigator = createMaterialTopTabNavigator({
   ToDoStack, 
-  HomeStack,
-  LinksStack,
   SettingsStack,
 });
 
