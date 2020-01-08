@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  StatusBar
 } from 'react-native';
 
 import QuestContainer from '../components/QuestContainer';
@@ -13,9 +14,9 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.background} source={require('../assets/images/background.png')} >
-          <QuestContainer/>
-        </ImageBackground>
-      </View>
+        <QuestContainer />
+      </ImageBackground>
+    </View>
   );
 }
 

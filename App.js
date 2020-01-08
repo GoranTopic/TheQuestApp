@@ -1,11 +1,14 @@
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
+import React, { useState, Component, } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator';
+
+import ToDoScreen from './screens/ToDoScreen';
+import Constants from 'expo-constants';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -21,8 +24,13 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        {Platform.OS === 'ios' &&
+          <StatusBar barStyle="default" />}
+        <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
+
+        <View style={styles.view}/>
+        <ToDoScreen />
+        {/*<AppNavigator />*/}
       </View>
     );
   }
@@ -72,4 +80,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  view:{
+    backgroundColor:'#4d351d',
+    height:Constants.statusBarHeight,
+  }
 });
