@@ -29,8 +29,7 @@ export default function App(props) {
         <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
 
         <View style={styles.view}/>
-        <ToDoScreen />
-        {/*<AppNavigator />*/}
+        <AppNavigator />
       </View>
     );
   }

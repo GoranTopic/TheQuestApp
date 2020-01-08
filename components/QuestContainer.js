@@ -29,13 +29,10 @@ export default class QuestContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputbuff: '',
-      questInput: '',
-      newTask: '',
-      dummyTask: '',
-      isWritingTasks: false,
+      QCount: 3,
       Quests: [
         {
+          qIndex: 0,
           title: "IN CIRI'S FOOTSTEPS",
           shield: require('../assets/images/shields/COA_multiple_locations_Tw3.png'),
           exp: 10,
@@ -59,6 +56,7 @@ export default class QuestContainer extends React.Component {
             }
           ]
         }, {
+          qIndex: 1,
           title: "GWENT: VELEN PLAYERS",
           shield: require('../assets/images/shields/COA_Velen_Tw3.png'),
           exp: 20,
@@ -85,6 +83,7 @@ export default class QuestContainer extends React.Component {
               done: false,
             }]
         }, {
+          qIndex: 2,
           title: "SCAVENGER HUNT: CAT SCHOOL GEAR UPGRADE DIAGRAMS",
           shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
           exp: 15,
@@ -113,8 +112,6 @@ export default class QuestContainer extends React.Component {
         },
       ]
     }
-
-
   }
 
   componentDidMount(){
@@ -123,29 +120,16 @@ export default class QuestContainer extends React.Component {
 
   componentWillUnmount(){
     this.backHandler.remove();
-    
-  }
-  _createQuest = (newQuest) => {
-    //creates a new ques which is passed
-    this._exitEditMode();
-    var quests = this.state.Quests;
-    quests.push(newQuest);
-    this.setState({ Quests: quests })
   }
 
-  _addQuest = (newtitle) => {
-    //Adds a new Quest to the list of quests
-    this._exitEditMode();
+  _createQuest = (newQuest) => {
+    //creates a new quest which is passed
+    this._exitEditMode(); //if was in editting mode
     var quests = this.state.Quests;
-    quests.push({
-      title: newtitle,
-      shield: "N/A",
-      selected: false,
-      done: false,
-      isInEditMode: false,
-      tasks: [],
-    })
-    this.setState({ Quests: quests })
+    newQuest.qIndex = this.state.QCount;
+    quests.push(newQuest);
+    this.setState({ Quests: quests }) //update quest
+    this.setState({ QCount: this.state.QCount + 1}) //update count
   }
 
   _checkQuestIsDone = (qIndex) => {
@@ -162,14 +146,22 @@ export default class QuestContainer extends React.Component {
     return true;
   }
 
-   _removeQuest = (index) => {
+   _removeQuest = (qIndex) => {
     //removes a quest in the quest array
     this._exitModes();
     var quests = this.state.Quests;
-    quests.splice(index, 1);
-    this.setState({ Quests: quests })
+    var questCount = 0;
+    quests.splice(qIndex, 1);
+    //update the index of every quest
+    quests.forEach(
+      (value, index) => {
+        value.qIndex = index;
+        questCount++;
+      }
+    )
+    this.setState({QCount: questCount});
+    this.setState({ Quests: quests });
   }
-
 
   _selectQuest = (qIndex) => {
     //marks a single quest as selected
@@ -198,7 +190,7 @@ export default class QuestContainer extends React.Component {
   }
  
   handleBackButtonClick = () => {
-    //allegetly handles back button press
+    //Allegedly, handles back button press
     var quests = this.state.Quests;
     var isChange = false;
     quests.forEach(value => {
@@ -214,7 +206,7 @@ export default class QuestContainer extends React.Component {
       }
     });
     this.setState({ Quests: quests });
-    return false;
+    return isChange;
   }
 
 
