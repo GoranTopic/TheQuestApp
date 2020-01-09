@@ -55,7 +55,6 @@ export default class Quest extends React.Component {
 
   //mark this quest as slected
   _select = () => {
-    console.log(this.state.data.qindex);
      this.state._selectQuest(this.state.data.qindex);
     }
 
@@ -81,7 +80,7 @@ export default class Quest extends React.Component {
         _tindex={index}
         qindex={this.props.qindex}
         isInEditMode = {this.state.data.isInEditMode}
-        key={index}
+        key={JSON.stringify(value)}
       />)
   }
 

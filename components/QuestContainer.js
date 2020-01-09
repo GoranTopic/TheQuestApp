@@ -169,58 +169,30 @@ export default class QuestContainer extends React.Component {
   }
 
    _removeQuest = (qindex) => {
+     this._exitModes();
     //removes a quest in the quest array
     var quests = [...this.state.Quests];
-
-    quests.forEach(
-      (value, index) => {
-        console.log(" ");
-        console.log( value.title);
-        console.log("selected: " + value.selected)
-        console.log (value.shield);
-        console.log("value index: " + value.qindex +" = " + index);
-      }
-    )
-
-    //quests = this.state.Quests.filter((quest) => {return quest.qindex !== qindex } );
     var questCount = 0;
+    //remove element
     quests.splice(qindex, 1);
-
-    //quests.splice(qindex, 1);
-    console.log("-----------------------------------------");
     //update the index of every quest
     quests.forEach(
       (value, index) => {
         value.qindex = index;
-        value.selected = false;
-        value.isActiveDummyTask = false;
-        value.isInEditMode = false;
         questCount++;
-        console.log(" ");
-        console.log(value.title);
-        console.log("selected: " + value.selected)
-        console.log(value.shield);
-        console.log("value index: " + value.qindex + " = " + index);
       }
     )
     this.setState({ 
       Quests: quests,
+      QCount: questCount,
     });
   }
 
   _selectQuest = (qindex) => {
     //marks a single quest as selected
-    console.log("to selecet: " + qindex)
     this._exitModes();
     var quests = [...this.state.Quests];
     quests[qindex].selected = !quests[qindex].selected;
-    //quests.forEach(
-      //(value, index) => {
-        //if (index == qindex) {
-          //comment out this line to make quest selecte exclusible to one quest
-          //else value.selected = false;
-        //}
-      //})
     this.setState({ Quests: quests });
   }
 
@@ -237,27 +209,21 @@ export default class QuestContainer extends React.Component {
   _exitEditMode = () => {
     //set all exit Modes all the quest as false
     var quests = [...this.state.Quests];
-    quests.forEach(value => {
-      value.isInEditMode = false
-    });
+    quests.forEach(value => { value.isInEditMode = false });
     this.setState({ Quests: quests });
   }
 
   _exitDummyMode = () => {
     //exits the dummy mode when adding tasks
     var quests = [...this.state.Quests];
-    quests.forEach(value => {
-      value.isActiveDummyTask = false;
-    });
+    quests.forEach(value => { value.isActiveDummyTask = false; });
     this.setState({ Quests: quests });
   }
 
   _editQuest = (newTitle, qindex) => {
     //edit the selected quest
     var quests = [...this.state.Quests];
-    quests.forEach(
-      (value, index) => { if (index == qindex) value.title = newTitle }
-    )
+    quests[qindex].title = newTitle;
     this.setState({ Quests: quests });
   }
 
@@ -272,6 +238,7 @@ export default class QuestContainer extends React.Component {
           value.selected = true;
         }
         else {
+          //set de select all other quest
           value.isInEditMode = false;
           value.selected = false;
         }
@@ -284,9 +251,7 @@ export default class QuestContainer extends React.Component {
     //marks a single quest as done
     this._exitModes();
     var quests = [...this.state.Quests];
-    quests.forEach(
-      (value, index) => { if (index === qindex) value.done = true; }
-    )
+    quests[qindex].done = true;
     this.setState({ Quests: quests })
   }
 
