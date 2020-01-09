@@ -51,21 +51,22 @@ export default class Quest extends React.Component {
   _exitEdit = () => {this.state._exitEditMode()}
 
   //mark the quest as completed
-  _complete = () => {this.state._completeQuest(this.state._qindex)}
+  _complete = () => {this.state._completeQuest(this.state.data.qindex)}
 
   //mark this quest as slected
   _select = () => {
-     this.state._selectQuest(this.state._qindex);
+    console.log(this.state.data.qindex);
+     this.state._selectQuest(this.state.data.qindex);
     }
 
   //make an edit on the Quest title
-  _edit = (newTitle) => {this.state._editQuest(newTitle, this.state._qindex)}
+  _edit = (newTitle) => {this.state._editQuest(newTitle, this.state.data.qindex)}
 
   //set the quest as a editable Mode
-  _setEditMode = () => { this.state._setEditModeQuest(this.state._qindex);}
+  _setEditMode = () => { this.state._setEditModeQuest(this.state.data.qindex);}
 
   //remove quest 
-  _remove = () => {this.state._removeQuest(this.state._qindex)}
+  _remove = () => {this.state._removeQuest(this.state.data.qindex)}
 
   //function to change into task title
   _renderTask = (value, index) => {
@@ -78,7 +79,7 @@ export default class Quest extends React.Component {
         _editTask={this.props._editTask}
         _exitEditMode={this.props._exitEditMode}
         _tindex={index}
-        _qindex={this.props._qindex}
+        qindex={this.props.qindex}
         isInEditMode = {this.state.data.isInEditMode}
         key={index}
       />)
@@ -148,7 +149,7 @@ export default class Quest extends React.Component {
           {this.state.data.isActiveDummyTask || this.state.data.isInEditMode? 
             <DummyTask 
               _addTask={this.props._addTask}
-              _qindex={this.state._qindex}
+              qindex={this.state.qindex}
             /> : null}
         </View>
       </View>
