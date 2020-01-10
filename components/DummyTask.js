@@ -23,7 +23,7 @@ export default class DummyTask extends React.Component{
 
   _summit = () => {
     this.dummyInput.current.clear();
-    this.props._addTask(this.props._qindex, this.state.InputBuff);
+    this.props._addTask(this.props.qindex, this.state.InputBuff);
   }
   
   render() {

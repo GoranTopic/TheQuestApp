@@ -36,21 +36,21 @@ export default class Task extends React.Component{
 
   _edit = (newTitle) => {
     //edits a task
-    this.props._editTask(newTitle, this.props._qindex, this.props._tindex);
+    this.props._editTask(newTitle, this.props.qindex, this.props.data.tindex);
   }
   _remove = () => {
     //removes a task from the quest
-    this.props._removeTask(this.props._qindex, this.props._tindex);
+    this.props._removeTask(this.props.qindex, this.props.data.tindex);
   }
 
   _complete =  () => { 
     //fuction which marks the task as completed
-    this.props._completeTask(this.props._qindex, this.props._tindex);
+    this.props._completeTask(this.props.qindex, this.props.data.tindex);
   }
 
   _select =  () => {
     //function which selects task
-    this.props._selectTask(this.props._qindex, this.props._tindex)
+    this.props._selectTask(this.props.qindex, this.props.data.tindex)
   }
 
   _selectedMarker = () => {

@@ -77,8 +77,7 @@ export default class Quest extends React.Component {
         _removeTask={this.props._removeTask}
         _editTask={this.props._editTask}
         _exitEditMode={this.props._exitEditMode}
-        _tindex={index}
-        qindex={this.props.qindex}
+        qindex={this.state.data.qindex}
         isInEditMode = {this.state.data.isInEditMode}
         key={JSON.stringify(value)}
       />)
@@ -148,7 +147,7 @@ export default class Quest extends React.Component {
           {this.state.data.isActiveDummyTask || this.state.data.isInEditMode? 
             <DummyTask 
               _addTask={this.props._addTask}
-              qindex={this.state.qindex}
+              qindex={this.state.data.qindex}
             /> : null}
         </View>
       </View>

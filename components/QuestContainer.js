@@ -40,17 +40,21 @@ export default class QuestContainer extends React.Component {
           done: false,
           isInEditMode: false,
           isActiveDummyTask: false,
+          tCount: 4,
           tasks: [
             {
               title: "Go To Velen",
+              tindex: 0,
               selected: false,
               done: false,
             }, {
               title: "Find Yennifer",
+              tindex: 1,
               selected: false,
               done: false,
             }, {
               title: "Have Sex with Yennifer",
+              tindex: 2,
               selected: false,
               done: false,
             }
@@ -64,21 +68,26 @@ export default class QuestContainer extends React.Component {
           done: false,
           isInEditMode: false,
           isActiveDummyTask: false,
+          tCount: 4,
           tasks: [
             {
               title: "Win a unique card from the baron",
+              tindex: 0,
               selected: false,
               done: false,
             }, {
               title: "Win a unique card from the man in Oreton",
+              tindex: 1,
               selected: false,
               done: false,
             }, {
               title: "Win a unique card from Haddy of Midcopse",
+              tindex: 2,
               selected: false,
               done: false,
             }, {
               title: "Win a unique card from the soothsayer",
+              tindex: 3,
               selected: false,
               done: false,
             }]
@@ -91,21 +100,26 @@ export default class QuestContainer extends React.Component {
           done: false,
           isInEditMode: false,
           isActiveDummyTask: false,
+          tCount: 4,
           tasks: [
             {
               title: "Find boot Diagram using your Witcher senses",
+              tindex: 0,
               selected: false,
               done: false,
             }, {
               title: "Find the silver sword ugrade diagram using your Witcher Senses",
+              tindex: 1,
               selected: false,
               done: false,
             }, {
               title: "Find the armor upgrade diagram using your Witcher Senses",
+              tindex: 2,
               selected: false,
               done: false,
             }, {
               title: "Win a unique card from the soothsayer",
+              tindex: 3,
               selected: false,
               done: false,
             }]
@@ -255,14 +269,10 @@ export default class QuestContainer extends React.Component {
     this.setState({ Quests: quests })
   }
 
-  _editTask = (newTitle, qindex, tIndex) => {
+  _editTask = (newTitle, qindex, tindex) => {
     //marks a single task as selecet from a given index quest
     var quests = [...this.state.Quests];
-    quests[qindex].tasks.forEach(
-      (value, index) => {
-        if (index === tIndex) value.title = newTitle;
-      }
-    )
+    quests[qindex].tasks[tindex].selected = newTitle; 
     this.setState({ Quests: quests })
   }
 
@@ -273,50 +283,46 @@ export default class QuestContainer extends React.Component {
     quests[qindex].tasks.push(
       {
         title: title,
+        tindex: quests[qindex].tCount,
         selected: false,
         done: false,
       }
     )
+    quests[qindex].tCount++;
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
   }
 
 
-  _removeTask = (qindex, tIndex) => {
+  _removeTask = (qindex, tindex) => {
     //removes a single task from a quest of the given index
     var quests = [...this.state.Quests];
-    quests[qindex].tasks.splice(tIndex, 1);
-
+    //remove task
+    quests[qindex].tasks.splice(tindex, 1);
+    //update task indexes
+    quests[qindex].tasks.forEach(
+      (value, index) => value.tindex = index
+    )
+    quests[qindex].tCount--;
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
   }
 
-  _selectTask = (qindex, tIndex) => {
+  _selectTask = (qindex, tindex) => {
     //marks a single task as selecet from a given index quest
     this._exitModes();
     var quests = [...this.state.Quests];
-    quests[qindex].tasks.forEach(
-      (value, index) => {
-        if (index === tIndex) value.selected = !value.selected;
-        else value.selected = false;
-      }
-    )
+    quests[qindex].tasks[tindex].selected = !quests[qindex].tasks[tindex].selected; 
     this.setState({ Quests: quests })
   }
 
-  _completeTask = (qindex, tIndex) => {
+  _completeTask = (qindex, tindex) => {
     //marks a single task as selecet from a given index quest
     this._exitModes();
     var quests = [...this.state.Quests];
-    quests[qindex].tasks.forEach(
-      (value, index) => {
-        if (index == tIndex) {
-          value.selected = false;
-          value.done = !value.done;
-        }
-      }
-    )
-
+    quests[qindex].tasks[tindex].selected = false; 
+    quests[qindex].tasks[tindex].done = !quests[qindex].tasks[tindex].done; 
+    
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
   }
@@ -345,6 +351,7 @@ export default class QuestContainer extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollable} >
           {this.state.Quests.map(this._renderQuest)}
+          <View style={styles.emptyspace}/>
         </ScrollView>
         <KeyboardAvoidingView
           style={styles.avoidingView}
@@ -380,4 +387,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
     flexDirection: 'row',
   },
+  emptyspace:{
+    backgroundColor: 'transparent',
+    width: null,
+    height: 250,
+  }
 });
