@@ -113,7 +113,7 @@ export default class Quest extends React.Component {
                   <TextInput
                     onSubmitEditing={this._exitEdit}
                     onChangeText={this._edit}
-                    style={styles.selected}
+                    style={styles.editQuestTitle}
                     defaultValue={this.props._questData.title}
                   /> :
                   <Text style={this.state.data.selected ? styles.selected : styles.unselected}>
@@ -199,6 +199,15 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     color: colors.selectedQuest,
   },
+  editQuestTitle: {
+    fontFamily: 'helvetica-lt',
+    paddingLeft: 15,
+    fontSize: 20,
+    paddingTop: 20,
+    maxWidth : "70%",
+    paddingBottom: 0,
+    color: colors.selectedQuest,
+  },
   unselected: {
     fontFamily: 'helvetica-lt',
     paddingLeft: 15,
@@ -214,7 +223,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 20,
     color: colors.unselectedQuestNote,
-
   },
   bombIcon:{
     paddingRight:10,

@@ -51,6 +51,7 @@ export default class InputBar extends React.Component {
         done: false,
         isInEditMode: false,
         isActiveDummyTask: true,
+        tCount: 0,
         tasks: [],
       }
     );

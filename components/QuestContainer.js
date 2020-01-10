@@ -288,7 +288,8 @@ export default class QuestContainer extends React.Component {
         done: false,
       }
     )
-    quests[qindex].tCount++;
+    quests[qindex].tCount = quests[qindex].tCount + 1;
+    console.log("created task index: " + quests[qindex].tCount)
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
   }
@@ -311,6 +312,7 @@ export default class QuestContainer extends React.Component {
   _selectTask = (qindex, tindex) => {
     //marks a single task as selecet from a given index quest
     this._exitModes();
+    console.log("qindex: "+ qindex + " tindex: "+ tindex);
     var quests = [...this.state.Quests];
     quests[qindex].tasks[tindex].selected = !quests[qindex].tasks[tindex].selected; 
     this.setState({ Quests: quests })
