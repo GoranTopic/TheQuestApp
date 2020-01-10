@@ -24,8 +24,6 @@ const tabs = createMaterialTopTabNavigator(
 
 );
 
-const Switch =  createSwitchNavigator({ main: ToDoScreen});
-
 export default createAppContainer(tabs);
 
  

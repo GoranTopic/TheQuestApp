@@ -158,7 +158,7 @@ export default class QuestContainer extends React.Component {
 
   _createQuest = (newQuest) => {
     //creates a new quest which is passed
-    this._exitEditMode(); //if was in editting mode
+    this._exitModes(); //if was in editting mode
     var quests = [...this.state.Quests];
     newQuest.qindex = this.state.QCount;
     quests.push(newQuest);
@@ -356,6 +356,7 @@ export default class QuestContainer extends React.Component {
         <KeyboardAvoidingView
           style={styles.avoidingView}
           behavior='padding'
+          keyboardVerticalOffset={50 + Expo.Constants.statusBarHeight}
           enabled
         >
           <InputBar
