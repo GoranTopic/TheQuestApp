@@ -41,10 +41,12 @@ export default class InputBar extends React.Component {
     //clear buffer
     this.setState({inputbuff: ''});
     this.mainInput.current.clear();
+    var randomExp = Math.floor(Math.random() * 50 + 1);
     this.props._createQuest(
       {
         title: this.state.inputbuff.toUpperCase(),
         shield: this.state.selectedShiled,
+        exp: randomExp,
         selected: true,
         done: false,
         isInEditMode: false,
@@ -98,28 +100,24 @@ export default class InputBar extends React.Component {
             {this._renderShiledPicker()}
           </Overlay>
 
-        <StyledIcon
-          style={styles.selectedShiled}
-          name="bomb"
-          source={this.state.selectedShiled}
-          size={40}
-          onPress={this._toggleOverlay}
-        />
-        <Input
-          ref={this.mainInput}
-          onChangeText={input => this.setState({ inputbuff: input })}
-          onSubmitEditing={this._create}
-          clearButtonMode="always"
-          placeholder="New Quest..."
-          inputStyle={styles.inputBar}
-          inputContainerStyle={styles.inputContainer}
-        />
-        <StyledIcon
-          source={this.state.selectedShiled}
-          size={45}
-        />
-      </View> 
-      : null
+          <StyledIcon
+            style={styles.selectedShiled}
+            name="bomb"
+            source={this.state.selectedShiled}
+            size={40}
+            onPress={this._toggleOverlay}
+          />
+           <Input
+             ref={this.mainInput}
+             onChangeText={input => this.setState({ inputbuff: input })}
+             onSubmitEditing={this._create}
+             clearButtonMode="always"
+             placeholder="New Quest..."
+             inputStyle={styles.inputBar}
+             inputContainerStyle={styles.inputContainer}
+           />
+        </View>
+        : null
     );
   }
 }
@@ -133,20 +131,27 @@ const styles = StyleSheet.create({
   },
   inputContainer:{
     borderBottomColor: "#845426",
+    maxWidth: 300,
     width: null,
+    paddingRight: 100,
   },
   inputBar: {
     fontFamily: 'helvetica-lt',
     paddingLeft:10,
+    paddingRight: 10,
+    maxWidth: 300,
     fontSize: 20,
-    width: null,
+    width: 100,
     color: 'white',
   },
   selectedShiled:{
     height: null,
     width: null, 
   },
-  pickerShield: {
+  pickerShield:{
     padding:10,
+  },
+  picker:{
+
   },
 });
