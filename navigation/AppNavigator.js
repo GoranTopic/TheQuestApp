@@ -8,7 +8,8 @@ import Constants from 'expo-constants';
 import ToDoScreen from '../screens/ToDoScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const tabs = createMaterialTopTabNavigator(
+
+const TopTabs = createMaterialTopTabNavigator(
 
   {
     Quests:  ToDoScreen,
@@ -19,10 +20,27 @@ const tabs = createMaterialTopTabNavigator(
     activeColor: '#5f3f21',
     inactiveColor: '#5f3f21',
     barStyle: { backgroundColor: 'black' },
+    tabBarOptions: {
+      labelStyle: {
+        fontSize: 15,
+        fontFamily: 'helvetica-med',
+      },
+      tabStyle: {
+      },
+      activeTintColor: 'white',
+      //inactiveTintColor: 'white',
+      indicatorStyle:{
+        backgroundColor: '#5f3f21',
+      },
+      style: {
+        backgroundColor: '#0e0e0e',
+      },
+    },
+
   }
 
 );
 
-export default createAppContainer(tabs);
+export default createAppContainer(TopTabs);
 
  
