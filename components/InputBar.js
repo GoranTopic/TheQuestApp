@@ -25,7 +25,7 @@ export default class InputBar extends React.Component {
       inputbuff: '',
       visibleOverlay: false,
       size: 70,
-      selectedShiled: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
+      selectedShiled: require('../assets/images/shields/COA_Kaer_Morhen_Tw3.png'),
       shileds: [
         require('../assets/images/shields/COA_Kaer_Morhen_Tw3.png'),
         require('../assets/images/shields/COA_multiple_locations_Tw3.png'),
