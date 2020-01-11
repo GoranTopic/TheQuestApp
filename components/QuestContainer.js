@@ -314,7 +314,10 @@ export default class QuestContainer extends React.Component {
     this._exitModes();
     console.log("qindex: "+ qindex + " tindex: "+ tindex);
     var quests = [...this.state.Quests];
-    quests[qindex].tasks[tindex].selected = !quests[qindex].tasks[tindex].selected; 
+    quests[qindex].tasks.forEach( (value) => {
+      if(value.tindex === tindex) value.selected = !value.selected; 
+      else value.selected = false;
+    })
     this.setState({ Quests: quests })
   }
 
