@@ -16,10 +16,6 @@ const TopTabs = createMaterialTopTabNavigator(
     profile: SettingsScreen,
   },
   {
-    initialRouteName: 'Quests',
-    activeColor: '#5f3f21',
-    inactiveColor: '#5f3f21',
-    barStyle: { backgroundColor: 'black' },
     tabBarOptions: {
       labelStyle: {
         fontSize: 15,
@@ -30,7 +26,8 @@ const TopTabs = createMaterialTopTabNavigator(
       activeTintColor: 'white',
       //inactiveTintColor: 'white',
       indicatorStyle:{
-        backgroundColor: '#5f3f21',
+        height:2,
+        backgroundColor: '#845426',
       },
       style: {
         backgroundColor: '#0e0e0e',

@@ -10,6 +10,7 @@ import AppNavigator from './navigation/AppNavigator';
 import ToDoScreen from './screens/ToDoScreen';
 import Constants from 'expo-constants';
 
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 

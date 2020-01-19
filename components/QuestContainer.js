@@ -7,12 +7,9 @@ import {
   TextInput,
   View,
   KeyboardAvoidingView,
-  Button,
-  Picker,
   BackHandler,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-
 
 import { color } from '../constants/Colors';
 import { MonoText } from '../components/StyledText';
@@ -22,7 +19,14 @@ import StyledIcon from '../components/StyledIcon';
 import { tsImportEqualsDeclaration } from '@babel/types';
 import { HitTestResultTypes } from 'expo/build/AR';
 import InputBar from './InputBar';
+import SQLite from 'react-native-sqlite-2';
 
+//import AsyncStorage from '@react-native-community/async-storage';
+const database_name = 'Quests.db'
+const database_version = '1.0'
+const database_displayname = 'SQLite Test Database'
+const database_size = 200000
+let db
 
 export default class QuestContainer extends React.Component {
 
@@ -130,14 +134,17 @@ export default class QuestContainer extends React.Component {
 
   componentDidMount(){
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+
   }
 
   componentWillUnmount(){
     this.backHandler.remove();
   }
- 
+   
+
   handleBackButtonClick = () => {
-    //Allegedly, handles back button press
+    /*Allegedly, handles back button press*/
     var quests = [...this.state.Quests];
     var isChange = false;
     quests.forEach(value => {
@@ -151,25 +158,29 @@ export default class QuestContainer extends React.Component {
         value.selected = false;
         isChange = true;
       }
-    });
+    });    
     this.setState({ Quests: quests });
     return isChange;
   }
 
   _createQuest = (newQuest) => {
-    //creates a new quest which is passed
+    /*creates a new quest which is passed*/
     this._exitModes(); //if was in editting mode
     var quests = [...this.state.Quests];
     newQuest.qindex = this.state.QCount;
     quests.push(newQuest);
+    // save Data to memory
+    
+    //set state
     this.setState({ 
       Quests: quests, 
-      QCount: this.state.QCount + 1
-    }) //update count
+      QCount: this.state.QCount + 1 //update count
+    })
+
   }
 
   _checkQuestIsDone = (qindex) => {
-    //checks wheather a quest has completed all it task, if so the mark it as complete
+    /*checks wheather a quest has completed all it task, if so the mark it as complete*/
     var quests = [...this.state.Quests];
     var areAllDone = true;
     quests[qindex].tasks.forEach(
@@ -183,8 +194,8 @@ export default class QuestContainer extends React.Component {
   }
 
    _removeQuest = (qindex) => {
+     /*removes a quest in the quest array*/
      this._exitModes();
-    //removes a quest in the quest array
     var quests = [...this.state.Quests];
     var questCount = 0;
     //remove element
@@ -196,6 +207,9 @@ export default class QuestContainer extends React.Component {
         questCount++;
       }
     )
+    // save Data to memory
+
+    // set state
     this.setState({ 
       Quests: quests,
       QCount: questCount,
@@ -203,7 +217,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _selectQuest = (qindex) => {
-    //marks a single quest as selected
+    /*marks a single quest as selected*/
     this._exitModes();
     var quests = [...this.state.Quests];
     quests[qindex].selected = !quests[qindex].selected;
@@ -211,7 +225,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _exitModes = () => {
-    //extis all mode on the Quest
+    /*extis all mode on the Quest*/
     var quests = [...this.state.Quests];
     quests.forEach(value => {
       value.isInEditMode = false
@@ -221,28 +235,28 @@ export default class QuestContainer extends React.Component {
   }
 
   _exitEditMode = () => {
-    //set all exit Modes all the quest as false
+    /*set all exit Modes all the quest as false*/
     var quests = [...this.state.Quests];
     quests.forEach(value => { value.isInEditMode = false });
     this.setState({ Quests: quests });
   }
 
   _exitDummyMode = () => {
-    //exits the dummy mode when adding tasks
+    /*exits the dummy mode when adding tasks*/
     var quests = [...this.state.Quests];
     quests.forEach(value => { value.isActiveDummyTask = false; });
     this.setState({ Quests: quests });
   }
 
   _editQuest = (newTitle, qindex) => {
-    //edit the selected quest
+    /*edit the selected quest*/
     var quests = [...this.state.Quests];
     quests[qindex].title = newTitle;
     this.setState({ Quests: quests });
   }
 
   _setEditModeQuest = (qindex) => {
-    //change the mode as a deletable on the quest
+    /*change the mode as a deletable on the quest*/
     this._exitModes();
     var quests = [...this.state.Quests];
     quests.forEach(
@@ -262,7 +276,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _completeQuest = (qindex) => {
-    //marks a single quest as done
+    /*marks a single quest as done*/
     this._exitModes();
     var quests = [...this.state.Quests];
     quests[qindex].done = true;
@@ -270,14 +284,14 @@ export default class QuestContainer extends React.Component {
   }
 
   _editTask = (newTitle, qindex, tindex) => {
-    //marks a single task as selecet from a given index quest
+    /*marks a single task as selecet from a given index quest*/
     var quests = [...this.state.Quests];
     quests[qindex].tasks[tindex].selected = newTitle; 
     this.setState({ Quests: quests })
   }
 
   _addTask = (qindex, title) => {
-    //adds a task to the given index quest
+    /*adds a task to the given index quest*/
     this._exitEditMode();
     var quests = [...this.state.Quests];
     quests[qindex].tasks.push(
@@ -296,7 +310,7 @@ export default class QuestContainer extends React.Component {
 
 
   _removeTask = (qindex, tindex) => {
-    //removes a single task from a quest of the given index
+    /*removes a single task from a quest of the given index*/
     var quests = [...this.state.Quests];
     //remove task
     quests[qindex].tasks.splice(tindex, 1);
@@ -310,7 +324,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _selectTask = (qindex, tindex) => {
-    //marks a single task as selecet from a given index quest
+    /*marks a single task as selecet from a given index quest*/
     this._exitModes();
     console.log("qindex: "+ qindex + " tindex: "+ tindex);
     var quests = [...this.state.Quests];
@@ -322,7 +336,7 @@ export default class QuestContainer extends React.Component {
   }
 
   _completeTask = (qindex, tindex) => {
-    //marks a single task as selecet from a given index quest
+    /*marks a single task as selecet from a given index quest*/
     this._exitModes();
     var quests = [...this.state.Quests];
     quests[qindex].tasks[tindex].selected = false; 
@@ -330,10 +344,11 @@ export default class QuestContainer extends React.Component {
     
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
+    this.loadAndQueryDB();
   }
 
   _renderQuest = (value, index) => {
-    //render and pass function props into the Quest component
+    /*render and pass function props into the Quest component*/
     return <Quest
       _questData={value}
       _selectQuest={this._selectQuest}
@@ -350,6 +365,98 @@ export default class QuestContainer extends React.Component {
       key={JSON.stringify(value)}
     />
   }
+
+
+
+/* ----------- SQL Functions --------- */
+
+  loadAndQueryDB() {
+    db = SQLite.openDatabase(
+      database_name,
+      database_version,
+      database_displayname,
+      database_size,
+    )
+    console.log("Databased opened")
+    this.populateDatabase(db)
+  }
+  
+  errorCB = err => {
+    console.error('error:', err)
+    return false
+  }
+
+  closeDatabase = () => {
+    if (db) {
+     console.log('Closing database ...')
+    } else {
+     console.log('Database was not OPENED')
+    }
+  }
+
+  populateDatabase(db) {
+    console.log('Database integrity check')
+    const prepareDB = () => {
+      db.transaction(this.populateDB, this.errorCB, () => {
+       console.log('Database populated ... executing query ...')
+        db.transaction(this.queryEmployees, this.errorCB, () => {
+          console.log('Transaction is now finished')
+          console.log('Processing completed.')
+          db.transaction(this.cleanupTables, this.errorCB, () => {
+            this.closeDatabase()
+          })
+        })
+      })
+    }
+    
+    console.log('got to here first')
+
+    db.transaction(txn => {
+      txn.executeSql('SELECT 1 FROM Version LIMIT 1', [], prepareDB, error => {
+        console.log('received version error:', error)
+        console.log('Database not yet ready ... populating data')
+        prepareDB()
+      })
+    })
+    
+  }
+
+populateDB = db => {
+  console.log('got to here')
+
+  db.executeSql(
+    'CREATE TABLE IF NOT EXISTS Quests( ' +
+      'qindex INTEGER PRIMARY KEY NOT NULL' +
+      'title  VARCHAR(30)' +
+      'exp INTEGER' +
+      'tcount INTEGER' +
+      '); ',
+    [],
+  )
+    /*
+  db.executeSql(
+    'CREATE TABLE IF NOT EXISTS Tasks( ' +
+      'tindex INTEGER PRIMARY KEY NOT NULL, ' +
+      'title VARCHAR(30)'+
+      'done  BOOLEAN,' +
+      ' ); ',
+    [],
+  )
+ 
+  db.executeSql(
+    'INSERT INTO Quests (qindex, title, exp, tcount ) VALUES ( 4, "Do Groceries", 20, 2);',
+    []
+  )
+  db.executeSql(
+    'INSERT INTO Quests (qindex, title, exp, tcount ) VALUES ( 5, "Do HW", 32, 3);',
+    []
+  )
+    */
+  console.log('all config SQL done')
+}
+
+
+/* ----------- End of SQL Functions --------- */
 
   render() {
     return (
