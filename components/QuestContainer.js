@@ -19,14 +19,8 @@ import StyledIcon from '../components/StyledIcon';
 import { tsImportEqualsDeclaration } from '@babel/types';
 import { HitTestResultTypes } from 'expo/build/AR';
 import InputBar from './InputBar';
-import SQLite from 'react-native-sqlite-2';
 
-//import AsyncStorage from '@react-native-community/async-storage';
-const database_name = 'Quests.db'
-const database_version = '1.0'
-const database_displayname = 'SQLite Test Database'
-const database_size = 200000
-let db
+import { AsyncStorage } from 'react-native';
 
 export default class QuestContainer extends React.Component {
 
@@ -132,17 +126,51 @@ export default class QuestContainer extends React.Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+    
+    //this._storeQuestState();
+    this._retrieveQuestState();    
 
   }
 
   componentWillUnmount(){
     this.backHandler.remove();
   }
-   
+ 
+  _storeQuestState = async () => {
+    /*stores the data from the quest in persistant memeory, with some luck...*/
+    try {
+      console.log("waiting to set quest")
+      await AsyncStorage.setItem('@QuestData:key', JSON.stringify([...this.state.Quests]) );
+      console.log("Quests Saved successfully") 
+    } catch (error) {
+      console.error('AsyncStorage#setItem error: ' + error.message);
+      console.log("Error while Saving Data")
+      // Error saving data
+    }
+    console.log("did exit")
+  };
 
+  _retrieveQuestState = async () => {
+    try {
+      const storedQuests = JSON.parse(await AsyncStorage.getItem('@QuestData:key'));
+      if (storedQuests !== null) {
+        // We got the data, now set it to state!!
+        this.setState({
+          //QCount: storedQuests.length,
+          Quests: storedQuests,
+        })
+        console.log("Quest Retrived Successfully:")
+        //console.log(storedQuests)
+      }
+    } catch (error) {
+      console.log("Error: could not retrive Quest")
+      console.log("Setting Deafult Quest Data")
+      // Error retrieving data
+    }
+  };
+  
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
     var quests = [...this.state.Quests];
@@ -169,14 +197,13 @@ export default class QuestContainer extends React.Component {
     var quests = [...this.state.Quests];
     newQuest.qindex = this.state.QCount;
     quests.push(newQuest);
-    // save Data to memory
-    
     //set state
     this.setState({ 
       Quests: quests, 
       QCount: this.state.QCount + 1 //update count
     })
-
+    // save Data to memory
+    this._storeQuestState();
   }
 
   _checkQuestIsDone = (qindex) => {
@@ -207,13 +234,13 @@ export default class QuestContainer extends React.Component {
         questCount++;
       }
     )
-    // save Data to memory
 
     // set state
     this.setState({ 
       Quests: quests,
       QCount: questCount,
     });
+    this._storeQuestState(); // save Data to memory
   }
 
   _selectQuest = (qindex) => {
@@ -281,6 +308,7 @@ export default class QuestContainer extends React.Component {
     var quests = [...this.state.Quests];
     quests[qindex].done = true;
     this.setState({ Quests: quests })
+    this._storeQuestState(); // save Data to memory
   }
 
   _editTask = (newTitle, qindex, tindex) => {
@@ -288,6 +316,7 @@ export default class QuestContainer extends React.Component {
     var quests = [...this.state.Quests];
     quests[qindex].tasks[tindex].selected = newTitle; 
     this.setState({ Quests: quests })
+    this._storeQuestState(); // save Data to memory
   }
 
   _addTask = (qindex, title) => {
@@ -303,9 +332,9 @@ export default class QuestContainer extends React.Component {
       }
     )
     quests[qindex].tCount = quests[qindex].tCount + 1;
-    console.log("created task index: " + quests[qindex].tCount)
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
+    this._storeQuestState(); // save Data to memory
   }
 
 
@@ -321,12 +350,12 @@ export default class QuestContainer extends React.Component {
     quests[qindex].tCount--;
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
+    this._storeQuestState(); // save Data to memory
   }
 
   _selectTask = (qindex, tindex) => {
     /*marks a single task as selecet from a given index quest*/
     this._exitModes();
-    console.log("qindex: "+ qindex + " tindex: "+ tindex);
     var quests = [...this.state.Quests];
     quests[qindex].tasks.forEach( (value) => {
       if(value.tindex === tindex) value.selected = !value.selected; 
@@ -344,7 +373,7 @@ export default class QuestContainer extends React.Component {
     
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
-    this.loadAndQueryDB();
+    this._storeQuestState(); // save Data to memory
   }
 
   _renderQuest = (value, index) => {
@@ -365,98 +394,6 @@ export default class QuestContainer extends React.Component {
       key={JSON.stringify(value)}
     />
   }
-
-
-
-/* ----------- SQL Functions --------- */
-
-  loadAndQueryDB() {
-    db = SQLite.openDatabase(
-      database_name,
-      database_version,
-      database_displayname,
-      database_size,
-    )
-    console.log("Databased opened")
-    this.populateDatabase(db)
-  }
-  
-  errorCB = err => {
-    console.error('error:', err)
-    return false
-  }
-
-  closeDatabase = () => {
-    if (db) {
-     console.log('Closing database ...')
-    } else {
-     console.log('Database was not OPENED')
-    }
-  }
-
-  populateDatabase(db) {
-    console.log('Database integrity check')
-    const prepareDB = () => {
-      db.transaction(this.populateDB, this.errorCB, () => {
-       console.log('Database populated ... executing query ...')
-        db.transaction(this.queryEmployees, this.errorCB, () => {
-          console.log('Transaction is now finished')
-          console.log('Processing completed.')
-          db.transaction(this.cleanupTables, this.errorCB, () => {
-            this.closeDatabase()
-          })
-        })
-      })
-    }
-    
-    console.log('got to here first')
-
-    db.transaction(txn => {
-      txn.executeSql('SELECT 1 FROM Version LIMIT 1', [], prepareDB, error => {
-        console.log('received version error:', error)
-        console.log('Database not yet ready ... populating data')
-        prepareDB()
-      })
-    })
-    
-  }
-
-populateDB = db => {
-  console.log('got to here')
-
-  db.executeSql(
-    'CREATE TABLE IF NOT EXISTS Quests( ' +
-      'qindex INTEGER PRIMARY KEY NOT NULL' +
-      'title  VARCHAR(30)' +
-      'exp INTEGER' +
-      'tcount INTEGER' +
-      '); ',
-    [],
-  )
-    /*
-  db.executeSql(
-    'CREATE TABLE IF NOT EXISTS Tasks( ' +
-      'tindex INTEGER PRIMARY KEY NOT NULL, ' +
-      'title VARCHAR(30)'+
-      'done  BOOLEAN,' +
-      ' ); ',
-    [],
-  )
- 
-  db.executeSql(
-    'INSERT INTO Quests (qindex, title, exp, tcount ) VALUES ( 4, "Do Groceries", 20, 2);',
-    []
-  )
-  db.executeSql(
-    'INSERT INTO Quests (qindex, title, exp, tcount ) VALUES ( 5, "Do HW", 32, 3);',
-    []
-  )
-    */
-  console.log('all config SQL done')
-}
-
-
-/* ----------- End of SQL Functions --------- */
 
   render() {
     return (
