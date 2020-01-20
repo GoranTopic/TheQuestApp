@@ -12,7 +12,7 @@ import QuestContainer from '../components/QuestContainer';
 export default function TodoScreen() {
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.background} source={require('../assets/images/background.png')} >
+      <ImageBackground style={styles.background} source={require('../assets/images/background1.png')} >
         <QuestContainer />
       </ImageBackground>
     </View>

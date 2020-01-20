@@ -118,7 +118,7 @@ export default class QuestContainer extends React.Component {
 
   async componentDidMount(){
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    this._storeQuestState(); //to use default quest data again
+    this._storeQuestState(); //uncomment to use default quest data again
     this._retrieveQuestState(); //if first time it should fail to retive anything   
 
   }

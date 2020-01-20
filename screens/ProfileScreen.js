@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+} from 'react-native';
 
 
 export default function ProfileScreen() {
@@ -9,13 +14,22 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.background}
-        source={require('../assets/images/background.png')} 
+        source={require('../assets/images/background2.png')} 
       >
       </ImageBackground>
     </View>
   )
 }
 
-SettingsScreen.navigationOptions = {
+const styles = StyleSheet.create({
+  background:{
+    flex:1, 
+  },
+  container: {
+    flex: 1,
+  },
+})
+
+ProfileScreen.navigationOptions = {
   title: 'Profile',
 };
