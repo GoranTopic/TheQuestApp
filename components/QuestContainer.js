@@ -3,23 +3,13 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
   KeyboardAvoidingView,
   BackHandler,
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 
-import { color } from '../constants/Colors';
-import { MonoText } from '../components/StyledText';
 import Quest from './Quest';
-import inputBar from './InputBar';
-import StyledIcon from '../components/StyledIcon';
-import { tsImportEqualsDeclaration } from '@babel/types';
-import { HitTestResultTypes } from 'expo/build/AR';
 import InputBar from './InputBar';
-
 import { AsyncStorage } from 'react-native';
 
 export default class QuestContainer extends React.Component {
@@ -128,9 +118,8 @@ export default class QuestContainer extends React.Component {
 
   async componentDidMount(){
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    
-    //this._storeQuestState();
-    this._retrieveQuestState();    
+    this._storeQuestState(); //to use default quest data again
+    this._retrieveQuestState(); //if first time it should fail to retive anything   
 
   }
 
@@ -141,7 +130,6 @@ export default class QuestContainer extends React.Component {
   _storeQuestState = async () => {
     /*stores the data from the quest in persistant memeory, with some luck...*/
     try {
-      console.log("waiting to set quest")
       await AsyncStorage.setItem('@QuestData:key', JSON.stringify([...this.state.Quests]) );
       console.log("Quests Saved successfully") 
     } catch (error) {
@@ -149,7 +137,6 @@ export default class QuestContainer extends React.Component {
       console.log("Error while Saving Data")
       // Error saving data
     }
-    console.log("did exit")
   };
 
   _retrieveQuestState = async () => {
@@ -158,13 +145,13 @@ export default class QuestContainer extends React.Component {
       if (storedQuests !== null) {
         // We got the data, now set it to state!!
         this.setState({
-          //QCount: storedQuests.length,
+          QCount: storedQuests.length,
           Quests: storedQuests,
         })
-        console.log("Quest Retrived Successfully:")
-        //console.log(storedQuests)
+        console.log("Quest Retrived Successfully.")
       }
     } catch (error) {
+      console.error('AsyncStorage#setItem error: ' + error.message);
       console.log("Error: could not retrive Quest")
       console.log("Setting Deafult Quest Data")
       // Error retrieving data

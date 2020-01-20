@@ -6,14 +6,14 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import Constants from 'expo-constants';
 
 import ToDoScreen from '../screens/ToDoScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 
 const TopTabs = createMaterialTopTabNavigator(
 
   {
     Quests:  ToDoScreen,
-    profile: SettingsScreen,
+    Profile: ProfileScreen,
   },
   {
     tabBarOptions: {
