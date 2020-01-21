@@ -92,43 +92,26 @@ export default class BadgesContainer extends React.Component {
     )
   }
 
-  _renderBadges = () => {
-    /* 
-      This ia an ugly soclution and I am so terribly ashamed to admit I wrote it. 
-      I'm trully sorry for you reader, find it in your heart to forgive me  one day =(
-      Anyways, it renders the badges
-      */
-
-    return (
-      <View>
-        {
-          this.state.badges.forEach((badge, index) =>
-            <StyledIcon
-              style={styles.badge}
-              size={50}
-              source={this.state.badges[badge]}
-              onPress={() => this._selectBadge(badge, this.state.descriptions[index])} />
-          )
-        }
-      </View>
-    );
-  }
-
+  
   render() {
     return (
       <View style={styles.container}>
-            <StyledIcon
-              style={styles.badge}
-              size={50}
-              source={this.state.badges[1]}
-              onPress={() => this._selectBadge(this.state.badges[1], this.state.descriptions[1])} />
-        {this.state.badges.forEach((badge, index) =>
-            <StyledIcon
-              style={styles.badge}
-              size={50}
-              source={this.state.badges[index]}
-              onPress={() => this._selectBadge(this.state.badges[index], this.state.descriptions[index])} />
-          )}
+        <View style={styles.badgesContainer}>
+          {
+            this.state.descriptions.map(
+              (value, index) =>
+                <StyledIcon
+                  style={styles.badge}
+                  size={50}
+                  key={index}
+                  source={this.state.badges[index]}
+                  onPress={
+                    () => this._selectBadge(
+                      this.state.badges[index],
+                      this.state.descriptions[index]
+                    )} />
+            )}
+        </View>
         <Overlay
           isVisible={this.state.visibleOverlay}
           windowBackgroundColor="rgba(0, 0, 0, .6)"
@@ -149,7 +132,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingTop:15,
-    height:130,
+    
+  },
+  badge:{
+    height: 45,
+    width: 45,
+  },
+  badgesContainer:{
+    flexDirection:'row',
+    flexWrap: 'wrap',
   },
   badgeDes:{
     height: 45,
