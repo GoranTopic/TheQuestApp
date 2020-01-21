@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { AsyncStorage } from 'react-native';
+import MoneyAndLevelContainer from '../components/MoneyAndLevelConatainer';
 
 export default class ProfileContainer extends React.Component {
 
@@ -24,9 +25,9 @@ export default class ProfileContainer extends React.Component {
     //this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
-  componentWillUnmount(){
+  //componentWillUnmount(){
     //this.backHandler.remove();
-  }
+  //}
 
    _retrieveProfile = async () => {
     try {
@@ -70,6 +71,13 @@ export default class ProfileContainer extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollable} >
+          <MoneyAndLevelContainer
+            money={12}
+            level={1}
+            currentExp={30}
+            nextLvExp={100}
+          />
+
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.testing}/> 
           </View>

@@ -96,7 +96,8 @@ export default class Quest extends React.Component {
               end={{ x: 1, y: 0 }}
             />
           </View>
-          <ImageBackground style={styles.bgContainer}
+          <ImageBackground 
+            style={styles.bgContainer}
             resizeMode='stretch'
             source={require('../assets/images/Boarder-container-orange-grad.png')}
           >
