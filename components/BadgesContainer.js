@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import colors from '../constants/Colors';
 
-export default class ProfileDataContainer extends React.Component {
+export default class BadgesContainer extends React.Component {
   /* 
-    This is a continer for the profile picture of the user
+   A container for all teh badges one can achive
    */
 
   constructor(props) {

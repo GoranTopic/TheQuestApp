@@ -10,6 +10,9 @@ export default {
 
   selectedQuestNote: '#8b8b8b',
   unselectedQuestNote: '#767574',
+  
+  QuestOrangyNote: '#6a624e',
+  UnselectedQuestOrangyNote:  '#948b75', 
 
   selectedTask: '#f1f1f1',
   doneTask: '#777675',

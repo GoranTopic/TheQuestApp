@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop:1,
     paddingLeft:10,
-    color: colors.unselectedQuestNote,
+    color: colors.UnselectedQuestOrangyNote,
   },
 });
 

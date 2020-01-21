@@ -83,8 +83,7 @@ export default class ProfileContainer extends React.Component {
             usermotto={"Chicken Chaiser"}
             userpicture={require('../assets/images/icon.png')}
           />
-
-
+      
           <View style={styles.testing2}/> 
           <View style={styles.testing3}/> 
         </ScrollView>

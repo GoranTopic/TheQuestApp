@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     fontFamily: 'helvetica-med',
     paddingRight: 5,
     fontSize: 11,
-    color: '#948b75',
+    color: colors.QuestOrangyNote,
   },
   LevelRatio: {
     fontFamily: 'helvetica-med',
