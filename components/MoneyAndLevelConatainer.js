@@ -74,7 +74,6 @@ export default class MoneyAndLevelContainer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingTop:5,
     height:50,
   },
   MoneyContainer: {

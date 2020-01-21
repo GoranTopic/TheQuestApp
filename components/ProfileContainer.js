@@ -78,7 +78,12 @@ export default class ProfileContainer extends React.Component {
             currentExp={30}
             nextLvExp={100}
           />
-          <ProfileDataContainer/>
+          <ProfileDataContainer
+            username={"Goran Topic"}
+            usermotto={"Chicken Chaiser"}
+            userpicture={require('../assets/images/icon.png')}
+          />
+
 
           <View style={styles.testing2}/> 
           <View style={styles.testing3}/> 
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 5,
   },
   scrollable: {
     flex:1,

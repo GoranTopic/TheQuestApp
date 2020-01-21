@@ -28,16 +28,16 @@ export default class ProfileDataContainer extends React.Component {
           >
           <Image 
             style={styles.ProfilePicture}
-            source={require('../assets/images/icon.png')}
+            source={this.props.userpicture}
           />
         </TouchableOpacity>
 
         <View style={styles.TitleContianer}>
           <Text style={styles.Username}>
-            Goran Topic
+            {this.props.username}
         </Text>
           <Text style={styles.MottoLabel}>
-            Killer of Killer
+           {this.props.usermotto}
             </Text>
         </View>
 
@@ -54,17 +54,16 @@ const styles = StyleSheet.create({
     height:130,
   },
   ProfilePictureContiner:{
-    paddingLeft:"3%",
+    paddingLeft:"5%",
   },
   ProfilePicture:{
-    flex:1,
     height: 100,
     width: 100,
   },
   TitleContianer: {
     flexDirection:'column',
-    paddingLeft: 20,
-    paddingTop:15,
+    paddingLeft: 15,
+    paddingTop:17,
   },
   Username: {
     fontFamily: 'helvetica-med',
@@ -73,9 +72,9 @@ const styles = StyleSheet.create({
   },
   MottoLabel: {
     fontFamily: 'helvetica-med',
-    fontSize: 11,
+    fontSize: 15,
     paddingTop:1,
-    paddingLeft:20,
+    paddingLeft:10,
     color: colors.unselectedQuestNote,
   },
 });
