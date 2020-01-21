@@ -51,7 +51,22 @@ async function loadResourcesAsync() {
       require('./assets/images/shields/COA_Velen_Tw3.png'),
       require('./assets/images/shields/COA_White_Orchard_Tw3.png'),
       require('./assets/images/shields/COA_Novigrad_Tw3.png'),
-
+      //badges
+      require('./assets/images/Badges/badge1.png'),
+      require('./assets/images/Badges/badge2.png'),
+      require('./assets/images/Badges/badge3.png'),
+      require('./assets/images/Badges/badge4.png'),
+      require('./assets/images/Badges/badge5.png'),
+      require('./assets/images/Badges/badge6.png'),
+      require('./assets/images/Badges/badge7.png'),
+      require('./assets/images/Badges/badge8.png'),
+      require('./assets/images/Badges/badge9.png'),
+      require('./assets/images/Badges/badge10.png'),
+      require('./assets/images/Badges/badge11.png'),
+      require('./assets/images/Badges/badge12.png'),
+      require('./assets/images/Badges/badge13.png'),
+      require('./assets/images/Badges/badge14.png'),
+      require('./assets/images/Badges/badge15.png'),
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar

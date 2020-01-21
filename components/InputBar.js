@@ -1,12 +1,7 @@
 import React from 'react';
 import {
-  Platform,
-  ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
-  Image,
 } from 'react-native';
 import { Overlay, Input } from 'react-native-elements'
 import StyledIcon from '../components/StyledIcon';
@@ -66,7 +61,7 @@ export default class InputBar extends React.Component {
 
   _toggleOverlay = () => {
     this.props._exitEditMode();
-    this.state.visibleOverlay = !this.state.visibleOverlay;
+    this.setState({ visibleOverlay: !this.state.visibleOverlay});
   }
 
   _renderShiledPicker = () => {
