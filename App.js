@@ -41,7 +41,17 @@ async function loadResourcesAsync() {
     Asset.loadAsync([
       require('./assets/images/robot-dev.png'),
       require('./assets/images/robot-prod.png'),
-      
+      //background images
+      require('./assets/images/background1.png'),
+      require('./assets/images/background2.png'),
+      //shiled images
+      require('./assets/images/shields/COA_Kaer_Morhen_Tw3.png'),
+      require('./assets/images/shields/COA_multiple_locations_Tw3.png'),
+      require('./assets/images/shields/COA_Skellige_Tw3.png'),
+      require('./assets/images/shields/COA_Velen_Tw3.png'),
+      require('./assets/images/shields/COA_White_Orchard_Tw3.png'),
+      require('./assets/images/shields/COA_Novigrad_Tw3.png'),
+
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
