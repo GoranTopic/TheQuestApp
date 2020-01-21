@@ -93,11 +93,23 @@ export default class BadgesContainer extends React.Component {
   }
 
   _renderBadges = () => {
-    return(
-      <View>
-        <StyledIcon source={this.state.badges[0]} size={50}
-          onPress={() => this._selectBadge(this.state.badges[0], this.state.descriptions[0])} />
+    /* 
+      This ia an ugly soclution and I am so terribly ashamed to admit I wrote it. 
+      I'm trully sorry for you reader, find it in your heart to forgive me  one day =(
+      Anyways, it renders the badges
+      */
 
+    return (
+      <View>
+        {
+          this.state.badges.forEach((badge, index) =>
+            <StyledIcon
+              style={styles.badge}
+              size={50}
+              source={this.state.badges[badge]}
+              onPress={() => this._selectBadge(badge, this.state.descriptions[index])} />
+          )
+        }
       </View>
     );
   }
@@ -105,7 +117,18 @@ export default class BadgesContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this._renderBadges()}
+            <StyledIcon
+              style={styles.badge}
+              size={50}
+              source={this.state.badges[1]}
+              onPress={() => this._selectBadge(this.state.badges[1], this.state.descriptions[1])} />
+        {this.state.badges.forEach((badge, index) =>
+            <StyledIcon
+              style={styles.badge}
+              size={50}
+              source={this.state.badges[index]}
+              onPress={() => this._selectBadge(this.state.badges[index], this.state.descriptions[index])} />
+          )}
         <Overlay
           isVisible={this.state.visibleOverlay}
           windowBackgroundColor="rgba(0, 0, 0, .6)"
