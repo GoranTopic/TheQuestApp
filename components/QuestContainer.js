@@ -152,7 +152,7 @@ export default class QuestContainer extends React.Component {
       }
     } catch (error) {
       console.error('AsyncStorage#setItem error: ' + error.message);
-      console.log("Error: could not retrive Quest")
+      console.log("Error: could not retrieve Quest")
       console.log("Setting Deafult Quest Data")
       // Error retrieving data
     }

@@ -5,6 +5,8 @@ import {
   ImageBackground,
 } from 'react-native';
 
+import profileContainer from '../components/ProfileContainer';
+import ProfileContainer from '../components/ProfileContainer';
 
 export default function ProfileScreen() {
   /**
@@ -16,6 +18,7 @@ export default function ProfileScreen() {
       <ImageBackground style={styles.background}
         source={require('../assets/images/background2.png')} 
       >
+        <ProfileContainer/>
       </ImageBackground>
     </View>
   )
