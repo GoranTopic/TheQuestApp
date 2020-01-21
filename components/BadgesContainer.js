@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Image, } from 'react-native-elements';
+import { Text, Image, Badge, } from 'react-native-elements';
 import {
   TouchableOpacity,
   View,
@@ -20,54 +20,36 @@ export default class BadgesContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedBadge: require('../assets/images/Badges/badge1.png'),
-      selectedDes: "none selected",
+    this.state= {
       visibleOverlay: false,
+      selectedBadge :{img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
       badges: [
-        require('../assets/images/Badges/badge1.png'),
-        require('../assets/images/Badges/badge2.png'),
-        require('../assets/images/Badges/badge3.png'),
-        require('../assets/images/Badges/badge4.png'),
-        require('../assets/images/Badges/badge5.png'),
-        require('../assets/images/Badges/badge6.png'),
-        require('../assets/images/Badges/badge7.png'),
-        require('../assets/images/Badges/badge8.png'),
-        require('../assets/images/Badges/badge9.png'),
-        require('../assets/images/Badges/badge10.png'),
-        require('../assets/images/Badges/badge11.png'),
-        require('../assets/images/Badges/badge12.png'),
-        require('../assets/images/Badges/badge13.png'),
-        require('../assets/images/Badges/badge14.png'),
-        require('../assets/images/Badges/badge15.png'),
+        {img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
+        {img:require('../assets/images/Badges/badge2.png'),title:"title2", des:"des2"},
+        {img:require('../assets/images/Badges/badge3.png'),title:"title3", des:"des3"},
+        {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
+        {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
+        {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
+        {img:require('../assets/images/Badges/badge7.png'),title:"title7", des:"des7"},
+        {img:require('../assets/images/Badges/badge8.png'),title:"title8", des:"des8"},
+        {img:require('../assets/images/Badges/badge9.png'),title:"title9", des:"des9"},
+        {img:require('../assets/images/Badges/badge10.png'),title:"title10", des:"des10"},
+        {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
+        {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
+        {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
+        {img:require('../assets/images/Badges/badge14.png'),title:"title14", des:"des14"},
+        {img:require('../assets/images/Badges/badge15.png'),title:"title15", des:"des15"},
       ],
-      descriptions: [
-        "badge 1",
-        "badge 2",
-        "badge 3",
-        "badge 4",
-        "badge 5",
-        "badge 6",
-        "badge 7",
-        "badge 8",
-        "badge 9",
-        "badge 10",
-        "badge 11",
-        "badge 12",
-        "badge 13",
-        "badge 14",
-        "badge 15",
-      ]
     }
   }
 
 
-  _selectBadge = (badge, des) => {
+  _selectBadge = (badge) => {
     //selects a Badge and displays its description
     this.setState({
-      selectedDes: des,
       selectedBadge: badge
     });
+    console.log("badge selected");
     this._toggleOverlay();
   }
 
@@ -77,39 +59,40 @@ export default class BadgesContainer extends React.Component {
   }
 
   _renderBadgeDescriptionModal = () => {
+    //renders the modal overly  with the given selectd badge
     return (
       <View style={{ flexDirection: 'column' }}>
         <Image
-          style={styles.badgeDes}
-          source={this.state.selectedBadge}
+          style={styles.modalBadgeImg}
+          source={this.state.selectedBadge.img}
         />
-        <View style={{ flexDirection: 'row' }}>
-          <Text>
-            {this.state.selectedDes}
+        <View style={styles.modalText}>
+          <Text style={styles.modalTitle}>
+            {this.state.selectedBadge.title}
+          </Text>
+          <Text style={styles.modalDes}>
+            {this.state.selectedBadge.des}
           </Text>
         </View>
       </View>
     )
   }
-
   
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.badgesContainer}>
           {
-            this.state.descriptions.map(
-              (value, index) =>
+            this.state.badges.map(
+              (badge, index) =>
                 <StyledIcon
                   style={styles.badge}
                   size={50}
                   key={index}
-                  source={this.state.badges[index]}
+                  source={this.state.badges[index].img}
                   onPress={
-                    () => this._selectBadge(
-                      this.state.badges[index],
-                      this.state.descriptions[index]
-                    )} />
+                    () => this._selectBadge(badge)} 
+                />
             )}
         </View>
         <Overlay
@@ -131,20 +114,34 @@ export default class BadgesContainer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingTop:15,
-    
+    paddingTop: 15,
   },
-  badge:{
-    height: 45,
-    width: 45,
-  },
-  badgesContainer:{
-    flexDirection:'row',
+  badgesContainer: {
+    flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  badgeDes:{
+  badge: {
     height: 45,
     width: 45,
   },
- });
+  modalBadgeImg:{
+    height: 80,
+    width: 80,
+  },
+  modalText:{
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  modalTitle: {
+    fontFamily: 'helvetica-lt',
+    fontSize: 30,
+    color: colors.unselectedQuest,
+  },
+  modalDes: {
+    fontFamily: 'helvetica-lt',
+    fontSize: 15,
+    paddingTop:1,
+    color: colors.QuestOrangyNote,
+  },
+});
 
