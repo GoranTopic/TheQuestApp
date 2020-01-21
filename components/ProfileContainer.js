@@ -20,6 +20,22 @@ export default class ProfileContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      badges: [
+        {img:require('../assets/images/Badges/badge0.png'),title:"Adventurer", des:"Start Questing"},
+        {img:require('../assets/images/Badges/badge1.png'),title:"Samaritan", des:"Help a freind with a quest"},
+        {img:require('../assets/images/Badges/badge2.png'),title:"Powerful One", des:"Finish a strength Quest"},
+        {img:require('../assets/images/Badges/badge3.png'),title:"Really Powerful One", des:"Finish a second strength Quest"},
+        {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
+        {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
+        {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
+        {img:require('../assets/images/Badges/badge7.png'),title:"title7", des:"des7"},
+        {img:require('../assets/images/Badges/badge8.png'),title:"title8", des:"des8"},
+        {img:require('../assets/images/Badges/badge9.png'),title:"title9", des:"des9"},
+        {img:require('../assets/images/Badges/badge10.png'),title:"title10", des:"des10"},
+        {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
+        {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
+        {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
+      ]
     }
   }
 
@@ -84,7 +100,9 @@ export default class ProfileContainer extends React.Component {
             usermotto={"Chicken Chaiser"}
             userpicture={require('../assets/images/icon.png')}
           />
-          <BadgesContainer/>
+          <BadgesContainer 
+            badges={this.state.badges} 
+          />
           <View style={styles.testing3}/> 
         </ScrollView>
       </View>

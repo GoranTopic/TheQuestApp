@@ -22,33 +22,16 @@ export default class BadgesContainer extends React.Component {
     super(props);
     this.state= {
       visibleOverlay: false,
-      selectedBadge :{img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
-      badges: [
-        {img:require('../assets/images/Badges/badge0.png'),title:"Adventurer", des:"Start Questing"},
-        {img:require('../assets/images/Badges/badge1.png'),title:"Samaritan", des:"Help a freind with a quest"},
-        {img:require('../assets/images/Badges/badge2.png'),title:"Powerful", des:"Finish a strength Quest"},
-        {img:require('../assets/images/Badges/badge3.png'),title:"Double Powerful", des:"Finish a second strength Quest"},
-        {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
-        {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
-        {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
-        {img:require('../assets/images/Badges/badge7.png'),title:"title7", des:"des7"},
-        {img:require('../assets/images/Badges/badge8.png'),title:"title8", des:"des8"},
-        {img:require('../assets/images/Badges/badge9.png'),title:"title9", des:"des9"},
-        {img:require('../assets/images/Badges/badge10.png'),title:"title10", des:"des10"},
-        {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
-        {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
-        {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
-      ],
+      selectedBadge: {img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
+      badges: this.props.badges,
+      
     }
   }
 
 
   _selectBadge = (badge) => {
     //selects a Badge and displays its description
-    this.setState({
-      selectedBadge: badge
-    });
-    console.log("badge selected");
+    this.setState({ selectedBadge: badge });
     this._toggleOverlay();
   }
 
