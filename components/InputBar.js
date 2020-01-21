@@ -103,7 +103,6 @@ export default class InputBar extends React.Component {
 
           <StyledIcon
             style={styles.selectedShiled}
-            name="bomb"
             source={this.state.selectedShiled}
             size={40}
             onPress={this._toggleOverlay}
@@ -132,27 +131,15 @@ const styles = StyleSheet.create({
   },
   inputContainer:{
     borderBottomColor: "#845426",
-    maxWidth: 300,
-    width: null,
-    paddingRight: 100,
+    maxWidth: "85%",
   },
   inputBar: {
     fontFamily: 'helvetica-lt',
     paddingLeft:10,
-    paddingRight: 10,
-    maxWidth: 300,
     fontSize: 20,
-    width: 100,
     color: 'white',
-  },
-  selectedShiled:{
-    height: null,
-    width: null, 
   },
   pickerShield:{
     padding:10,
-  },
-  picker:{
-
   },
 });

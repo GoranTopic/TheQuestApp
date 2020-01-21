@@ -12,6 +12,7 @@ import {
 
 import { AsyncStorage } from 'react-native';
 import MoneyAndLevelContainer from '../components/MoneyAndLevelConatainer';
+import ProfileDataContainer from '../components/ProfileDataContainer';
 
 export default class ProfileContainer extends React.Component {
 
@@ -77,11 +78,9 @@ export default class ProfileContainer extends React.Component {
             currentExp={30}
             nextLvExp={100}
           />
+          <ProfileDataContainer/>
 
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.testing}/> 
-          </View>
-            <View style={styles.testing2}/> 
+          <View style={styles.testing2}/> 
           <View style={styles.testing3}/> 
         </ScrollView>
       </View>
