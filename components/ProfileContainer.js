@@ -13,6 +13,7 @@ import {
 import { AsyncStorage } from 'react-native';
 import MoneyAndLevelContainer from '../components/MoneyAndLevelConatainer';
 import ProfileDataContainer from '../components/ProfileDataContainer';
+import BadgesContainer from '../components/BadgesContainer';
 
 export default class ProfileContainer extends React.Component {
 
@@ -83,8 +84,7 @@ export default class ProfileContainer extends React.Component {
             usermotto={"Chicken Chaiser"}
             userpicture={require('../assets/images/icon.png')}
           />
-      
-          <View style={styles.testing2}/> 
+          <BadgesContainer/>
           <View style={styles.testing3}/> 
         </ScrollView>
       </View>
