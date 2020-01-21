@@ -24,9 +24,10 @@ export default class BadgesContainer extends React.Component {
       visibleOverlay: false,
       selectedBadge :{img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
       badges: [
-        {img:require('../assets/images/Badges/badge1.png'),title:"title1", des:"des1"},
-        {img:require('../assets/images/Badges/badge2.png'),title:"title2", des:"des2"},
-        {img:require('../assets/images/Badges/badge3.png'),title:"title3", des:"des3"},
+        {img:require('../assets/images/Badges/badge0.png'),title:"Adventurer", des:"Start Questing"},
+        {img:require('../assets/images/Badges/badge1.png'),title:"Samaritan", des:"Help a freind with a quest"},
+        {img:require('../assets/images/Badges/badge2.png'),title:"Powerful", des:"Finish a strength Quest"},
+        {img:require('../assets/images/Badges/badge3.png'),title:"Double Powerful", des:"Finish a second strength Quest"},
         {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
         {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
         {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
@@ -37,8 +38,6 @@ export default class BadgesContainer extends React.Component {
         {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
         {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
         {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
-        {img:require('../assets/images/Badges/badge14.png'),title:"title14", des:"des14"},
-        {img:require('../assets/images/Badges/badge15.png'),title:"title15", des:"des15"},
       ],
     }
   }
@@ -61,7 +60,7 @@ export default class BadgesContainer extends React.Component {
   _renderBadgeDescriptionModal = () => {
     //renders the modal overly  with the given selectd badge
     return (
-      <View style={{ flexDirection: 'column' }}>
+      <View style={{ flexDirection: 'column', alignItems:'center' }}>
         <Image
           style={styles.modalBadgeImg}
           source={this.state.selectedBadge.img}
@@ -87,7 +86,7 @@ export default class BadgesContainer extends React.Component {
               (badge, index) =>
                 <StyledIcon
                   style={styles.badge}
-                  size={50}
+                  size={35}
                   key={index}
                   source={this.state.badges[index].img}
                   onPress={
@@ -121,8 +120,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   badge: {
-    height: 45,
-    width: 45,
+    height: 50,
+    width: 50,
   },
   modalBadgeImg:{
     height: 80,
