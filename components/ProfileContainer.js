@@ -11,12 +11,15 @@ import ProfileDataContainer from '../components/ProfileDataContainer';
 import BadgesContainer from '../components/BadgesContainer';
 import StatsContainer from '../components/StatsContianer';
 import ArchivedQuesContainer from '../components/ArchivedQuestContainer';
+import * as ImagePicker from 'expo-image-picker';
+
 
 export default class ProfileContainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      localUri: null,
       badges: [
         {img:require('../assets/images/Badges/badge0.png'),title:"Adventurer", des:"Start Questing"},
         {img:require('../assets/images/Badges/badge1.png'),title:"Samaritan", des:"Help a freind with a quest"},
@@ -56,6 +59,22 @@ export default class ProfileContainer extends React.Component {
       ],
     }
   }
+  
+  openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    console.log(pickerResult);
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+      //save picture to state
+    this.setState({ localUri: pickerResult.uri });
+  };
+
 
   async componentDidMount(){
     //this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
@@ -63,10 +82,10 @@ export default class ProfileContainer extends React.Component {
 
   //componentWillUnmount(){
     //this.backHandler.remove();
-  //}
+    //}
 
-   _retrieveProfile = async () => {
-    try {
+    _retrieveProfile = async () => {
+      try {
       const storedQuests = JSON.parse(await AsyncStorage.getItem('@QuestData:key'));
       if (storedQuests !== null) {
         // We got the data, now set it to state!!
@@ -83,52 +102,60 @@ export default class ProfileContainer extends React.Component {
       // Error retrieving data
     }
   };
-
+  
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
-    var quests = [...this.state.Quests];
-    var isChange = false;
-    quests.forEach(value => {
-      if (value.isInEditMode) {
-        value.isInEditMode = false;
-        isChange = true;
-      } else if (value.isActiveDummyTask) {
-        value.isActiveDummyTask = false;
-        isChange = true;
-      } else if (value.selected) {
-        value.selected = false;
-        isChange = true;
-      }
-    });
-    this.setState({ Quests: quests });
-    return isChange;
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollable} >
-          <MoneyAndLevelContainer
-            money={12}
-            level={1}
-            currentExp={30}
-            nextLvExp={100}
-          />
-          <ProfileDataContainer
-            username={"Goran Topic"}
-            usermotto={"Chicken Chaiser"}
-            userpicture={require('../assets/images/icon.png')}
-          />
-          <BadgesContainer 
-            badges={this.state.badges} 
-          />
-          <StatsContainer
-            stats={this.state.stats}
-          />
-          {/*<ArchivedQuesContainer/>*/}
-        </ScrollView>
-      </View>
-    );
-  }
+  var quests = [...this.state.Quests];
+  var isChange = false;
+  quests.forEach(value => {
+    if (value.isInEditMode) {
+      value.isInEditMode = false;
+      isChange = true;
+    } else if (value.isActiveDummyTask) {
+      value.isActiveDummyTask = false;
+      isChange = true;
+    } else if (value.selected) {
+      value.selected = false;
+      isChange = true;
+    }
+  });
+  this.setState({ Quests: quests });
+  return isChange;
+}
+render() {
+
+  
+
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollable} >
+        <MoneyAndLevelContainer
+          money={12}
+          level={1}
+          currentExp={30}
+          nextLvExp={100}
+        />
+        <ProfileDataContainer
+          username={"Goran Topic"}
+          usermotto={"Chicken Chaiser"}
+          userpicture={
+            this.state.localUri === null ?
+              require('../assets/images/icon.png') :
+              { uri: this.state.localUri }
+          }
+          onPress={this.openImagePickerAsync}
+        />
+        <BadgesContainer
+          badges={this.state.badges}
+        />
+        <StatsContainer
+          stats={this.state.stats}
+        />
+        {/*<ArchivedQuesContainer/>*/}
+      </ScrollView>
+    </View>
+  );
+}
 }
 
 

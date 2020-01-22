@@ -19,7 +19,7 @@ import DummyTask from './DummyTask';
 
 
 export default class Quest extends React.Component {
-  /* 
+  /*
      The Quest class is an expandable view, with a shield which expands to into a series of check tasks.
      onece every checkbox is filled it is makerd as competed and it is move to te completed screen.
      only one quest can be selected at the time.
@@ -55,8 +55,8 @@ export default class Quest extends React.Component {
 
   //mark this quest as slected
   _select = () => {
-     this.state._selectQuest(this.state.data.qindex);
-    }
+    this.state._selectQuest(this.state.data.qindex);
+  }
 
   //make an edit on the Quest title
   _edit = (newTitle) => {this.state._editQuest(newTitle, this.state.data.qindex)}
@@ -82,9 +82,7 @@ export default class Quest extends React.Component {
         key={JSON.stringify(value)}
       />)
   }
-
   //push to state array
-
   render() {
     return (
       <View style={styles.container}>
@@ -227,8 +225,10 @@ const styles = StyleSheet.create({
   },
   bombIcon:{
     paddingRight:10,
+    marginLeft: 'auto',
   },
   rewardIcon:{
+    marginLeft: 'auto',
     paddingRight:10,
   },
   shield: {

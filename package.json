@@ -63,7 +63,8 @@
     "url": "^0.10.3",
     "util": "^0.10.4",
     "vm-browserify": "0.0.4",
-    "yarn": "^1.21.1"
+    "yarn": "^1.21.1",
+    "expo-image-picker": "~8.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
