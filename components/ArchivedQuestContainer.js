@@ -12,7 +12,7 @@ import Quest from './Quest';
 import InputBar from './InputBar';
 import { AsyncStorage } from 'react-native';
 
-export default class QuestContainer extends React.Component {
+export default class ArchivedQuestContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -389,18 +389,6 @@ export default class QuestContainer extends React.Component {
           {this.state.Quests.map(this._renderQuest)}
           <View style={styles.emptyspace}/>
         </ScrollView>
-        <KeyboardAvoidingView
-          style={styles.avoidingView}
-          behavior='padding'
-          keyboardVerticalOffset={50 + Expo.Constants.statusBarHeight}
-          enabled
-        >
-          <InputBar
-            _changeQuestShiled={this._changeQuestShiled}
-            _createQuest={this._createQuest}
-            _exitEditMode={this._exitEditMode}
-          />
-        </KeyboardAvoidingView>
       </View>
     );
   }

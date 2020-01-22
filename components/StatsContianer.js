@@ -13,7 +13,7 @@ import colors from '../constants/Colors';
 
 export default class StatsContainer extends React.Component {
   /* 
-    This is a continer for the profile picture of the user
+    This is a continer for the stats of the user
    */
 
   constructor(props) {
@@ -22,9 +22,9 @@ export default class StatsContainer extends React.Component {
 
   _renderRow = (value, index) => {
       return (
-        <View style={ index%2 === 0? styles.evenRow : styles.oddRow} key={index}>
+        <View style={index % 2 === 0? styles.evenRow : styles.oddRow} key={index}>
           <Text style={styles.key}>
-            {Object.keys(value)[0] + " :    "}
+            {Object.keys(value)[0] + " :"}
           </Text>
           <Text style={styles.value}>
             {value[Object.keys(value)[0]]}

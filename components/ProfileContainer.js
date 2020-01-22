@@ -1,13 +1,8 @@
 import React from 'react';
 import {
-  Platform,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   View,
-  KeyboardAvoidingView,
-  ImageBackground,
-  BackHandler,
 } from 'react-native';
 
 import { AsyncStorage } from 'react-native';
@@ -29,6 +24,7 @@ export default class ProfileContainer extends React.Component {
         {img:require('../assets/images/Badges/badge3.png'),title:"Really Powerful One", des:"Finish a second strength Quest"},
         {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
         {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
+        /*
         {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
         {img:require('../assets/images/Badges/badge7.png'),title:"title7", des:"des7"},
         {img:require('../assets/images/Badges/badge8.png'),title:"title8", des:"des8"},
@@ -37,6 +33,7 @@ export default class ProfileContainer extends React.Component {
         {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
         {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
         {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
+        */
       ],
       stats: [
         {"Total Quest Completed": 3,},
@@ -46,6 +43,7 @@ export default class ProfileContainer extends React.Component {
         {"Endurance": 23},
         {"Alquemy": 23},
         {"Badges Unlocked": 3},
+        {"Total Exp": 207},
         
         {"Total Quest Completed": 3,},
         {"Stregth": 23},
@@ -126,7 +124,7 @@ export default class ProfileContainer extends React.Component {
           <StatsContainer
             stats={this.state.stats}
           />
-          <QuesContainer/>
+          {/*<ArchivedQuesContainer/>*/}
         </ScrollView>
       </View>
     );

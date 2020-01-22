@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import Constants from 'expo-constants';
 
 import ToDoScreen from '../screens/ToDoScreen';
 import ProfileScreen from '../screens/ProfileScreen';

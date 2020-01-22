@@ -85,7 +85,17 @@ async function loadResourcesAsync() {
       'helvetica': require('./assets/fonts/HelveticaNeue.ttf'),
 
     }),
+    this.checkUserData(),
+
   ]);
+}
+
+
+
+function checkUserData(){
+
+
+
 }
 
 function handleLoadingError(error) {
