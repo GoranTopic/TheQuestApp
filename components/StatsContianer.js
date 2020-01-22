@@ -22,9 +22,12 @@ export default class StatsContainer extends React.Component {
 
   _renderRow = (value, index) => {
       return (
-        <View style={ index%2 === 0? styles.evenRow : styles.oddRow}>
-          <Text style={styles.text} key={index}>
-            {Object.keys(value)[0] + " :    " + value[Object.keys(value)[0]]}
+        <View style={ index%2 === 0? styles.evenRow : styles.oddRow} key={index}>
+          <Text style={styles.key}>
+            {Object.keys(value)[0] + " :    "}
+          </Text>
+          <Text style={styles.value}>
+            {value[Object.keys(value)[0]]}
           </Text>
         </View>
       )
@@ -48,19 +51,26 @@ const styles = StyleSheet.create({
   },
   evenRow:{
     backgroundColor:'rgba(0,0,0, 0.1)',
-    justifyContent:'center',
+    flexDirection:'row',
     height:20,
   },
   oddRow:{
-    backgroundColor:'rgba(100,100,100, 0.1)',
-    justifyContent:'center',
+    backgroundColor:'rgba(80,80,80, 0.1)',
+    flexDirection:'row',
     height:20,
   },
-  text: {
+  key: {
     fontFamily: 'helvetica-lt',
     fontSize: 12,
-    color: 'white',
+    color: colors.selectedQuestNote,
     paddingLeft:10,
+  },
+  value: {
+    fontFamily: 'helvetica-lt',
+    fontSize: 12,
+    color: colors.selectedQuestNote,
+    marginLeft: 'auto',
+    paddingRight: 35,
   },
 });
 

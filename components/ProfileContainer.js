@@ -45,6 +45,15 @@ export default class ProfileContainer extends React.Component {
         {"Endurance": 23},
         {"Alquemy": 23},
         {"Badges Unlocked": 3},
+        
+        {"Total Quest Completed": 3,},
+        {"Stregth": 23},
+        {"Speed": 23},
+        {"Inteligence": 23},
+        {"Endurance": 23},
+        {"Alquemy": 23},
+        {"Badges Unlocked": 3},
+        {"Total Quest Completed": 3,},
       ],
     }
   }
