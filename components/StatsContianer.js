@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import colors from '../constants/Colors';
 
-export default class ProfileDataContainer extends React.Component {
+export default class StatsContainer extends React.Component {
   /* 
     This is a continer for the profile picture of the user
    */
@@ -19,28 +19,22 @@ export default class ProfileDataContainer extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
+  _renderRow = (value, index) => {
+      return (
+        <View style={ index%2 === 0? styles.evenRow : styles.oddRow}>
+          <Text style={styles.text} key={index}>
+            {Object.keys(value)[0] + " :    " + value[Object.keys(value)[0]]}
+          </Text>
+        </View>
+      )
+    }
+
+
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity  
-          style={styles.ProfilePictureContiner}
-          >
-          <Image 
-            style={styles.ProfilePicture}
-            source={this.props.userpicture}
-          />
-        </TouchableOpacity>
-
-        <View style={styles.TitleContianer}>
-          <Text style={styles.Username}>
-            {this.props.username}
-        </Text>
-          <Text style={styles.MottoLabel}>
-           {this.props.usermotto}
-            </Text>
-        </View>
-
+        {this.props.stats.map(this._renderRow)}
       </View>
     )
   }
@@ -49,33 +43,24 @@ export default class ProfileDataContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    paddingTop:15,
-    height:130,
+    flexDirection: 'column',
+    paddingTop:20,
   },
-  ProfilePictureContiner:{
-    paddingLeft:"5%",
+  evenRow:{
+    backgroundColor:'rgba(0,0,0, 0.1)',
+    justifyContent:'center',
+    height:20,
   },
-  ProfilePicture:{
-    height: 100,
-    width: 100,
+  oddRow:{
+    backgroundColor:'rgba(100,100,100, 0.1)',
+    justifyContent:'center',
+    height:20,
   },
-  TitleContianer: {
-    flexDirection:'column',
-    paddingLeft: 15,
-    paddingTop:17,
-  },
-  Username: {
-    fontFamily: 'helvetica-med',
-    fontSize: 30,
+  text: {
+    fontFamily: 'helvetica-lt',
+    fontSize: 12,
     color: 'white',
-  },
-  MottoLabel: {
-    fontFamily: 'helvetica-med',
-    fontSize: 15,
-    paddingTop:1,
     paddingLeft:10,
-    color: colors.UnselectedQuestOrangyNote,
   },
 });
 

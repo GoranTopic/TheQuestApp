@@ -14,6 +14,7 @@ import { AsyncStorage } from 'react-native';
 import MoneyAndLevelContainer from '../components/MoneyAndLevelConatainer';
 import ProfileDataContainer from '../components/ProfileDataContainer';
 import BadgesContainer from '../components/BadgesContainer';
+import StatsContainer from '../components/StatsContianer';
 
 export default class ProfileContainer extends React.Component {
 
@@ -35,7 +36,16 @@ export default class ProfileContainer extends React.Component {
         {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
         {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
         {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
-      ]
+      ],
+      stats: [
+        {"Total Quest Completed": 3,},
+        {"Stregth": 23},
+        {"Speed": 23},
+        {"Inteligence": 23},
+        {"Endurance": 23},
+        {"Alquemy": 23},
+        {"Badges Unlocked": 3},
+      ],
     }
   }
 
@@ -103,7 +113,9 @@ export default class ProfileContainer extends React.Component {
           <BadgesContainer 
             badges={this.state.badges} 
           />
-          <View style={styles.testing3}/> 
+          <StatsContainer
+            stats={this.state.stats}
+          />
         </ScrollView>
       </View>
     );

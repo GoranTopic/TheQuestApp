@@ -97,14 +97,16 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingTop: 15,
+    paddingLeft: 23,
+    minHeight: 100,
   },
   badgesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   badge: {
-    height: 50,
-    width: 50,
+    height: 45,
+    width: 45,
   },
   modalBadgeImg:{
     height: 80,
