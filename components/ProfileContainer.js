@@ -15,6 +15,7 @@ import MoneyAndLevelContainer from '../components/MoneyAndLevelConatainer';
 import ProfileDataContainer from '../components/ProfileDataContainer';
 import BadgesContainer from '../components/BadgesContainer';
 import StatsContainer from '../components/StatsContianer';
+import ArchivedQuesContainer from '../components/ArchivedQuestContainer';
 
 export default class ProfileContainer extends React.Component {
 
@@ -125,6 +126,7 @@ export default class ProfileContainer extends React.Component {
           <StatsContainer
             stats={this.state.stats}
           />
+          <QuesContainer/>
         </ScrollView>
       </View>
     );
