@@ -65,8 +65,6 @@ async function loadResourcesAsync() {
       require('./assets/images/Badges/badge11.png'),
       require('./assets/images/Badges/badge12.png'),
       require('./assets/images/Badges/badge13.png'),
-      require('./assets/images/Badges/badge14.png'),
-      require('./assets/images/Badges/badge15.png'),
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
@@ -85,18 +83,26 @@ async function loadResourcesAsync() {
       'helvetica': require('./assets/fonts/HelveticaNeue.ttf'),
 
     }),
-    this.checkUserData(),
 
   ]);
 }
 
 
 
-function checkUserData(){
+checkUserData = async () => {
+    try {
+      const storedData = JSON.parse(await AsyncStorage.getItem('@UserData:key'));
+      if (storedData !== null) {
+        console.log("User Data Retrived Successfully.")
+      }
+    } catch (error) {
+      console.error('AsyncStorage#setItem error: ' + error.message);
+      console.log("Error: could not User Data")
+      console.log("Setting Deafult User Data")
+      // Error retrieving data
+    }
+  };
 
-
-
-}
 
 function handleLoadingError(error) {
   // In this case, you might want to report the error to your error reporting
