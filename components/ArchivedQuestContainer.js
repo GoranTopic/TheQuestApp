@@ -13,7 +13,6 @@ import InputBar from './InputBar';
 import { AsyncStorage } from 'react-native';
 
 export default class ArchivedQuestContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -126,7 +125,6 @@ export default class ArchivedQuestContainer extends React.Component {
   componentWillUnmount(){
     this.backHandler.remove();
   }
- 
   _storeQuestState = async () => {
     /*stores the data from the quest in persistant memeory, with some luck...*/
     try {
@@ -207,9 +205,9 @@ export default class ArchivedQuestContainer extends React.Component {
     return true;
   }
 
-   _removeQuest = (qindex) => {
-     /*removes a quest in the quest array*/
-     this._exitModes();
+  _removeQuest = (qindex) => {
+    /*removes a quest in the quest array*/
+    this._exitModes();
     var quests = [...this.state.Quests];
     var questCount = 0;
     //remove element

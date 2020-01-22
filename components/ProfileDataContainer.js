@@ -4,10 +4,7 @@ import { Text, Image, } from 'react-native-elements';
 import {
   TouchableOpacity,
   View,
-  ImageBackground,
   StyleSheet,
-  TextInput,
-  Button,
 } from 'react-native';
 import colors from '../constants/Colors';
 
@@ -32,16 +29,14 @@ export default class ProfileDataContainer extends React.Component {
             source={this.props.userpicture}
           />
         </TouchableOpacity>
-
         <View style={styles.TitleContianer}>
           <Text style={styles.Username}>
             {this.props.username}
         </Text>
           <Text style={styles.MottoLabel}>
-           {this.props.usermotto}
+            {this.props.usermotto}
             </Text>
         </View>
-
       </View>
     )
   }

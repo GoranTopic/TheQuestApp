@@ -12,54 +12,26 @@ import BadgesContainer from '../components/BadgesContainer';
 import StatsContainer from '../components/StatsContianer';
 import ArchivedQuesContainer from '../components/ArchivedQuestContainer';
 import * as ImagePicker from 'expo-image-picker';
+import { connect } from 'react-redux';
 
 
-export default class ProfileContainer extends React.Component {
-
+class ProfileContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      localUri: null,
-      badges: [
-        {img:require('../assets/images/Badges/badge0.png'),title:"Adventurer", des:"Start Questing"},
-        {img:require('../assets/images/Badges/badge1.png'),title:"Samaritan", des:"Help a freind with a quest"},
-        {img:require('../assets/images/Badges/badge2.png'),title:"Powerful One", des:"Finish a strength Quest"},
-        {img:require('../assets/images/Badges/badge3.png'),title:"Really Powerful One", des:"Finish a second strength Quest"},
-        {img:require('../assets/images/Badges/badge4.png'),title:"title4", des:"des4"},
-        {img:require('../assets/images/Badges/badge5.png'),title:"title5", des:"des5"},
-        /*
-        {img:require('../assets/images/Badges/badge6.png'),title:"title6", des:"des6"},
-        {img:require('../assets/images/Badges/badge7.png'),title:"title7", des:"des7"},
-        {img:require('../assets/images/Badges/badge8.png'),title:"title8", des:"des8"},
-        {img:require('../assets/images/Badges/badge9.png'),title:"title9", des:"des9"},
-        {img:require('../assets/images/Badges/badge10.png'),title:"title10", des:"des10"},
-        {img:require('../assets/images/Badges/badge11.png'),title:"title11", des:"des11"},
-        {img:require('../assets/images/Badges/badge12.png'),title:"title12", des:"des12"},
-        {img:require('../assets/images/Badges/badge13.png'),title:"title13", des:"des13"},
-        */
-      ],
-      stats: [
-        {"Total Quest Completed": 3,},
-        {"Stregth": 23},
-        {"Speed": 23},
-        {"Inteligence": 23},
-        {"Endurance": 23},
-        {"Alquemy": 23},
-        {"Badges Unlocked": 3},
-        {"Total Exp": 207},
-        
-        {"Total Quest Completed": 3,},
-        {"Stregth": 23},
-        {"Speed": 23},
-        {"Inteligence": 23},
-        {"Endurance": 23},
-        {"Alquemy": 23},
-        {"Badges Unlocked": 3},
-        {"Total Quest Completed": 3,},
-      ],
+      //get the state from redux global state
+      localUri: this.props.UserData.profilePicUri,
+      usermotto: this.props.UserData.usermotto,
+      money: this.props.UserData.money,
+      level: this.props.UserData.level,
+      currentExp: this.props.UserData.currentExp,
+      nextLvExp: this.props.UserData.nextLvExp,
+      profilePicSet: this.props.UserData.profilePicSet,
+      username: this.props.UserData.username,
+      badges: this.props.UserData.badges,
+      stats: this.props.UserData.stats,
     }
   }
-  
   openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -71,21 +43,17 @@ export default class ProfileContainer extends React.Component {
     if (pickerResult.cancelled === true) {
       return;
     }
-      //save picture to state
+    //save picture to state
     this.setState({ localUri: pickerResult.uri });
   };
-
-
-  async componentDidMount(){
+  async componentDidMount() {
     //this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
-
   //componentWillUnmount(){
-    //this.backHandler.remove();
-    //}
-
-    _retrieveProfile = async () => {
-      try {
+  //this.backHandler.remove();
+  //}
+  _retrieveProfile = async () => {
+    try {
       const storedQuests = JSON.parse(await AsyncStorage.getItem('@QuestData:key'));
       if (storedQuests !== null) {
         // We got the data, now set it to state!!
@@ -102,63 +70,67 @@ export default class ProfileContainer extends React.Component {
       // Error retrieving data
     }
   };
-  
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
-  var quests = [...this.state.Quests];
-  var isChange = false;
-  quests.forEach(value => {
-    if (value.isInEditMode) {
-      value.isInEditMode = false;
-      isChange = true;
-    } else if (value.isActiveDummyTask) {
-      value.isActiveDummyTask = false;
-      isChange = true;
-    } else if (value.selected) {
-      value.selected = false;
-      isChange = true;
-    }
-  });
-  this.setState({ Quests: quests });
-  return isChange;
-}
-render() {
-
-  
-
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollable} >
-        <MoneyAndLevelContainer
-          money={12}
-          level={1}
-          currentExp={30}
-          nextLvExp={100}
-        />
-        <ProfileDataContainer
-          username={"Goran Topic"}
-          usermotto={"Chicken Chaiser"}
-          userpicture={
-            this.state.localUri === null ?
-              require('../assets/images/icon.png') :
-              { uri: this.state.localUri }
-          }
-          onPress={this.openImagePickerAsync}
-        />
-        <BadgesContainer
-          badges={this.state.badges}
-        />
-        <StatsContainer
-          stats={this.state.stats}
-        />
-        {/*<ArchivedQuesContainer/>*/}
-      </ScrollView>
-    </View>
-  );
-}
+    var quests = [...this.state.Quests];
+    var isChange = false;
+    quests.forEach(value => {
+      if (value.isInEditMode) {
+        value.isInEditMode = false;
+        isChange = true;
+      } else if (value.isActiveDummyTask) {
+        value.isActiveDummyTask = false;
+        isChange = true;
+      } else if (value.selected) {
+        value.selected = false;
+        isChange = true;
+      }
+    });
+    this.setState({ Quests: quests });
+    return isChange;
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollable} >
+          <MoneyAndLevelContainer
+            money={this.state.money}
+            level={this.state.level}
+            currentExp={this.state.currentExp}
+            nextLvExp={this.state.nextLvExp}
+          />
+          <ProfileDataContainer
+            username={this.state.username}
+            usermotto={this.state.usermotto}
+            userpicture={
+              this.state.localUri === null ?
+                require('../assets/images/icon.png') : //default userPicture
+                { uri: this.state.localUri }
+            }
+            onPress={this.openImagePickerAsync}
+          />
+          <BadgesContainer
+            badges={this.state.badges}
+          />
+          <StatsContainer
+            stats={this.state.stats}
+          />
+          {/*<ArchivedQuesContainer/>*/}
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
+function mapStateToProps(state){
+  return {
 
+    UserData: state.UserData,
+  }
+}
+
+
+export default connect(mapStateToProps)(ProfileContainer);
 
 const styles = StyleSheet.create({
   container: {

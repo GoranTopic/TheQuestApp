@@ -11,122 +11,29 @@ import {
 import Quest from './Quest';
 import InputBar from './InputBar';
 import { AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class QuestContainer extends React.Component {
+class QuestContainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      QCount: 3,
-      Quests: [
-        {
-          qindex: 0,
-          title: "IN CIRI'S FOOTSTEPS",
-          shield: require('../assets/images/shields/COA_multiple_locations_Tw3.png'),
-          exp: 10,
-          selected: false,
-          done: false,
-          isInEditMode: false,
-          isActiveDummyTask: false,
-          tCount: 4,
-          tasks: [
-            {
-              title: "Go To Velen",
-              tindex: 0,
-              selected: false,
-              done: false,
-            }, {
-              title: "Find Yennifer",
-              tindex: 1,
-              selected: false,
-              done: false,
-            }, {
-              title: "Have Sex with Yennifer",
-              tindex: 2,
-              selected: false,
-              done: false,
-            }
-          ]
-        }, {
-          qindex: 1,
-          title: "GWENT: VELEN PLAYERS",
-          shield: require('../assets/images/shields/COA_Velen_Tw3.png'),
-          exp: 20,
-          selected: false,
-          done: false,
-          isInEditMode: false,
-          isActiveDummyTask: false,
-          tCount: 4,
-          tasks: [
-            {
-              title: "Win a unique card from the baron",
-              tindex: 0,
-              selected: false,
-              done: false,
-            }, {
-              title: "Win a unique card from the man in Oreton",
-              tindex: 1,
-              selected: false,
-              done: false,
-            }, {
-              title: "Win a unique card from Haddy of Midcopse",
-              tindex: 2,
-              selected: false,
-              done: false,
-            }, {
-              title: "Win a unique card from the soothsayer",
-              tindex: 3,
-              selected: false,
-              done: false,
-            }]
-        }, {
-          qindex: 2,
-          title: "SCAVENGER HUNT: CAT SCHOOL GEAR UPGRADE DIAGRAMS",
-          shield: require('../assets/images/shields/COA_Novigrad_Tw3.png'),
-          exp: 15,
-          selected: false,
-          done: false,
-          isInEditMode: false,
-          isActiveDummyTask: false,
-          tCount: 4,
-          tasks: [
-            {
-              title: "Find boot Diagram using your Witcher senses",
-              tindex: 0,
-              selected: false,
-              done: false,
-            }, {
-              title: "Find the silver sword ugrade diagram using your Witcher Senses",
-              tindex: 1,
-              selected: false,
-              done: false,
-            }, {
-              title: "Find the armor upgrade diagram using your Witcher Senses",
-              tindex: 2,
-              selected: false,
-              done: false,
-            }, {
-              title: "Win a unique card from the soothsayer",
-              tindex: 3,
-              selected: false,
-              done: false,
-            }]
-        },
-      ]
+      QCount: this.props.Quests.length,
+      Quests: this.props.Quests,
     }
   }
 
   async componentDidMount(){
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    this._storeQuestState(); //uncomment to use default quest data again
-    this._retrieveQuestState(); //if first time it should fail to retive anything   
+    //this._storeQuestState(); //uncomment to use default quest data again
+    //this._retrieveQuestState(); //if first time it should fail to retive anything   
 
   }
 
   componentWillUnmount(){
     this.backHandler.remove();
   }
- 
+
   _storeQuestState = async () => {
     /*stores the data from the quest in persistant memeory, with some luck...*/
     try {
@@ -207,9 +114,9 @@ export default class QuestContainer extends React.Component {
     return true;
   }
 
-   _removeQuest = (qindex) => {
-     /*removes a quest in the quest array*/
-     this._exitModes();
+  _removeQuest = (qindex) => {
+    /*removes a quest in the quest array*/
+    this._exitModes();
     var quests = [...this.state.Quests];
     var questCount = 0;
     //remove element
@@ -261,14 +168,12 @@ export default class QuestContainer extends React.Component {
     quests.forEach(value => { value.isActiveDummyTask = false; });
     this.setState({ Quests: quests });
   }
-
   _editQuest = (newTitle, qindex) => {
     /*edit the selected quest*/
     var quests = [...this.state.Quests];
     quests[qindex].title = newTitle;
     this.setState({ Quests: quests });
   }
-
   _setEditModeQuest = (qindex) => {
     /*change the mode as a deletable on the quest*/
     this._exitModes();
@@ -288,7 +193,6 @@ export default class QuestContainer extends React.Component {
     )
     this.setState({ Quests: quests });
   }
-
   _completeQuest = (qindex) => {
     /*marks a single quest as done*/
     this._exitModes();
@@ -324,7 +228,6 @@ export default class QuestContainer extends React.Component {
     this._storeQuestState(); // save Data to memory
   }
 
-
   _removeTask = (qindex, tindex) => {
     /*removes a single task from a quest of the given index*/
     var quests = [...this.state.Quests];
@@ -336,8 +239,9 @@ export default class QuestContainer extends React.Component {
     )
     quests[qindex].tCount--;
     this._checkQuestIsDone(qindex);
-    this.setState({ Quests: quests })
-    this._storeQuestState(); // save Data to memory
+    //this.setState({ Quests: quests })
+    //this._storeQuestState(); // save Data to memory
+    this.props.removeQuest(quests);
   }
 
   _selectTask = (qindex, tindex) => {
@@ -361,6 +265,7 @@ export default class QuestContainer extends React.Component {
     this._checkQuestIsDone(qindex);
     this.setState({ Quests: quests })
     this._storeQuestState(); // save Data to memory
+    this.props.completeQuest();
   }
 
   _renderQuest = (value, index) => {
@@ -405,6 +310,22 @@ export default class QuestContainer extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return{
+    Quests:state.UserData.Quests,
+  }
+}
+
+function mapDispatchTopProps(dispatch){
+  return{
+    completeQuest: () => dispatch({ type: 'COMPLETE_QUEST' }),
+    removeQuest: (newQuests) => dispatch({ type: 'REMOVE_QUEST', stored: newQuests })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchTopProps)(QuestContainer);
+
 
 const styles = StyleSheet.create({
   container: {
