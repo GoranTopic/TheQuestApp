@@ -15,10 +15,18 @@ export default class StatsContainer extends React.Component {
   /* 
     This is a continer for the stats of the user
    */
-
   constructor(props) {
     super(props);
   }
+
+  converToArray = (stats) => {
+    let array = [];
+    Object.keys(stats).forEach((key) => {
+      array.push({[key]: stats[key]})
+    });
+    return array;
+  }
+
 
   _renderRow = (value, index) => {
       return (
@@ -37,7 +45,7 @@ export default class StatsContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.props.stats.map(this._renderRow)}
+        {this.converToArray(this.props.stats).map(this._renderRow)}
       </View>
     )
   }

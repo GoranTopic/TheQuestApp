@@ -9,16 +9,17 @@ import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
+//import {} from 'ProfileMecanics';
 
 const initialState = {
   //crates the initial state for redux 
   UserData: {
     username: 'Goran Topic',
     usermotto: 'Chicken Chaiser',
-    money: 1042,
-    level: 13,
-    currentExp: 400,
-    nextLvExp: 1000,
+    money: 0,
+    level: 0,
+    currentExp: 0,
+    nextLvExp: 10,
     profilePicSet: false,
     profilePicUri: null,
     badges: [
@@ -37,16 +38,16 @@ const initialState = {
       { img: require('./assets/images/Badges/badge12.png'), title: "title12", des: "des12" },
       { img: require('./assets/images/Badges/badge13.png'), title: "title13", des: "des13" },
     ],
-    stats: [
-      { "Total Quest Completed": 3, },
-      { "Stregth": 23 },
-      { "Speed": 23 },
-      { "Inteligence": 23 },
-      { "Endurance": 23 },
-      { "Alquemy": 23 },
-      { "Badges Unlocked": 3 },
-      { "Total Exp": 207 },
-    ],
+    stats: {
+      "Total Quest Completed": 0,
+      "Stregth": 5,
+      "Speed": 5,
+      "Inteligence": 5,
+      "Endurance": 5,
+      "Alquemy": 5,
+      "Badges Unlocked": 5,
+      "Total Exp": 0,
+    },
     Quests: [
       {
         qindex: 0,
@@ -146,16 +147,39 @@ const initialState = {
   }
 }
 
+nextLevelFormula = (currentLevel) => { 
+  nextExp= (5 * (Math.pow(currentLevel, 3))) / 4;
+  //if(currentLevel < 5) nextExp = nextExp + (20 * (currentLevel + 1)) 
+  return Math.round(nextExp);
+}
+
+expManager = (UserData, doneQuest) => {
+  /* this fuction takes the completed quest and added it values to the user state */
+  let data = {...UserData};
+  data.Quests.splice(doneQuest.qindex, 1);
+  data.Quests.forEach((value, index) => value.qindex = index);
+
+  //add a quest completed
+  data.stats["Total Quest Completed"]++;
+  data.stats["Total Exp"] += doneQuest.exp;
+
+  while(data.currentExp + doneQuest.exp >= data.nextLvExp){
+   //check if it will level up
+    data.level++; 
+    doneQuest.exp = data.currentExp + doneQuest.exp - data.nextLvExp;
+    data.currentExp = 0;
+    //calc exp for next level
+    data.nextLvExp = this.nextLevelFormula(data.level);
+  }
+    data.currentExp += doneQuest.exp;
+  return {...data}
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'COMPLETE_QUEST': {
       return {
-        UserData: {
-          ...state.UserData,
-          currentExp: state.UserData.currentExp + action.doneQuest.exp,
-          Quests: action.newQuests,
-        }
+        UserData: this.expManager(state.UserData, action.doneQuest),
       }
     }
     case 'SET_PICTURE': {
@@ -181,6 +205,7 @@ const reducer = (state = initialState, action) => {
 }
 
 const store = createStore(reducer) //create store for redux 
+
 
 
 export default function App(props) {

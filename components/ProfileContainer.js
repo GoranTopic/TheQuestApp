@@ -37,7 +37,6 @@ class ProfileContainer extends React.Component {
     //save picture to state
     this.props.setprofilePicture(pickerResult.uri);
   };
-
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
     var quests = [...this.state.Quests];

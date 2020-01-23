@@ -199,16 +199,9 @@ class QuestContainer extends React.Component {
     this._exitModes();
     var quests = [...this.props.Quests];
     
-    var doneQuest = quests.splice(qindex, 1);
-    doneQuest = doneQuest[0]; //unwrapping from the array
     //update the index of every quest
-    quests.forEach(
-      (value, index) => {
-        value.qindex = index;
-      }
-    )
     //complete a quest
-    this.props.completeQuest(doneQuest, quests);
+    this.props.completeQuest(quests[qindex]);
   }
 
   _editTask = (newTitle, qindex, tindex) => {
@@ -329,7 +322,7 @@ function mapStateToProps(state){
 
 function mapDispatchTopProps(dispatch){
   return{
-    completeQuest: (doneQuest, newQuests) => dispatch({ type: 'COMPLETE_QUEST', doneQuest: doneQuest, newQuests: newQuests }),
+    completeQuest: (doneQuest) => dispatch({ type: 'COMPLETE_QUEST', doneQuest: doneQuest }),
     setReduxQuestState: (newQuests) => dispatch({ type: 'SET_QUEST', newQuests: newQuests })
   }
 }

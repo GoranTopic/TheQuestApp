@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import ToDoScreen from '../screens/ToDoScreen';

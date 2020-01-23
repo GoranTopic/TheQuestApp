@@ -27,8 +27,14 @@ export default class MoneyAndLevelContainer extends React.Component {
   
   calcExpBar = () =>{
     /*Calcualtes the width of the exp bar, with luck, it does so accurelty*/
-    let ratio = this.props.currentExp / this.props.nextLvExp    
+    let ratio;
+    this.props.currentExp > 0? 
+      ratio = this.props.currentExp / this.props.nextLvExp :
+      ratio = 0;
     let maxWith = 120;
+    console.log("nextLv: " + this.props.nextLvExp);
+    console.log("current: " + this.props.currentExp);
+    console.log("ratio: " + ratio);
     return maxWith * ratio;
   }
 
