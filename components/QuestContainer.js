@@ -17,10 +17,6 @@ class QuestContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      QCount: this.props.Quests.length,
-      Quests: this.props.Quests,
-    }
   }
 
   async componentDidMount(){
@@ -67,7 +63,7 @@ class QuestContainer extends React.Component {
   
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     var isChange = false;
     quests.forEach(value => {
       if(value.isInEditMode){
@@ -81,28 +77,31 @@ class QuestContainer extends React.Component {
         isChange = true;
       }
     });    
-    this.setState({ Quests: quests });
+    this.props.setReduxQuestState(quests);
+    //set to local state as it is not viale change
     return isChange;
   }
 
   _createQuest = (newQuest) => {
     /*creates a new quest which is passed*/
     this._exitModes(); //if was in editting mode
-    var quests = [...this.state.Quests];
-    newQuest.qindex = this.state.QCount;
+    var quests = [...this.props.Quests];
+    newQuest.qindex = quests.length;
     quests.push(newQuest);
+
     //set state
-    this.setState({ 
-      Quests: quests, 
-      QCount: this.state.QCount + 1 //update count
-    })
+    //this.setState({ 
+      //Quests: quests, 
+      //QCount: this.state.QCount + 1 //update count
+    //})
     // save Data to memory
-    this._storeQuestState();
+    //this._storeQuestState();
+    this.props.setReduxQuestState(quests);
   }
 
   _checkQuestIsDone = (qindex) => {
     /*checks wheather a quest has completed all it task, if so the mark it as complete*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     var areAllDone = true;
     quests[qindex].tasks.forEach(
       (task) => {
@@ -110,14 +109,14 @@ class QuestContainer extends React.Component {
       }
     )
     quests[qindex].done = areAllDone;
-    this.setState({ Quests: quests })
+    this.props.setReduxQuestState(quests);
     return true;
   }
 
   _removeQuest = (qindex) => {
     /*removes a quest in the quest array*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     var questCount = 0;
     //remove element
     quests.splice(qindex, 1);
@@ -128,56 +127,60 @@ class QuestContainer extends React.Component {
         questCount++;
       }
     )
-
     // set state
-    this.setState({ 
-      Quests: quests,
-      QCount: questCount,
-    });
-    this._storeQuestState(); // save Data to memory
+    //this.setState({ 
+      //Quests: quests,
+      //QCount: questCount,
+    //});
+    //this._storeQuestState(); // save Data to memory
+    this.props.setReduxQuestState(quests);
   }
 
   _selectQuest = (qindex) => {
     /*marks a single quest as selected*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].selected = !quests[qindex].selected;
-    this.setState({ Quests: quests });
+    this.props.setReduxQuestState( quests );
   }
 
   _exitModes = () => {
     /*extis all mode on the Quest*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests.forEach(value => {
       value.isInEditMode = false
       value.isActiveDummyTask = false;
     });
-    this.setState({ Quests: quests });
+    //local state 
+    this.props.setReduxQuestState(quests);
   }
 
   _exitEditMode = () => {
     /*set all exit Modes all the quest as false*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests.forEach(value => { value.isInEditMode = false });
-    this.setState({ Quests: quests });
+    this.props.setReduxQuestState( quests );
   }
 
   _exitDummyMode = () => {
     /*exits the dummy mode when adding tasks*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests.forEach(value => { value.isActiveDummyTask = false; });
-    this.setState({ Quests: quests });
+    //local state only
+    this.props.setReduxQuestState(quests);
   }
   _editQuest = (newTitle, qindex) => {
     /*edit the selected quest*/
     var quests = [...this.state.Quests];
     quests[qindex].title = newTitle;
-    this.setState({ Quests: quests });
+    //this.setState({ Quests: quests });
+    this.props.setReduxQuestState(quests);
   }
+
   _setEditModeQuest = (qindex) => {
     /*change the mode as a deletable on the quest*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests.forEach(
       (value, index) => {
         if (index === qindex) {
@@ -191,29 +194,34 @@ class QuestContainer extends React.Component {
         }
       }
     )
-    this.setState({ Quests: quests });
+    //this.setState({ Quests: quests }); 
+    //local state
+    this.props.setReduxQuestState(quests);
   }
   _completeQuest = (qindex) => {
     /*marks a single quest as done*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].done = true;
-    this.setState({ Quests: quests })
-    this._storeQuestState(); // save Data to memory
+    
+    this.props.setReduxQuestState(quests);
+    //this.setState({ Quests: quests })
+    //this._storeQuestState(); // save Data to memory
   }
 
   _editTask = (newTitle, qindex, tindex) => {
     /*marks a single task as selecet from a given index quest*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].tasks[tindex].selected = newTitle; 
-    this.setState({ Quests: quests })
-    this._storeQuestState(); // save Data to memory
+    //this.setState({ Quests: quests })
+    //this._storeQuestState(); // save Data to memory
+    this.props.setReduxQuestState(quests);
   }
 
   _addTask = (qindex, title) => {
     /*adds a task to the given index quest*/
     this._exitEditMode();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].tasks.push(
       {
         title: title,
@@ -224,13 +232,14 @@ class QuestContainer extends React.Component {
     )
     quests[qindex].tCount = quests[qindex].tCount + 1;
     this._checkQuestIsDone(qindex);
-    this.setState({ Quests: quests })
-    this._storeQuestState(); // save Data to memory
+    //this.setState({ Quests: quests })
+    //this._storeQuestState(); // save Data to memory
+    this.props.setReduxQuestState(quests);
   }
 
   _removeTask = (qindex, tindex) => {
     /*removes a single task from a quest of the given index*/
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     //remove task
     quests[qindex].tasks.splice(tindex, 1);
     //update task indexes
@@ -239,36 +248,36 @@ class QuestContainer extends React.Component {
     )
     quests[qindex].tCount--;
     this._checkQuestIsDone(qindex);
-    //this.setState({ Quests: quests })
+    this.props.setReduxQuestState(quests);
     //this._storeQuestState(); // save Data to memory
-    this.props.removeQuest(quests);
   }
 
   _selectTask = (qindex, tindex) => {
     /*marks a single task as selecet from a given index quest*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].tasks.forEach( (value) => {
       if(value.tindex === tindex) value.selected = !value.selected; 
       else value.selected = false;
     })
-    this.setState({ Quests: quests })
+    this.props.setReduxQuestState(quests)
   }
 
   _completeTask = (qindex, tindex) => {
     /*marks a single task as selecet from a given index quest*/
     this._exitModes();
-    var quests = [...this.state.Quests];
+    var quests = [...this.props.Quests];
     quests[qindex].tasks[tindex].selected = false; 
     quests[qindex].tasks[tindex].done = !quests[qindex].tasks[tindex].done; 
     
     this._checkQuestIsDone(qindex);
-    this.setState({ Quests: quests })
-    this._storeQuestState(); // save Data to memory
+    this.props.setReduxQuestState(quests);
+    //this.setState({ Quests: quests })
+    //this._storeQuestState(); // save Data to memory
     this.props.completeQuest();
   }
 
-  _renderQuest = (value, index) => {
+  _renderQuest = (value) => {
     /*render and pass function props into the Quest component*/
     return <Quest
       _questData={value}
@@ -291,7 +300,7 @@ class QuestContainer extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollable} >
-          {this.state.Quests.map(this._renderQuest)}
+          {this.props.Quests.map(this._renderQuest)}
           <View style={styles.emptyspace}/>
         </ScrollView>
         <KeyboardAvoidingView
@@ -313,14 +322,14 @@ class QuestContainer extends React.Component {
 
 function mapStateToProps(state){
   return{
-    Quests:state.UserData.Quests,
+    Quests: state.UserData.Quests,
   }
 }
 
 function mapDispatchTopProps(dispatch){
   return{
     completeQuest: () => dispatch({ type: 'COMPLETE_QUEST' }),
-    removeQuest: (newQuests) => dispatch({ type: 'REMOVE_QUEST', stored: newQuests })
+    setReduxQuestState: (newQuests) => dispatch({ type: 'SET_QUEST', newQuests: newQuests })
   }
 }
 

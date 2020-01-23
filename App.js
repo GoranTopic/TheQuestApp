@@ -150,9 +150,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'COMPLETE_QUEST': {
-      console.log("it ran")
-      console.log(state.UserData);
-      //console.log(state.UserData.currentExp)
       return {
         UserData: {
           ...state.UserData,
@@ -160,11 +157,11 @@ const reducer = (state = initialState, action) => {
         }
       }
     }
-    case 'REMOVE_QUEST': {
+    case 'SET_QUEST': {
       return {
         UserData:{
           ...state.UserData,
-          Quests: action.stored,
+          Quests: action.newQuests,
         }
       }
     }
