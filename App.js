@@ -81,12 +81,12 @@ const persistConfig = {
   storage: AsyncStorage,
 }
 
+const store = createStore(reducer);
+//Uncomment to start using peristant datain the app
 //create a persistant reducer
-const persistedReducer = persistReducer(persistConfig, reducer)
-
-
-const store = createStore(persistedReducer); //create store for redux 
-let persistor = persistStore(store);
+//const persistedReducer = persistReducer(persistConfig, reducer)
+//const store = createStore(persistedReducer); //create store for redux 
+//let persistor = persistStore(store);
 
 
 
@@ -111,9 +111,9 @@ export default function App(props) {
         <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
         <View style={styles.view} />
         <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <AppNavigator />
-          </PersistGate>
+          {/* <PersistGate loading={null} persistor={persistor}> */}
+          <AppNavigator />
+          {/* </PersistGate> */}
         </Provider>
       </View>
     );
