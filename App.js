@@ -9,10 +9,9 @@ import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 import { createStore } from 'redux';
 import {Provider} from 'react-redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react'
 import  defaultUserData from './defaultUserData';
-
-
-
 
 
 nextLevelFormula = (currentLevel) => { 
@@ -50,7 +49,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'COMPLETE_QUEST': {
       let data = { UserData: this.expManager(state.UserData, action.doneQuest), }
-      this.storeLocalData(data);
       return data;
     }
     case 'SET_PICTURE': {
@@ -61,7 +59,6 @@ const reducer = (state = initialState, action) => {
           profilePicUri: action.profilePicUri,
         }
       }
-      this.storeLocalData(data);
       return data;
       
     }
@@ -72,14 +69,27 @@ const reducer = (state = initialState, action) => {
           Quests: action.newQuests,
         }
       }
-      this.storeLocalData(data);
       return data;
     }
   } 
   return state;
 }
 
-const store = createStore(reducer) //create store for redux 
+//config obj for persistant reducer
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+}
+
+//create a persistant reducer
+const persistedReducer = persistReducer(persistConfig, reducer)
+
+
+const store = createStore(persistedReducer); //create store for redux 
+let persistor = persistStore(store);
+
+
+
 export default function App(props) {
 
 
@@ -99,9 +109,11 @@ export default function App(props) {
         {Platform.OS === 'ios' &&
           <StatusBar barStyle="default" />}
         <StatusBar barStyle="dark-content" hidden={false} translucent={true} />
-        <View style={styles.view}/>
-        <Provider store={store}> 
-          <AppNavigator />
+        <View style={styles.view} />
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppNavigator />
+          </PersistGate>
         </Provider>
       </View>
     );
