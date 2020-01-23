@@ -35,9 +35,9 @@ class ProfileContainer extends React.Component {
       return;
     }
     //save picture to state
-    this.setState({ localUri: pickerResult.uri });
+    this.props.setprofilePicture(pickerResult.uri);
   };
-  
+
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
     var quests = [...this.state.Quests];
@@ -71,11 +71,12 @@ class ProfileContainer extends React.Component {
             username={this.props.UserData.username}
             usermotto={this.props.UserData.usermotto}
             userpicture={
-              this.state.localUri === null ?
+              this.props.UserData.profilePicUri === null ?
                 require('../assets/images/icon.png') : //default userPicture
-                { uri: this.state.localUri }
+                { uri: this.props.UserData.profilePicUri }
             }
-            onPress={this.openImagePickerAsync}
+            onPress={this.props.UserData.profilePicSet? null : this.openImagePickerAsync}
+            onLongPress={this.openImagePickerAsync}
           />
           <BadgesContainer
             badges={this.props.UserData.badges}
@@ -96,8 +97,13 @@ function mapStateToProps(state){
   }
 }
 
+function mapDispatchTopProps(dispatch){
+  return{
+    setprofilePicture: (uri) =>  dispatch({ type: 'SET_PICTURE', profilePicUri: uri })
+  }
+}
 
-export default connect(mapStateToProps)(ProfileContainer);
+export default connect(mapStateToProps, mapDispatchTopProps)(ProfileContainer);
 
 const styles = StyleSheet.create({
   container: {

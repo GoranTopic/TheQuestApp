@@ -153,14 +153,23 @@ const reducer = (state = initialState, action) => {
       return {
         UserData: {
           ...state.UserData,
-          currentExp: state.UserData.currentExp + action.doneQuest.exp ,
+          currentExp: state.UserData.currentExp + action.doneQuest.exp,
           Quests: action.newQuests,
+        }
+      }
+    }
+    case 'SET_PICTURE': {
+      return {
+        UserData: {
+          ...state.UserData,
+          profilePicSet: true,
+          profilePicUri: action.profilePicUri,
         }
       }
     }
     case 'SET_QUEST': {
       return {
-        UserData:{
+        UserData: {
           ...state.UserData,
           Quests: action.newQuests,
         }

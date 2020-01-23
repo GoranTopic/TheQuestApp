@@ -23,6 +23,7 @@ export default class ProfileDataContainer extends React.Component {
         <TouchableOpacity  
           style={styles.ProfilePictureContiner}
           onPress={this.props.onPress}
+          onLongPress={this.props.onLongPress}
           >
           <Image 
             style={styles.ProfilePicture}
