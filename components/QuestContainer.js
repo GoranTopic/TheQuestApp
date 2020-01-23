@@ -30,18 +30,7 @@ class QuestContainer extends React.Component {
     this.backHandler.remove();
   }
 
-  _storeQuestState = async () => {
-    /*stores the data from the quest in persistant memeory, with some luck...*/
-    try {
-      await AsyncStorage.setItem('@QuestData:key', JSON.stringify([...this.state.Quests]) );
-      console.log("Quests Saved successfully") 
-    } catch (error) {
-      console.error('AsyncStorage#setItem error: ' + error.message);
-      console.log("Error while Saving Data")
-      // Error saving data
-    }
-  };
-
+ 
   _retrieveQuestState = async () => {
     try {
       const storedQuests = JSON.parse(await AsyncStorage.getItem('@QuestData:key'));

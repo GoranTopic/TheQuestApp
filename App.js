@@ -11,9 +11,10 @@ import { createStore } from 'redux';
 import {Provider} from 'react-redux';
 import  defaultUserData from './defaultUserData';
 
-const initialState = defaultUserData;
-  //crates the initial state for redux 
-  
+
+
+
+
 nextLevelFormula = (currentLevel) => { 
   nextExp= (5 * (Math.pow(currentLevel, 3))) / 4;
   //if(currentLevel < 5) nextExp = nextExp + (20 * (currentLevel + 1)) 
@@ -25,57 +26,63 @@ expManager = (UserData, doneQuest) => {
   let data = {...UserData};
   data.Quests.splice(doneQuest.qindex, 1);
   data.Quests.forEach((value, index) => value.qindex = index);
-
+  
   //add a quest completed
   data.stats["Total Quest Completed"]++;
   data.stats["Total Exp"] += doneQuest.exp;
-
+  
   while(data.currentExp + doneQuest.exp >= data.nextLvExp){
-   //check if it will level up
+    //check if it will level up
     data.level++; 
     doneQuest.exp = data.currentExp + doneQuest.exp - data.nextLvExp;
     data.currentExp = 0;
     //calc exp for next level
     data.nextLvExp = this.nextLevelFormula(data.level);
   }
-    data.currentExp += doneQuest.exp;
+  data.currentExp += doneQuest.exp;
   return {...data}
 }
+
+const initialState = defaultUserData;
+  //crates the initial state for redux 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'COMPLETE_QUEST': {
-      return {
-        UserData: this.expManager(state.UserData, action.doneQuest),
-      }
+      let data = { UserData: this.expManager(state.UserData, action.doneQuest), }
+      this.storeLocalData(data);
+      return data;
     }
     case 'SET_PICTURE': {
-      return {
+      let data = {
         UserData: {
           ...state.UserData,
           profilePicSet: true,
           profilePicUri: action.profilePicUri,
         }
       }
+      this.storeLocalData(data);
+      return data;
+      
     }
     case 'SET_QUEST': {
-      return {
+      let data = {
         UserData: {
           ...state.UserData,
           Quests: action.newQuests,
         }
       }
+      this.storeLocalData(data);
+      return data;
     }
-  }
+  } 
   return state;
-  
 }
 
 const store = createStore(reducer) //create store for redux 
-
-
-
 export default function App(props) {
+
+
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -151,20 +158,6 @@ async function loadResourcesAsync() {
 }
 
 
-
-checkUserData = async () => {
-    try {
-      const storedData = JSON.parse(await AsyncStorage.getItem('@UserData:key'));
-      if (storedData !== null) {
-        console.log("User Data Retrived Successfully.")
-      }
-    } catch (error) {
-      console.error('AsyncStorage#setItem error: ' + error.message);
-      console.log("Error: could not User Data")
-      console.log("Setting Deafult User Data")
-      // Error retrieving data
-    }
-  };
 
 
 function handleLoadingError(error) {

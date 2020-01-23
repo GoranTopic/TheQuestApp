@@ -30,11 +30,8 @@ const TopTabs = createMaterialTopTabNavigator(
         backgroundColor: '#0e0e0e',
       },
     },
-
   }
 
 );
 
 export default createAppContainer(TopTabs);
-
- 
