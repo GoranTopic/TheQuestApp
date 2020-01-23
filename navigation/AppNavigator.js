@@ -10,8 +10,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 const TopTabs = createMaterialTopTabNavigator(
 
   {
-    Quests:  ToDoScreen,
-    Profile: ProfileScreen,
+    Quests: { screen: ToDoScreen },
+    Profile: { screen: ProfileScreen },
   },
   {
     tabBarOptions: {

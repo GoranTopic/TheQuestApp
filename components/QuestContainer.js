@@ -201,6 +201,7 @@ class QuestContainer extends React.Component {
     
     //update the index of every quest
     //complete a quest
+    this.props.navigation.navigate('Profile')
     this.props.completeQuest(quests[qindex]);
   }
 

@@ -10,23 +10,20 @@ import {
 import QuestContainer from '../components/QuestContainer';
 
 
-export default function TodoScreen() {
-  return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.background} source={require('../assets/images/background1.png')} >
-        <Button
-          title="Go to Home"
-          onPress={() => this.props.navigation.navigate('Profile')}
-        />
-        <QuestContainer />
-      </ImageBackground>
-    </View>
-  );
+export default class TodoScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ImageBackground style={styles.background} source={require('../assets/images/background1.png')} >
+          <QuestContainer  navigation={this.props.navigation}/>
+        </ImageBackground>
+      </View>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
-  background:{
-    flex:1, 
+  background: {
+    flex: 1,
   },
   container: {
     flex: 1,

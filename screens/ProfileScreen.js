@@ -5,7 +5,6 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import profileContainer from '../components/ProfileContainer';
 import ProfileContainer from '../components/ProfileContainer';
 
 export default function ProfileScreen() {
