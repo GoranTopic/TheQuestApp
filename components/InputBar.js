@@ -95,22 +95,21 @@ export default class InputBar extends React.Component {
           >
             {this._renderShiledPicker()}
           </Overlay>
-
           <StyledIcon
             style={styles.selectedShiled}
             source={this.state.selectedShiled}
             size={40}
             onPress={this._toggleOverlay}
           />
-           <Input
-             ref={this.mainInput}
-             onChangeText={input => this.setState({ inputbuff: input })}
-             onSubmitEditing={this._create}
-             clearButtonMode="always"
-             placeholder="New Quest..."
-             inputStyle={styles.inputBar}
-             inputContainerStyle={styles.inputContainer}
-           />
+          <Input
+            ref={this.mainInput}
+            onChangeText={input => this.setState({ inputbuff: input })}
+            onSubmitEditing={this._create}
+            clearButtonMode="always"
+            placeholder="New Quest..."
+            inputStyle={styles.inputBar}
+            inputContainerStyle={styles.inputContainer}
+          />
         </View>
         : null
     );

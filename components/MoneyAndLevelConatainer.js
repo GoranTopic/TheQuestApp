@@ -32,9 +32,6 @@ export default class MoneyAndLevelContainer extends React.Component {
       ratio = this.props.currentExp / this.props.nextLvExp :
       ratio = 0;
     let maxWith = 120;
-    console.log("nextLv: " + this.props.nextLvExp);
-    console.log("current: " + this.props.currentExp);
-    console.log("ratio: " + ratio);
     return maxWith * ratio;
   }
 
