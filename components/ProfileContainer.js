@@ -21,15 +21,6 @@ class ProfileContainer extends React.Component {
     this.state = {
       //get the state from redux global state
       localUri: this.props.UserData.profilePicUri,
-      usermotto: this.props.UserData.usermotto,
-      money: this.props.UserData.money,
-      level: this.props.UserData.level,
-      currentExp: this.props.UserData.currentExp,
-      nextLvExp: this.props.UserData.nextLvExp,
-      profilePicSet: this.props.UserData.profilePicSet,
-      username: this.props.UserData.username,
-      badges: this.props.UserData.badges,
-      stats: this.props.UserData.stats,
     }
   }
   openImagePickerAsync = async () => {
@@ -46,30 +37,7 @@ class ProfileContainer extends React.Component {
     //save picture to state
     this.setState({ localUri: pickerResult.uri });
   };
-  async componentDidMount() {
-    //this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-  //componentWillUnmount(){
-  //this.backHandler.remove();
-  //}
-  _retrieveProfile = async () => {
-    try {
-      const storedQuests = JSON.parse(await AsyncStorage.getItem('@QuestData:key'));
-      if (storedQuests !== null) {
-        // We got the data, now set it to state!!
-        this.setState({
-          QCount: storedQuests.length,
-          Quests: storedQuests,
-        })
-        console.log("Quest Retrived Successfully.")
-      }
-    } catch (error) {
-      console.error('AsyncStorage#setItem error: ' + error.message);
-      console.log("Error: could not retrive Quest")
-      console.log("Setting Deafult Quest Data")
-      // Error retrieving data
-    }
-  };
+  
   handleBackButtonClick = () => {
     /*Allegedly, handles back button press*/
     var quests = [...this.state.Quests];
@@ -94,14 +62,14 @@ class ProfileContainer extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollable} >
           <MoneyAndLevelContainer
-            money={this.state.money}
-            level={this.state.level}
-            currentExp={this.state.currentExp}
-            nextLvExp={this.state.nextLvExp}
+            money={this.props.UserData.money}
+            level={this.props.UserData.level}
+            currentExp={this.props.UserData.currentExp}
+            nextLvExp={this.props.UserData.nextLvExp}
           />
           <ProfileDataContainer
-            username={this.state.username}
-            usermotto={this.state.usermotto}
+            username={this.props.UserData.username}
+            usermotto={this.props.UserData.usermotto}
             userpicture={
               this.state.localUri === null ?
                 require('../assets/images/icon.png') : //default userPicture
@@ -110,10 +78,10 @@ class ProfileContainer extends React.Component {
             onPress={this.openImagePickerAsync}
           />
           <BadgesContainer
-            badges={this.state.badges}
+            badges={this.props.UserData.badges}
           />
           <StatsContainer
-            stats={this.state.stats}
+            stats={this.props.UserData.stats}
           />
           {/*<ArchivedQuesContainer/>*/}
         </ScrollView>
@@ -124,7 +92,6 @@ class ProfileContainer extends React.Component {
 
 function mapStateToProps(state){
   return {
-
     UserData: state.UserData,
   }
 }

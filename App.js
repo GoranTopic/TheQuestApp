@@ -153,7 +153,8 @@ const reducer = (state = initialState, action) => {
       return {
         UserData: {
           ...state.UserData,
-          currentExp: state.UserData.currentExp + 100,
+          currentExp: state.UserData.currentExp + action.doneQuest.exp ,
+          Quests: action.newQuests,
         }
       }
     }

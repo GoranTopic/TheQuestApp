@@ -98,7 +98,6 @@ class QuestContainer extends React.Component {
     //this._storeQuestState();
     this.props.setReduxQuestState(quests);
   }
-
   _checkQuestIsDone = (qindex) => {
     /*checks wheather a quest has completed all it task, if so the mark it as complete*/
     var quests = [...this.props.Quests];
@@ -112,19 +111,16 @@ class QuestContainer extends React.Component {
     this.props.setReduxQuestState(quests);
     return true;
   }
-
   _removeQuest = (qindex) => {
     /*removes a quest in the quest array*/
     this._exitModes();
     var quests = [...this.props.Quests];
-    var questCount = 0;
     //remove element
     quests.splice(qindex, 1);
     //update the index of every quest
     quests.forEach(
       (value, index) => {
         value.qindex = index;
-        questCount++;
       }
     )
     // set state
@@ -202,11 +198,17 @@ class QuestContainer extends React.Component {
     /*marks a single quest as done*/
     this._exitModes();
     var quests = [...this.props.Quests];
-    quests[qindex].done = true;
     
-    this.props.setReduxQuestState(quests);
-    //this.setState({ Quests: quests })
-    //this._storeQuestState(); // save Data to memory
+    var doneQuest = quests.splice(qindex, 1);
+    doneQuest = doneQuest[0]; //unwrapping from the array
+    //update the index of every quest
+    quests.forEach(
+      (value, index) => {
+        value.qindex = index;
+      }
+    )
+    //complete a quest
+    this.props.completeQuest(doneQuest, quests);
   }
 
   _editTask = (newTitle, qindex, tindex) => {
@@ -274,7 +276,6 @@ class QuestContainer extends React.Component {
     this.props.setReduxQuestState(quests);
     //this.setState({ Quests: quests })
     //this._storeQuestState(); // save Data to memory
-    this.props.completeQuest();
   }
 
   _renderQuest = (value) => {
@@ -328,7 +329,7 @@ function mapStateToProps(state){
 
 function mapDispatchTopProps(dispatch){
   return{
-    completeQuest: () => dispatch({ type: 'COMPLETE_QUEST' }),
+    completeQuest: (doneQuest, newQuests) => dispatch({ type: 'COMPLETE_QUEST', doneQuest: doneQuest, newQuests: newQuests }),
     setReduxQuestState: (newQuests) => dispatch({ type: 'SET_QUEST', newQuests: newQuests })
   }
 }

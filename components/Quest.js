@@ -135,7 +135,7 @@ export default class Quest extends React.Component {
                     style={styles.rewardIcon}
                     name="reward"
                     size={38}
-                    onPress={this._remove}
+                    onPress={this._complete}
                   /> : null}
             </TouchableOpacity>
           </ImageBackground>

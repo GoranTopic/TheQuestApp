@@ -26,7 +26,6 @@ export default class StyledIcon extends React.Component {
         //if icon name is passed
         if(this.props.name == "bomb") return this.state.icons.bomb;
         else if(this.props.name == "reward"){ 
-          console.log("reward is active"); 
           return this.state.icons.reward;
         }
       }
