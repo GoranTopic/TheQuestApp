@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Image, CheckBox } from 'react-native-elements'
 import colors from '../constants/Colors';
 import StyledIcon from '../components/StyledIcon';
+import { NoFlickerImage } from 'react-native-no-flicker-image';
 
 
 import {
@@ -28,6 +29,12 @@ export default class Task extends React.Component{
       ...this.props,
     };
   } 
+  
+  componentDidMount(){
+
+
+  }
+  
   _exitEdit = ()=>{
     //exits the edit mode
     this.props._exitEditMode()
@@ -56,8 +63,8 @@ export default class Task extends React.Component{
   _selectedMarker = () => {
     //fuction that changes the icon for the marker so that is displays as slected 
     return this.state.data.selected? 
-      <Image style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
-      <Image style={styles.marker} source={require('../assets/images/markers/marker.png')} /> 
+      <NoFlickerImage style={styles.marker} source={require('../assets/images/markers/marker-selected.png')} />:
+      <NoFlickerImage style={styles.marker} source={require('../assets/images/markers/marker.png')} /> 
   }
 
 
@@ -80,7 +87,7 @@ export default class Task extends React.Component{
           }
           containerStyle={styles.container}
           uncheckedIcon={this._selectedMarker()}
-          checkedIcon={<Image style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
+          checkedIcon={<NoFlickerImage style={styles.marker} source={require('../assets/images/markers/marker-done.png')} />}
           checked={this.state.data.done}
           onPress={this._select}
           onLongPress={this._complete}

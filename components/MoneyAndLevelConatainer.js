@@ -47,7 +47,6 @@ export default class MoneyAndLevelContainer extends React.Component {
             {this.props.money}
             </Text>
         </TouchableOpacity>
-
         <View style={styles.LevelContianer}>
           <View style={styles.LevelBarContiner}>
             <ImageBackground
@@ -72,7 +71,6 @@ export default class MoneyAndLevelContainer extends React.Component {
     )
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

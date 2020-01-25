@@ -15,6 +15,7 @@ import colors from '../constants/Colors';
 import { AnimatedGradient } from "../AnimatedGradient";
 import StyledIcon from '../components/StyledIcon';
 import DummyTask from './DummyTask';
+import { NoFlickerImage } from 'react-native-no-flicker-image';
 
 
 
@@ -105,7 +106,7 @@ export default class Quest extends React.Component {
               onPress={this._select}
               onLongPress={this._setEditMode}
             >
-              <Image source={this.state.data.shield}
+              <NoFlickerImage source={this.state.data.shield}
                 style={styles.shield} />
                 <View style={{ flexDirection: 'column' }}>
                 {this.state.data.isInEditMode ?

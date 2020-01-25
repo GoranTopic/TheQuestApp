@@ -12,6 +12,7 @@ import Quest from './Quest';
 import InputBar from './InputBar';
 import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class QuestContainer extends React.Component {
 
@@ -285,7 +286,8 @@ class QuestContainer extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollable} >
           {this.props.Quests.map(this._renderQuest)}
-          <View style={styles.emptyspace}/>
+          
+          <TouchableOpacity onPress={this._exitModes} style={styles.emptyspace}/>
         </ScrollView>
         <KeyboardAvoidingView
           style={styles.avoidingView}

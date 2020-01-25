@@ -12,6 +12,7 @@ import {
 import colors from '../constants/Colors';
 import StyledIcon from '../components/StyledIcon';
 import { Overlay,} from 'react-native-elements'
+import { NoFlickerImage } from 'react-native-no-flicker-image';
 
 export default class BadgesContainer extends React.Component {
   /* 
@@ -44,7 +45,7 @@ export default class BadgesContainer extends React.Component {
     //renders the modal overly  with the given selectd badge
     return (
       <View style={{ flexDirection: 'column', alignItems:'center' }}>
-        <Image
+        <NoFlickerImage
           style={styles.modalBadgeImg}
           source={this.state.selectedBadge.img}
         />

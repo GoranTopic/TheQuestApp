@@ -2,8 +2,8 @@ export default defaultUserData = {
 
     //uses the defaul user data if user data could not be retived 
     UserData: {
-        username: 'Gerald of Rivia',
-        usermotto: 'Witcher',
+        username: 'Goran Topic',
+        usermotto: 'Chicken Chaiser',
         money: 0,
         level: 0,
         currentExp: 0,
