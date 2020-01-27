@@ -29,17 +29,10 @@ export default class Task extends React.Component{
       ...this.props,
     };
   } 
-  
-  componentDidMount(){
-
-
-  }
-  
   _exitEdit = ()=>{
     //exits the edit mode
     this.props._exitEditMode()
   }
-
 
   _edit = (newTitle) => {
     //edits a task

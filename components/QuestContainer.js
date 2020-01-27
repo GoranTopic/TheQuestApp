@@ -206,7 +206,6 @@ class QuestContainer extends React.Component {
 
   _addTask = (qindex, title) => {
     /*adds a task to the given index quest*/
-    this._exitEditMode();
     var quests = [...this.props.Quests];
     quests[qindex].tasks.push(
       {

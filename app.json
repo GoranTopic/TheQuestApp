@@ -13,9 +13,9 @@
     "orientation": "portrait",
     "icon":  "./assets/images/icon-Witcher.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/icon-Witcher.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#090303"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -27,7 +27,7 @@
       "supportsTablet": true
 		},
 		"android": {
-				"package": "com.yourcompany.yourappname"
+				"package": "com.TheQuestApp.GoranTopic"
 		}
   }
 }
