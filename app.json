@@ -3,7 +3,6 @@
     "name": "TheQuestApp",
     "slug": "TheQuestApp",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -11,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon":  "./assets/images/icon-Witcher.png",
+    "icon": "./assets/images/icon-Witcher.png",
     "splash": {
       "image": "./assets/images/icon-Witcher.png",
       "resizeMode": "contain",
@@ -25,9 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
-		},
-		"android": {
-				"package": "com.TheQuestApp.GoranTopic"
-		}
+    },
+    "android": {
+      "package": "com.TheQuestApp.GoranTopic"
+    }
   }
 }
