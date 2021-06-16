@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   BackHandler,
 } from 'react-native';
+import Constants from 'expo-constants';
 
 import Quest from './Quest';
 import InputBar from './InputBar';
@@ -291,7 +292,7 @@ class QuestContainer extends React.Component {
         <KeyboardAvoidingView
           style={styles.avoidingView}
           behavior='padding'
-          keyboardVerticalOffset={50 + Expo.Constants.statusBarHeight}
+          keyboardVerticalOffset={50 + Constants.statusBarHeight}
           enabled
         >
           <InputBar

@@ -12,7 +12,7 @@ import {
 
 import Task from './Task';
 import colors from '../constants/Colors';
-import { AnimatedGradient } from "../AnimatedGradient";
+import { AnimatedGradient } from '../AnimatedGradient';
 import StyledIcon from '../components/StyledIcon';
 import DummyTask from './DummyTask';
 import { NoFlickerImage } from 'react-native-no-flicker-image';
