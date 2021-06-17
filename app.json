@@ -23,7 +23,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "theQuestApp"
     },
     "android": {
       "package": "com.TheQuestApp.GoranTopic"
