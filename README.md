@@ -42,7 +42,8 @@ run the expo server
 You should now be able to run the app from an expo go app or a emulator
 
 
-As Always yours, 
-Goran Topic  :shipit:
+As always yours, 
+
+Goran Topic:shipit:
 
 
