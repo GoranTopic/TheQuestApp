@@ -25,13 +25,21 @@ You can download the app
 To compile the app you need to have npm and expo. 
 
 first clone the repo:
-> `git clone https://github.com/GoranTopic/TheQuestApp.git`
+
+`git clone https://github.com/GoranTopic/TheQuestApp.git`
+
 Then enter the directory:
->  `cd TheQuestApp`
+
+`cd TheQuestApp`
+
 Install the dependencies:
->  `npm install`
+
+`npm install`
+
 run the expo server 
->  `npm start`
+
+`npm start`
+
 You sould now be able to run the app from an expo go app or a emulator
 
 
