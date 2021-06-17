@@ -4,18 +4,16 @@
 </div>
 
 ## About 
-This is a To-do with an epic twist. 
-Inpired in the Witcher 3, The Quest App allows the user to set Quest intead of task.
-Every Quest can have subtasks. When all the tasks are completed for a quest the Quest can be completed for rewards. 
-
-Every Quest complited grants the user with Exp or gold coins. 
-The ammount to of Exp or gold a Quest grands depends on is auomatically calculated based on how hard the title of the quest seems.
+This is a To-do with an epic twist. Inspired in the Witcher 3, The Quest App allows the user to set Quest instead of task. 
+Every Quest can have sub tasks. When all the tasks are completed for a quest the Quest can be completed for rewards.
 
 
-When a user gains enought Exp, it can level up. 
-As the user levels up he earns new badges and titles. 
-Badges are diplayed in the user profile. 
-With money the user can buy titles, witch are displayed underneath the user's name. 
+Every Quest completed grants the user with Exp or gold coins. 
+The amount to of Exp or gold a Quest grands depends on is automatically calculated based on how hard the title of the quest seems.
+
+
+When a user gains enough Exp, it can level up. As the user levels up he earns new badges and titles. 
+Badges are displayed in the user profile. With money the user can buy titles, witch are displayed underneath the user's name.
 
 ## Download
 You can download the app 
@@ -40,7 +38,7 @@ run the expo server
 
 `npm start`
 
-You sould now be able to run the app from an expo go app or a emulator
+You should now be able to run the app from an expo go app or a emulator
 
 
 As Always yours, 
