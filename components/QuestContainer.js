@@ -31,7 +31,6 @@ class QuestContainer extends React.Component {
   componentWillUnmount(){
     this.backHandler.remove();
   }
-
  
   _retrieveQuestState = async () => {
     try {
@@ -291,7 +290,7 @@ class QuestContainer extends React.Component {
         </ScrollView>
         <KeyboardAvoidingView
           style={styles.avoidingView}
-          behavior='padding'
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={50 + Constants.statusBarHeight}
           enabled
         >

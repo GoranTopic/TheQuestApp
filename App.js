@@ -8,7 +8,7 @@ import AppNavigator from './navigation/AppNavigator';
 import Constants from 'expo-constants';
 import { AsyncStorage } from 'react-native';
 import { createStore } from 'redux';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react'
 import  defaultUserData from './defaultUserData';
@@ -80,11 +80,11 @@ const persistConfig = {
 		storage: AsyncStorage,
 }
 
-//uncomment to set the basic default data
+// Uncomment to set the basic default data
 //const store = createStore(reducer);
 
-//Uncomment to start using peristant datain the app
-//create a persistant reducer
+// Uncomment to start using peristant data in the app
+// create a persistant reducer
 const persistedReducer = persistReducer(persistConfig, reducer)
 const store = createStore(persistedReducer); //create store for redux 
 let persistor = persistStore(store);

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 import { Overlay, Input } from 'react-native-elements'
 import StyledIcon from '../components/StyledIcon';
 
@@ -11,7 +8,6 @@ export default class InputBar extends React.Component {
    it also responsable for the selctio of a shild fo the quest 
    and the overly which comes with it
    */
-
   
   constructor(props) {
     super(props);
