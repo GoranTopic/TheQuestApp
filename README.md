@@ -18,6 +18,7 @@ Badges are displayed in the user profile. With money the user can buy titles, wi
 ## Download
 You can download the app 
 * For Android in [here](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40telix/TheQuestApp-4eec4454e0fc4b3a86eaf89274d1c953-signed.apk)
+* or from [this](https://github.com/GoranTopic/TheQuestApp/raw/master/apk/TheQuestApp.apk) git repo
 
 ## Compile
 To compile the app you need to have npm and expo. 
@@ -41,7 +42,8 @@ run the expo server
 You should now be able to run the app from an expo go app or a emulator
 
 
-As Always yours, 
-Goran Topic  :shipit:
+As always yours, 
+
+Goran Topic:shipit:
 
 
