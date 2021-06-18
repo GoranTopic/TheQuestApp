@@ -17,30 +17,30 @@ export default class ProfileDataContainer extends React.Component {
     super(props);
   }
   
-  render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity  
-          style={styles.ProfilePictureContiner}
-          onPress={this.props.onPress}
-          onLongPress={this.props.onLongPress}
-          >
-          <Image 
-            style={styles.ProfilePicture}
-            source={this.props.userpicture}
-          />
-        </TouchableOpacity>
-        <View style={styles.TitleContianer}>
-          <Text style={styles.Username}>
-            {this.props.username}
-        </Text>
-          <Text style={styles.MottoLabel}>
-            {this.props.usermotto}
-            </Text>
-        </View>
-      </View>
-    )
-  }
+		render() {
+				return (
+						<View style={styles.container}>
+								<TouchableOpacity  
+										style={styles.ProfilePictureContiner}
+										onPress={this.props.onPress}
+										onLongPress={this.props.onLongPress}
+								>
+										<Image 
+												style={styles.ProfilePicture}
+												source={this.props.userpicture}
+										/>
+								</TouchableOpacity>
+								<View style={styles.TitleContianer}>
+										<Text style={styles.Username}>
+												{this.props.username}
+										</Text>
+										<Text style={styles.MottoLabel}>
+												{this.props.usermotto}
+										</Text>
+								</View>
+						</View>
+				)
+		}
 }
 
 
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     height:130,
   },
   ProfilePictureContiner:{
-    paddingLeft:"5%",
+    paddingLeft:"7%",
+		borderRadius: 21,
   },
   ProfilePicture:{
     height: 100,
