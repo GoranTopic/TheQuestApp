@@ -36,7 +36,7 @@ const expManager = (UserData, doneQuest) => {
 				doneQuest.exp = data.currentExp + doneQuest.exp - data.nextLvExp;
 				data.currentExp = 0;
 				//calc exp for next level
-				data.nextLvExp = this.nextLevelFormula(data.level);
+				data.nextLvExp = nextLevelFormula(data.level);
 		}
 		data.currentExp += doneQuest.exp;
 		return {...data}

@@ -15,6 +15,9 @@ The amount to of Exp or gold a Quest grands depends on is automatically calculat
 When a user gains enough Exp, it can level up. As the user levels up he earns new badges and titles. 
 Badges are displayed in the user profile. With money the user can buy titles, witch are displayed underneath the user's name.
 
+
+![Recording](assets/recording/Expo_Go.mp4)
+
 ## Download
 You can download the app 
 * For Android in [here](https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40telix/TheQuestApp-4eec4454e0fc4b3a86eaf89274d1c953-signed.apk)
@@ -45,5 +48,6 @@ You should now be able to run the app from an expo go app or a emulator
 As always yours, 
 
 Goran Topic:shipit:
+
 
 
