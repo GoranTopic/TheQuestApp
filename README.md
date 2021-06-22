@@ -47,7 +47,6 @@ You should now be able to run the app from an expo go app or a emulator
 
 
 As always yours, 
-
 Goran Topic:shipit:
 
 
