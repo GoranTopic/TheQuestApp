@@ -1,43 +1,43 @@
 import React from 'react';
-  config
-tabNavigator.path = '';
-const tabNavigator = createMaterialTopTabNavigator({
-const SettingsStack = createStackNavigator(
-  SettingsStack,
-  {
-import HomeScreen from '../screens/HomeScreen';
-export default tabNavigator;
-  tabBarLabel: 'Settings',
-    Settings: SettingsScreen,
-import ToDoScreen from '../screens/ToDoScreen';
-  ),
-import LinksScreen from '../screens/LinksScreen';
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+import { Platform } from 'react-native';
+import { createStackNavigator } from 'react-navigation-stack';
+
 import TabBarIcon from '../components/TabBarIcon';
 import { createBottomTabNavigator, createMaterialTopTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
-  tabBarIcon: ({ focused }) => (
+import HomeScreen from '../screens/HomeScreen';
+import LinksScreen from '../screens/LinksScreen';
+import ToDoScreen from '../screens/ToDoScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-  web: {},
-SettingsStack.navigationOptions = {
 
-
-
-
-
-
-
-
-
-
-
-};
-});
-});
-  default: {},
 const config = Platform.select({
-import { createStackNavigator } from 'react-navigation-stack';
-  todo: ToDoScreen, 
-import { Platform } from 'react-native';
-SettingsStack.path = '';
-);
+  web: {},
+  default: {},
+});
+
+const SettingsStack = createStackNavigator(
+  {
+    Settings: SettingsScreen,
   },
+  config
+);
+
+SettingsStack.navigationOptions = {
+  tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  ),
+};
+
+SettingsStack.path = '';
+
+
+
+const tabNavigator = createMaterialTopTabNavigator({
+  todo: ToDoScreen, 
+  SettingsStack,
+});
+
+
+tabNavigator.path = '';
+
+export default tabNavigator;
