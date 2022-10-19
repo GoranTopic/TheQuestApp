@@ -1,43 +1,43 @@
-  config
-});
-});
-  },
-const SettingsStack = createStackNavigator(
-const tabNavigator = createMaterialTopTabNavigator({
-
-
-
-
-
-
-
-
-
-
-
-    Settings: SettingsScreen,
-tabNavigator.path = '';
-export default tabNavigator;
-  tabBarLabel: 'Settings',
-};
-  tabBarIcon: ({ focused }) => (
-  {
-import ToDoScreen from '../screens/ToDoScreen';
-  todo: ToDoScreen, 
-const config = Platform.select({
-  ),
-  web: {},
-import { createStackNavigator } from 'react-navigation-stack';
-import TabBarIcon from '../components/TabBarIcon';
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-import { createBottomTabNavigator, createMaterialTopTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
-import LinksScreen from '../screens/LinksScreen';
-import HomeScreen from '../screens/HomeScreen';
 );
-  SettingsStack,
-SettingsStack.navigationOptions = {
-SettingsStack.path = '';
-import { Platform } from 'react-native';
-import React from 'react';
-  default: {},
+  },
+};
+const SettingsStack = createStackNavigator(
 import SettingsScreen from '../screens/SettingsScreen';
+import React from 'react';
+import ToDoScreen from '../screens/ToDoScreen';
+  ),
+
+
+
+
+
+
+
+
+
+
+
+import TabBarIcon from '../components/TabBarIcon';
+  {
+import { Platform } from 'react-native';
+export default tabNavigator;
+import { createBottomTabNavigator, createMaterialTopTabNavigator, createTopTabNavigator } from 'react-navigation-tabs';
+  todo: ToDoScreen, 
+  web: {},
+    Settings: SettingsScreen,
+  SettingsStack,
+  tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+const tabNavigator = createMaterialTopTabNavigator({
+import LinksScreen from '../screens/LinksScreen';
+  default: {},
+import { createStackNavigator } from 'react-navigation-stack';
+const config = Platform.select({
+SettingsStack.path = '';
+  config
+tabNavigator.path = '';
+import HomeScreen from '../screens/HomeScreen';
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+SettingsStack.navigationOptions = {
+});
+});
